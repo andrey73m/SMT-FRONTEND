@@ -1,9 +1,9 @@
 import { useRef } from "react";
-import Campo from "./campo";
+import CampoTexto from "./campo";
 
-interface Props extends React.InputHTMLAttributes<HTMLInputElement> { };
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {}
 
-const CampoFecha = (props:Props)=> {
+const CampoFecha = (props:Props) => {
 
   const fecha = useRef<HTMLInputElement>(null);
 
@@ -16,7 +16,7 @@ const CampoFecha = (props:Props)=> {
   }
 
   return (
-    <Campo placeholder={props.placeholder} ref={fecha} onFocus={onFocusFecha} onBlur={onBlurFecha} onChange={props.onChange}  value={props.value}/>
+    <CampoTexto  {...props} ref={fecha} onFocus={onFocusFecha} onBlur={onBlurFecha} onChange={props.onChange} />
   )
 }
 

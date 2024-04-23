@@ -9,11 +9,13 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
+    'plugin:@typescript-eslint/recommended'
   ],
+  parser: "@typescript-eslint/parser",
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
   settings: { react: { version: '18.2' } },
-  plugins: ['react-refresh', 'jest', "cypress"],
+  plugins: ["react",'react-refresh', "@typescript-eslint"],
   rules: {
     'react-refresh/only-export-components': [
       'warn',
@@ -22,6 +24,7 @@ module.exports = {
     'react/prop-types': 0,
     "react/no-unescaped-entities": "off",
     "no-unused-vars": "warn",
+    "@typescript-eslint/no-unused-vars": "warn",
     "eqeqeq": "warn",
     "no-trailing-spaces": ["warn", { "skipBlankLines": true }],
     "object-curly-spacing": [
@@ -32,7 +35,7 @@ module.exports = {
       "warn", { "before": true, "after": true }
     ],
     "indent": [
-      "error",
+      "warn",
       2
     ],
     "linebreak-style": [

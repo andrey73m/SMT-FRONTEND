@@ -1,8 +1,8 @@
 import Boton from "./boton";
 import CampoFecha from "./campo_fecha";
-import Campo from "./campo";
+import CampoTexto from "./campo";
 
 
 export {
-  Boton, CampoFecha, Campo
+  Boton, CampoFecha, CampoTexto
 }
