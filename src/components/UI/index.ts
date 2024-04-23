@@ -1,4 +1,4 @@
-import Boton from "./Boton";
+import Boton from "./boton";
 import CampoFecha from "./CampoFecha";
 import CampoTexto from "./CampoTexto";
 
