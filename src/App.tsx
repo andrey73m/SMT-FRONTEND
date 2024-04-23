@@ -1,4 +1,4 @@
-import FormularioRegistrarse from "./components/formularios/registrarse"
+import FormularioRegistrarse from "./components/formularios/Registrarse"
 const App = () => {
   
   return (
