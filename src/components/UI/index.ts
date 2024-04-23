@@ -1,6 +1,6 @@
-import Boton from "./boton";
-import CampoFecha from "./campo_fecha";
-import CampoTexto from "./campo";
+import Boton from "./Boton";
+import CampoFecha from "./CampoFecha";
+import CampoTexto from "./CampoTexto";
 
 
 export {
