@@ -3,7 +3,7 @@ import { Boton, CampoTexto } from "../UI"
 import { inventarioResolver, CamposInventario } from "./validators";
 import ErrorFormulario from "./Error"
 
-const FormularioInventario = () =>{
+const FormularioInventario = () => {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<CamposInventario>(
     {
       defaultValues: {
