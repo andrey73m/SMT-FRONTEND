@@ -1,5 +1,5 @@
 import FormularioLogin from "./components/formularios/login"
-import FormularioRegistrarse from "./components/formularios/registrarse"
+import FormularioRegistrarse from "./components/formularios/Registrarse"
 import FormularioDireccion from "./components/formularios/direccion"
 import FormularioComponente from "./components/formularios/componente"
 import FormularioInventario from "./components/formularios/inventario"
