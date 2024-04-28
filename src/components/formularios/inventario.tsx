@@ -8,8 +8,8 @@ const FormularioInventario = () => {
     {
       defaultValues: {
         SKU: "",
-        disponibilidad: "",
-        precio: "",
+        disponibilidad: 0,
+        precio: 0,
       },
       resolver: inventarioResolver
     }

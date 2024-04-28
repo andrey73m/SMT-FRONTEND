@@ -4,57 +4,29 @@ import { loginValidator, CamposLogin } from "./login";
 import { direccionValidator,CamposDireccion } from "./direccion";
 import { componenteValidator, CamposComponente } from "./componente";
 import { inventarioValidator, CamposInventario } from "./inventario";
+import { codigoVerificacionValidator, CamposCodigoVerificacion } from "./codigo_verificacion";
 
 const registroResolver = zodResolver(registroValidator)
-
-export {
-  registroResolver
-}
-
-export type {
-  CamposRegistro
-}
-
 const loginResolver = zodResolver(loginValidator)
-
-export {
-  loginResolver
-}
-
-export type {
-  CamposLogin
-}
-
 const direccionResolver = zodResolver(direccionValidator)
-
-export {
-  direccionResolver
-}
-
-export type {
-  CamposDireccion
-}
-
 const componenteResolver = zodResolver(componenteValidator)
-
-export {
-  componenteResolver
-}
-
-export type {
-  CamposComponente
-}
-
 const inventarioResolver = zodResolver(inventarioValidator)
+const codigoVerificacionResolver = zodResolver(codigoVerificacionValidator)
 
 export {
-  inventarioResolver
+  registroResolver,
+  loginResolver,
+  direccionResolver,
+  componenteResolver,
+  inventarioResolver,
+  codigoVerificacionResolver
 }
 
 export type {
-  CamposInventario
+  CamposRegistro,
+  CamposLogin,
+  CamposDireccion,
+  CamposComponente,
+  CamposInventario,
+  CamposCodigoVerificacion
 }
-
-
-
-

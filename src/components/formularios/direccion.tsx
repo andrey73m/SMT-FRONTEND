@@ -3,7 +3,7 @@ import { Boton, CampoTexto } from "../UI"
 import { direccionResolver, CamposDireccion } from "./validators";
 import ErrorFormulario from "./Error"
 
-const FormularioDireccion = () =>{
+const FormularioDireccion = () => {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<CamposDireccion>(
     {
       defaultValues: {
@@ -19,6 +19,7 @@ const FormularioDireccion = () =>{
   const onSubmit = (data) => {
     
     console.log(data)
+
   }
 
   return (
