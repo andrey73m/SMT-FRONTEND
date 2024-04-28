@@ -1,6 +1,6 @@
 import axios from "axios"
 import { env } from "../environment"
-import { CamposCodigoVerificacion, CamposLogin, CamposRegistro, CamposDireccion } from "../components/formularios/validators"
+import { CamposCodigoVerificacion, CamposLogin, CamposRegistro } from "../components/formularios/validators"
 import { AxiosError } from "axios"
 import Cookies from "universal-cookie"
 

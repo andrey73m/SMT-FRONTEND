@@ -25,6 +25,7 @@ module.exports = {
     "react/no-unescaped-entities": "off",
     "no-unused-vars": "warn",
     "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-explicit-any":0,
     "eqeqeq": "warn",
     "no-trailing-spaces": ["warn", { "skipBlankLines": true }],
     "object-curly-spacing": [
