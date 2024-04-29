@@ -4,7 +4,10 @@ import FormularioDireccion from "./components/formularios/direccion"
 import FormularioComponente from "./components/formularios/componente"
 import FormularioInventario from "./components/formularios/inventario"
 import FormularioCodigoVerificacion from "./components/formularios/codigo_verificacion"
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import EditorTexto from "./components/UI/EditorTexto"
+import FormularioTicket from "./components/formularios/ticket"
+
 const App = () => {
   
   return (
@@ -21,6 +24,8 @@ const App = () => {
             <Route path="/verificacion/:idcodigo" element={<FormularioCodigoVerificacion/>}/>
           </Routes>
         </Router>
+        
+        <FormularioTicket/>
       </div>
     </div>
   )
