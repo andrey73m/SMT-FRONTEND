@@ -1,8 +1,4 @@
-import Boton from "./boton";
-import CampoFecha from "./CampoFecha";
-import CampoTexto from "./CampoTexto";
-
-
-export {
-  Boton, CampoFecha, CampoTexto
-}
+export { default as Boton } from "./boton";
+export  { default as CampoFecha } from "./CampoFecha";
+export { default as CampoTexto } from "./CampoTexto";
+export { default as EditorTexto } from "./EditorTexto"

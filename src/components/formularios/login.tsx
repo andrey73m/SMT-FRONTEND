@@ -5,6 +5,8 @@ import ErrorFormulario from "./Error"
 import { login } from "../../services/auth";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie"
+import FormularioAuth from "../UI/FormularioAuth";
+import Enlace from "../UI/Enlace";
 
 const cookies = new Cookies();
 
@@ -38,9 +40,7 @@ const FormularioLogin = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="rounded-lg bg-indigo-950 w-1/4 flex flex-col items-center justify-normal p-5">
-      <h1 className="mb-5 font-bold text-3xl">Iniciar sesión</h1>
-      
+    <FormularioAuth titulo="Iniciar sesión" onSubmit={handleSubmit(onSubmit)}>
       {errors.root && <ErrorFormulario>{errors.root.message}</ErrorFormulario>}
       {errors.email && <ErrorFormulario>{errors.email.message}</ErrorFormulario>}
       <CampoTexto  {...register("email")} placeholder="Correo" type="email"/>
@@ -49,10 +49,11 @@ const FormularioLogin = () => {
       <Boton type="submit" >Iniciar sesión</Boton>
       <p>¿No tienes sesion?
         <Link to="/registrarse">
-          <span className="text-blue-500 m-2">Registrate aqui</span>
+          <Enlace>Registrate aquí</Enlace>
         </Link>
       </p>
-    </form>
+    </FormularioAuth>
+      
   )
 }
 

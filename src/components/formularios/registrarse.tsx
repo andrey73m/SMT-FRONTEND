@@ -4,7 +4,9 @@ import { registroResolver, CamposRegistro } from "./validators"
 import ErrorFormulario from "./Error"
 import { registrar } from "../../services/auth"
 import { useNavigate } from "react-router-dom"
-
+import FormularioAuth from "../UI/FormularioAuth"
+import { Link } from "react-router-dom"
+import Enlace from "../UI/Enlace"
 
 const FormularioRegistrarse = () => {
 
@@ -36,8 +38,7 @@ const FormularioRegistrarse = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="rounded-lg bg-indigo-950 w-1/4 flex flex-col items-center justify-normal p-5">
-      <h1 className="mb-5 font-bold text-3xl">Registrarse</h1>
+    <FormularioAuth titulo="Registrarse"  onSubmit={handleSubmit(onSubmit)} >
       {errors.root && <ErrorFormulario>{errors.root.message}</ErrorFormulario>}
       
       {errors.nombres && <ErrorFormulario>{errors.nombres.message}</ErrorFormulario>}
@@ -60,7 +61,12 @@ const FormularioRegistrarse = () => {
       <CampoFecha {...register("fecha_nac")} placeholder="Fecha de nacimiento"/>
 
       <Boton type="submit" >Registrarse</Boton>
-    </form>
+      <p>¿Ya tiene cuenta?
+        <Link to="/login">
+          <Enlace>Inicia sesión aquí</Enlace>
+        </Link>
+      </p>
+    </FormularioAuth>
   )
 
 }

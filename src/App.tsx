@@ -11,23 +11,21 @@ import FormularioTicket from "./components/formularios/ticket"
 const App = () => {
   
   return (
-    <div className="w-screen h-screen bg-[#1E0132] text-white">
-      <div className="w-full  h-full flex items-center justify-center">
+    <>
 
-        <Router>
-          <Routes>
-            <Route path="/registrarse" element={<FormularioRegistrarse />}/>
-            <Route path="/login" element={<FormularioLogin/>}/>
-            <Route path ="/direcciones" element ={<FormularioDireccion/>}/>
-            <Route path="/catalogo" element={<FormularioComponente/>}/>
-            <Route path="/inventario" element={<FormularioInventario/>}/>
-            <Route path="/verificacion/:idcodigo" element={<FormularioCodigoVerificacion/>}/>
-          </Routes>
-        </Router>
+      <Router>
+        <Routes>
+          <Route path="/registrarse" element={<FormularioRegistrarse />}/>
+          <Route path="/login" element={<FormularioLogin/>}/>
+          <Route path="/verificacion/:idcodigo" element={<FormularioCodigoVerificacion/>}/>
+          <Route path="/direcciones" element={<FormularioDireccion />} />
+          <Route path="/catalogo" element={<FormularioComponente />} />
+          <Route path="/inventario" element={<FormularioInventario />} />
+        </Routes>
+      </Router>
         
-        <FormularioTicket/>
-      </div>
-    </div>
+      {/* <FormularioTicket/> */}
+    </>
   )
 }
 

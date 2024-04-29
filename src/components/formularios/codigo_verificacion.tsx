@@ -1,12 +1,14 @@
-import {useForm} from "react-hook-form"
+import { useForm } from "react-hook-form"
 import ErrorFormulario from "./Error"
 import { CamposCodigoVerificacion, codigoVerificacionResolver } from "./validators"
 import { Boton, CampoTexto } from "../UI"
-import { Link } from "react-router-dom"
+import { Link, Outlet } from "react-router-dom"
 import { useParams } from "react-router-dom"
 import { verificarCodigo, reenviarCodigo } from "../../services/auth"
 import { useNavigate } from "react-router-dom"
 import Cookies from "universal-cookie"
+import FormularioAuth from "../UI/FormularioAuth"
+import Enlace from "../UI/Enlace"
 
 const cookies = new Cookies();
 
@@ -40,14 +42,14 @@ const FormularioCodigoVerificacion = () => {
     const res = await reenviarCodigo(idcodigo);
     console.log(res)
   }
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="rounded-lg bg-indigo-950 w-1/4 flex flex-col items-center justify-normal p-5">
-      <h1 className="mb-5 font-bold text-3xl">Codigo verificación</h1>
+    <FormularioAuth titulo="Codigo verificación" onSubmit={handleSubmit(onSubmit)} className="rounded-lg bg-indigo-950 w-1/4 flex flex-col items-center justify-normal p-5">
       {errors.codigo && <ErrorFormulario>{errors.codigo.message}</ErrorFormulario>}
       <CampoTexto  {...register("codigo")} placeholder="Codigo de verificacion" type="text" />
       <Boton type="submit" >Enviar codigo</Boton>
-      <p onClick={reenvio} className="hover:underline hover:text-violet-300 m-2 hover:cursor-pointer">Reenviar codigo</p>
-    </form>
+      <Enlace onClick={reenvio} disabled={true} >Reenviar codigo</Enlace>
+    </FormularioAuth>
   )
 }
 
