@@ -5,14 +5,10 @@ import FormularioComponente from "./components/formularios/componente"
 import FormularioInventario from "./components/formularios/inventario"
 import FormularioCodigoVerificacion from "./components/formularios/codigo_verificacion"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import EditorTexto from "./components/UI/EditorTexto"
-import FormularioTicket from "./components/formularios/ticket"
 
 const App = () => {
-  
   return (
     <>
-
       <Router>
         <Routes>
           <Route path="/registrarse" element={<FormularioRegistrarse />}/>

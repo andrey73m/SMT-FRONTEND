@@ -2,15 +2,13 @@ import { useForm } from "react-hook-form"
 import ErrorFormulario from "./Error"
 import { CamposCodigoVerificacion, codigoVerificacionResolver } from "./validators"
 import { Boton, CampoTexto } from "../UI"
-import { Link, Outlet } from "react-router-dom"
 import { useParams } from "react-router-dom"
 import { verificarCodigo, reenviarCodigo } from "../../services/auth"
 import { useNavigate } from "react-router-dom"
-import Cookies from "universal-cookie"
 import FormularioAuth from "../UI/FormularioAuth"
 import Enlace from "../UI/Enlace"
-
-const cookies = new Cookies();
+import { iniciarSesion } from "../../store/features/sesion"
+import { useDispatch } from "react-redux"
 
 const FormularioCodigoVerificacion = () => {
 
@@ -23,6 +21,7 @@ const FormularioCodigoVerificacion = () => {
 
   const { idcodigo } = useParams()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const onSubmit = async (data: CamposCodigoVerificacion) => {
     console.log(idcodigo)
     if (!idcodigo) return;
@@ -30,7 +29,7 @@ const FormularioCodigoVerificacion = () => {
     const res = await verificarCodigo(data, idcodigo);
     console.log(res)
     if (!res.error){
-      cookies.set("token", res.token);
+      dispatch(iniciarSesion(res.token))
       return navigate("/")
     }
     if (res.error.status === 401 ) return setError("codigo", { message: res.error.data.error })

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom"
 import FormularioAuth from "../UI/FormularioAuth"
 import { Link } from "react-router-dom"
 import Enlace from "../UI/Enlace"
+import { AxiosError } from "axios"
 
 const FormularioRegistrarse = () => {
 
@@ -26,13 +27,17 @@ const FormularioRegistrarse = () => {
   const navigate = useNavigate();
   const onSubmit = async(data: CamposRegistro) => {
     console.log(data)
-    const res = await registrar(data)
-    if (!res.error){
+    const res: any = await registrar(data).catch((err: AxiosError) => {
+      console.log(err)
+      if (err.status === 409) return setError("email", { message: res.error.data.error })
+      if (err.status === 401) return setError("root", { message: res.error.data.error })
+      return null
+    })
+    if (res){
       const id = res.verificationId
-      navigate(`/verificacion/${id}`)
+      return navigate(`/verificacion/${id}`)
     }
-    if (res.error.status === 409) return setError("email", { message: res.error.data.error })
-    if (res.error.status === 401) return setError("root", { message: res.error.data.error })
+    
     
     setError("root", { message: "Error con el servidor" })
   }
@@ -61,11 +66,10 @@ const FormularioRegistrarse = () => {
       <CampoFecha {...register("fecha_nac")} placeholder="Fecha de nacimiento"/>
 
       <Boton type="submit" >Registrarse</Boton>
-      <p>¿Ya tiene cuenta?
-        <Link to="/login">
-          <Enlace>Inicia sesión aquí</Enlace>
-        </Link>
-      </p>
+      <p className="">¿Ya tiene cuenta?</p>
+      <Link to="/login">
+        <Enlace>Inicia sesión aquí</Enlace>
+      </Link>
     </FormularioAuth>
   )
 

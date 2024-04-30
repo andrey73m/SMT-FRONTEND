@@ -3,7 +3,7 @@ import { Boton, CampoTexto } from "../UI"
 import { componenteResolver, CamposComponente } from "./validators";
 import ErrorFormulario from "./Error"
 
-const FormularioComponente = () =>{
+const FormularioComponente = () => {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<CamposComponente>(
     {
       defaultValues: {
@@ -16,11 +16,10 @@ const FormularioComponente = () =>{
     }
   )
   
-  const onSubmit = (data) => {
+  const onSubmit = (data: CamposComponente) => {
     
     console.log(data)
   }
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="rounded-lg bg-indigo-950 w-1/4 flex flex-col items-center justify-normal p-5">
       <h1 className="mb-5 font-bold text-3xl">Registrar componente</h1>
