@@ -5,8 +5,16 @@ import FormularioComponente from "./components/formularios/componente"
 import FormularioInventario from "./components/formularios/inventario"
 import FormularioCodigoVerificacion from "./components/formularios/codigo_verificacion"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import FormularioTicket from "./components/formularios/ticket"
+import { useEffect } from "react"
+import { useAppDispatch } from "./store"
+import { cargarSesion } from "./store/features/sesion"
 
 const App = () => {
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    dispatch(cargarSesion())
+  },[])
   return (
     <>
       <Router>
@@ -14,13 +22,14 @@ const App = () => {
           <Route path="/registrarse" element={<FormularioRegistrarse />}/>
           <Route path="/login" element={<FormularioLogin/>}/>
           <Route path="/verificacion/:idcodigo" element={<FormularioCodigoVerificacion/>}/>
+          <Route path="/crear-ticket" element={<FormularioTicket />} />
           <Route path="/direcciones" element={<FormularioDireccion />} />
           <Route path="/catalogo" element={<FormularioComponente />} />
           <Route path="/inventario" element={<FormularioInventario />} />
         </Routes>
       </Router>
         
-      {/* <FormularioTicket/> */}
+      
     </>
   )
 }

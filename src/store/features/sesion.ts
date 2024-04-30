@@ -1,9 +1,11 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { jwtDecode } from "jwt-decode"
-import Cookies from "universal-cookie"
-const cookies = new Cookies();
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { socket } from "../../services/socketService";
+import { CamposLogin } from "../../components/formularios/validators";
+import authService from "../../services/authService";
+import { AxiosError } from "axios";
+import tokenService from "../../services/tokenService";
+
 interface InfoSesion{
-  token: string,
   idusuario: string,
   nombres: string,
   apellidos: string,
@@ -11,42 +13,68 @@ interface InfoSesion{
   rol?: string
 }
 interface EstadoSesion {
-  info: InfoSesion
+  info: InfoSesion,
+  haySesion: boolean
 }
 
 const estadoInicial: EstadoSesion = {
   info:{
-    token: "",
     idusuario: "",
     nombres: "",
     apellidos: "",
     email: "",
     rol: ""
+  },
+  haySesion: false
+}
+
+const inicializarInfoSesion = (state: EstadoSesion, token: string) => {
+  const tokenPayload = tokenService.decodeToken(token)
+  state.haySesion = !!tokenPayload;
+  if (!tokenPayload){
+    return;
   }
+  socket.connect();
+  const { apellidos, email,idusuario,nombres } = tokenPayload as InfoSesion
+  state.info = { apellidos, email,idusuario,nombres }
 }
 
 export const sliceSesion = createSlice({
   name: "sesion",
   initialState: estadoInicial,
   reducers: {
-    iniciarSesion: (state: EstadoSesion, action: PayloadAction<string>) => {
-      const tokenPayload = jwtDecode(action.payload)
-      cookies.set("token", action.payload)
-      const { apellidos, email,idusuario,nombres } = tokenPayload as InfoSesion
-      console.log("iniciando sesion")
-      state.info = { token: action.payload, apellidos, email,idusuario,nombres }
+    iniciarSesion: (state: EstadoSesion, action: PayloadAction<{token: string}>) => {
+      inicializarInfoSesion(state,action.payload.token)
+      tokenService.setToken(action.payload.token)
     },
     cargarSesion: (state: EstadoSesion) => {
-      console.log("cargando sesion")
-      const token = cookies.get("token")
-      if (!token) return;
-      const tokenPayload = jwtDecode(token)
-      const { apellidos, email,idusuario,nombres } = tokenPayload as InfoSesion
-      state.info = { token, apellidos, email,idusuario,nombres }
+      const token = tokenService.getToken()
+      inicializarInfoSesion(state, token)
     }
+  },
+  extraReducers: (builder) => {
+    builder.addCase(login.fulfilled, (state: EstadoSesion, action: PayloadAction<{token: string}>) => {
+      if (action.payload.token) sliceSesion.caseReducers.iniciarSesion(state, action)
+    })
   }
+
 })
 
 export const { iniciarSesion, cargarSesion } = sliceSesion.actions
+
+export const login = createAsyncThunk("sesion/login",async (credenciales: CamposLogin, { rejectWithValue }) => {
+  try {
+    const res = await authService.login(credenciales);
+    return res
+  }catch (e) {
+    const err = e as AxiosError
+    if (!err.response) {
+
+      return rejectWithValue({ error: err.code })
+    }
+    const message = (err.response.data as any).error
+    return rejectWithValue({ error: { status: err.response.status,message } })
+  }
+})
 
 export default sliceSesion.reducer;

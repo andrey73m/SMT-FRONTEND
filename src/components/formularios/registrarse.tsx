@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form"
 import { Boton, CampoTexto , CampoFecha } from "../UI"
 import { registroResolver, CamposRegistro } from "./validators"
 import ErrorFormulario from "./Error"
-import { registrar } from "../../services/auth"
+import authService from "../../services/authService"
 import { useNavigate } from "react-router-dom"
 import FormularioAuth from "../UI/FormularioAuth"
 import { Link } from "react-router-dom"
@@ -27,7 +27,7 @@ const FormularioRegistrarse = () => {
   const navigate = useNavigate();
   const onSubmit = async(data: CamposRegistro) => {
     console.log(data)
-    const res: any = await registrar(data).catch((err: AxiosError) => {
+    const res: any = await authService.registrar(data).catch((err: AxiosError) => {
       console.log(err)
       if (err.status === 409) return setError("email", { message: res.error.data.error })
       if (err.status === 401) return setError("root", { message: res.error.data.error })

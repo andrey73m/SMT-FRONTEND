@@ -5,6 +5,7 @@ import { direccionValidator,CamposDireccion } from "./direccion";
 import { componenteValidator, CamposComponente } from "./componente";
 import { inventarioValidator, CamposInventario } from "./inventario";
 import { codigoVerificacionValidator, CamposCodigoVerificacion } from "./codigo_verificacion";
+import { CamposTicket,ticketValidator } from "./ticket";
 
 const registroResolver = zodResolver(registroValidator)
 const loginResolver = zodResolver(loginValidator)
@@ -12,6 +13,7 @@ const direccionResolver = zodResolver(direccionValidator)
 const componenteResolver = zodResolver(componenteValidator)
 const inventarioResolver = zodResolver(inventarioValidator)
 const codigoVerificacionResolver = zodResolver(codigoVerificacionValidator)
+const ticketResolver = zodResolver(ticketValidator)
 
 export {
   registroResolver,
@@ -19,7 +21,8 @@ export {
   direccionResolver,
   componenteResolver,
   inventarioResolver,
-  codigoVerificacionResolver
+  codigoVerificacionResolver,
+  ticketResolver
 }
 
 export type {
@@ -28,5 +31,6 @@ export type {
   CamposDireccion,
   CamposComponente,
   CamposInventario,
-  CamposCodigoVerificacion
+  CamposCodigoVerificacion,
+  CamposTicket
 }

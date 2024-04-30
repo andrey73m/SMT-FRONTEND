@@ -9,6 +9,7 @@ const EditorTexto = (props:Props) => {
   return (
     <ReactQuill
       {...props}
+      className="w-full"
       theme="snow"
     />
   )

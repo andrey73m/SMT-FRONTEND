@@ -2,17 +2,17 @@ import { useForm } from "react-hook-form"
 import { Boton, CampoTexto } from "../UI"
 import { loginResolver, CamposLogin } from "./validators";
 import ErrorFormulario from "./Error"
-import { login } from "../../services/auth";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie"
 import FormularioAuth from "../UI/FormularioAuth";
 import Enlace from "../UI/Enlace";
-import { useDispatch } from "react-redux";
-import { iniciarSesion } from "../../store/features/sesion";
-import { AxiosError } from "axios";
+import { login } from "../../store/features/sesion";
+import { useAppDispatch } from "../../store";
+import { PayloadAction } from "@reduxjs/toolkit";
 
-const cookies = new Cookies();
-
+interface thunkResponse extends PayloadAction<any, string>{
+  error: any
+}
 const FormularioLogin = () => {
   const { register, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<CamposLogin>(
     {
@@ -24,28 +24,26 @@ const FormularioLogin = () => {
     }
   )
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const onSubmit = async(data: CamposLogin) => {
     
     console.log(data)
-    const res: any = await login(data).catch((err: AxiosError) => {
-      const { response } = err
+    const res = await dispatch(login(data)) as thunkResponse
+    if (res.payload.error){
+      const response = res.payload.error
+      console.log("error:",res.payload.error)
       if (response){
-        const data = response.data as any
-        if (response.status === 401) return setError("root", { message: data.error });
+        if (response.status === 401) return setError("root", { message: response.message });
       }
-      setError("root", { message: "Error con el servidor" })
-      return null
-    });
-    if (res) {
-      if (res.verificationId){
-        const id = res.verificationId
-        navigate(`/verificacion/${id}`)
+      return setError("root", { message: "Error con el servidor" })
+    }
+    if (res.payload){
+      if (res.payload.verificationId){
+        const id = res.payload.verificationId
+        return navigate(`/verificacion/${id}`)
       }
-      if (res.token) {
-        dispatch(iniciarSesion(res.token))
-        navigate("/")
-      }
+
+      return navigate("/")
     }
     
   }

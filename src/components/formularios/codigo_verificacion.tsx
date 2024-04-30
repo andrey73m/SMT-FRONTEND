@@ -3,11 +3,11 @@ import ErrorFormulario from "./Error"
 import { CamposCodigoVerificacion, codigoVerificacionResolver } from "./validators"
 import { Boton, CampoTexto } from "../UI"
 import { useParams } from "react-router-dom"
-import { verificarCodigo, reenviarCodigo } from "../../services/auth"
+import authService from "../../services/authService"
 import { useNavigate } from "react-router-dom"
 import FormularioAuth from "../UI/FormularioAuth"
 import Enlace from "../UI/Enlace"
-import { iniciarSesion } from "../../store/features/sesion"
+import { login } from "../../store/features/sesion"
 import { useDispatch } from "react-redux"
 
 const FormularioCodigoVerificacion = () => {
@@ -26,19 +26,28 @@ const FormularioCodigoVerificacion = () => {
     console.log(idcodigo)
     if (!idcodigo) return;
 
-    const res = await verificarCodigo(data, idcodigo);
-    console.log(res)
-    if (!res.error){
-      dispatch(iniciarSesion(res.token))
-      return navigate("/")
-    }
-    if (res.error.status === 401 ) return setError("codigo", { message: res.error.data.error })
-    setError("root", { message: "Error con el servidor" })
+    // const res = await dispatch(login(data)) as any
+    // if (res.payload.error) {
+    //   const response = res.payload.error
+    //   console.log("error:", res.payload.error)
+    //   if (response) {
+    //     if (response.status === 401) return setError("root", { message: response.message });
+    //   }
+    //   return setError("root", { message: "Error con el servidor" })
+    // }
+    // if (res.payload) {
+    //   if (res.payload.verificationId) {
+    //     const id = res.payload.verificationId
+    //     return navigate(`/verificacion/${id}`)
+    //   }
+
+    //   return navigate("/")
+    // }
   }
 
   const reenvio = async () => {
     if (!idcodigo) return;
-    const res = await reenviarCodigo(idcodigo);
+    const res = await authService.reenviarCodigo(idcodigo);
     console.log(res)
   }
 
