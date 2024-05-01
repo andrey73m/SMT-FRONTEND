@@ -8,6 +8,8 @@ import FormularioAuth from "../UI/FormularioAuth"
 import { Link } from "react-router-dom"
 import Enlace from "../UI/Enlace"
 import { AxiosError } from "axios"
+import VistaRol from "../wrappers/VistaRol"
+import Select from "../UI/Select"
 
 const FormularioRegistrarse = () => {
 
@@ -27,25 +29,42 @@ const FormularioRegistrarse = () => {
   const navigate = useNavigate();
   const onSubmit = async(data: CamposRegistro) => {
     console.log(data)
-    const res: any = await authService.registrar(data).catch((err: AxiosError) => {
+
+    const errores = (err: AxiosError) => {
       console.log(err)
       if (err.status === 409) return setError("email", { message: res.error.data.error })
       if (err.status === 401) return setError("root", { message: res.error.data.error })
+      setError("root", { message: "Error con el servidor" })
       return null
-    })
-    if (res){
-      const id = res.verificationId
-      return navigate(`/verificacion/${id}`)
+    }
+
+    let res: any;
+
+    if(!data.rol) {
+      
+      res = await authService.registrar(data).catch(errores)
+      if (res){
+        const id = res.verificationId
+        return navigate(`/verificacion/${id}`)
+      }
+      return;
     }
     
-    
-    setError("root", { message: "Error con el servidor" })
+    res = await authService.registrarRol(data).catch(errores)
+ 
   }
 
   return (
     <FormularioAuth titulo="Registrarse"  onSubmit={handleSubmit(onSubmit)} >
       {errors.root && <ErrorFormulario>{errors.root.message}</ErrorFormulario>}
-      
+      <VistaRol roles={["admin"]}>
+        <Select {...register("rol")} className="bg-indigo-900" defaultValue="Empleado">
+          <option>Administrador</option>
+          <option>Empleado</option>
+          <option>Cliente</option>
+        </Select>
+      </VistaRol>
+
       {errors.nombres && <ErrorFormulario>{errors.nombres.message}</ErrorFormulario>}
       <CampoTexto {...register("nombres")} placeholder="Nombres"/>
       

@@ -5,6 +5,7 @@ import { CamposTicket } from "./validators";
 import { useAppSelector } from "../../store";
 import ticketService from "../../services/ticketService";
 import useSesion from "../../hooks/sesion";
+import TopBar from "../layout/TopBar";
 
 const FormularioTicket = () => {
 
@@ -22,17 +23,20 @@ const FormularioTicket = () => {
   }
 
   return (
-    <FormProvider {...metodos}>
+    <>
+      <TopBar />
+      <FormProvider {...metodos}>
       
 
-      <form onSubmit={metodos.handleSubmit(onSubmit)} className="text-black grow bg-white flex flex-col items-center justify-normal p-5">
-        <h1 className="mb-5 font-bold text-3xl">Cuéntanos ¿Que problema tienes?</h1>
-        {!haySesion && <CampoTexto placeholder="correo electronico" {...metodos.register("email")} />}
-        <CampoTexto placeholder="Asunto" {...metodos.register("asunto")}/>
-        <CampoFormateado name="contenido"/>
-        <Boton type="submit" >Enviar</Boton>
-      </form>
-    </FormProvider>
+        <form onSubmit={metodos.handleSubmit(onSubmit)} className="text-black grow bg-white flex flex-col items-center justify-normal p-5">
+          <h1 className="mb-5 font-bold text-3xl">Cuéntanos ¿Que problema tienes?</h1>
+          {!haySesion && <CampoTexto placeholder="correo electronico" {...metodos.register("email")} />}
+          <CampoTexto placeholder="Asunto" {...metodos.register("asunto")}/>
+          <CampoFormateado name="contenido"/>
+          <Boton type="submit" >Enviar</Boton>
+        </form>
+      </FormProvider>
+    </>
   )
 }
 

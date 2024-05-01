@@ -3,16 +3,12 @@ import { Boton, CampoTexto } from "../UI"
 import { loginResolver, CamposLogin } from "./validators";
 import ErrorFormulario from "./Error"
 import { Link, useNavigate } from "react-router-dom";
-import Cookies from "universal-cookie"
 import FormularioAuth from "../UI/FormularioAuth";
 import Enlace from "../UI/Enlace";
 import { login } from "../../store/features/sesion";
 import { useAppDispatch } from "../../store";
-import { PayloadAction } from "@reduxjs/toolkit";
+import { ThunkResponse } from "../../store/utils";
 
-interface thunkResponse extends PayloadAction<any, string>{
-  error: any
-}
 const FormularioLogin = () => {
   const { register, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<CamposLogin>(
     {
@@ -28,7 +24,7 @@ const FormularioLogin = () => {
   const onSubmit = async(data: CamposLogin) => {
     
     console.log(data)
-    const res = await dispatch(login(data)) as thunkResponse
+    const res = await dispatch(login(data)) as ThunkResponse
     if (res.payload.error){
       const response = res.payload.error
       console.log("error:",res.payload.error)

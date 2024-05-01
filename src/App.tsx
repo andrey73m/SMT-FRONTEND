@@ -18,8 +18,9 @@ const App = () => {
   return (
     <>
       <Router>
+        
         <Routes>
-          <Route path="/registrarse" element={<FormularioRegistrarse />}/>
+          <Route path="/registro" element={<FormularioRegistrarse />}/>
           <Route path="/login" element={<FormularioLogin/>}/>
           <Route path="/verificacion/:idcodigo" element={<FormularioCodigoVerificacion/>}/>
           <Route path="/crear-ticket" element={<FormularioTicket />} />

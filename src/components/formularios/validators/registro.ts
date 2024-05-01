@@ -1,6 +1,7 @@
 import { z } from "zod"
 
 export const registroValidator = z.object({
+  rol: z.string().optional(),
   nombres: z.string().min(2, "Deben haber al menos dos caracteres de nombre"),
   apellidos: z.string().min(2, "Deben haber al menos dos caracteres de apellidos"),
   email: z.string().email("Escribe un correo valido"),

@@ -3,11 +3,10 @@ import authService from "../services/authService";
 
 
 const useRolUsuario = () => {
-  const token: string = authService.getToken();
 
   const query = useQuery({
     queryKey: ["rol-usuario"],
-    queryFn: () => authService.getRol(token),
+    queryFn: authService.getRol,
   })
 
   return query.data?.rol

@@ -2,8 +2,8 @@ import axios from "axios"
 import { env } from "../environment"
 import { CamposCodigoVerificacion, CamposLogin, CamposRegistro } from "../components/formularios/validators"
 import { AxiosError } from "axios"
-import Cookies from "universal-cookie"
-import { jwtDecode } from "jwt-decode"
+
+import tokenService from "./tokenService"
 
 export default {
   registrar: async (data: CamposRegistro) => {
@@ -11,11 +11,18 @@ export default {
     return res.data;
   },
 
+  registrarRol: async (data: CamposRegistro) => {
+    const token = tokenService.getToken()
+    const res = await axios.post(`${env.BACKEND_ROOT}/auth/register/${data.rol}`, data, { headers:{ Authorization:token } })
+    return res.data;
+  },
+
   login: async(data:CamposLogin) => {
     const res = await axios.post(`${env.BACKEND_ROOT}/auth/login`,data)
     return res.data;
   },
-  getRol: async (token: string) => {
+  getRol: async () => {
+    const token = tokenService.getToken()
     const res = await axios.get(`${env.BACKEND_ROOT}/auth/rol`,{ headers:{ Authorization: token } })
     return res.data;
   },

@@ -1,9 +1,10 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { socket } from "../../services/socketService";
-import { CamposLogin } from "../../components/formularios/validators";
+import socketService from "../../services/socketService";
+import { CamposLogin, CamposCodigoVerificacion } from "../../components/formularios/validators";
 import authService from "../../services/authService";
 import { AxiosError } from "axios";
 import tokenService from "../../services/tokenService";
+import { manageAxiosThunk } from "../utils";
 
 interface InfoSesion{
   idusuario: string,
@@ -34,7 +35,7 @@ const inicializarInfoSesion = (state: EstadoSesion, token: string) => {
   if (!tokenPayload){
     return;
   }
-  socket.connect();
+  socketService.socket.connect();
   const { apellidos, email,idusuario,nombres } = tokenPayload as InfoSesion
   state.info = { apellidos, email,idusuario,nombres }
 }
@@ -50,6 +51,11 @@ export const sliceSesion = createSlice({
     cargarSesion: (state: EstadoSesion) => {
       const token = tokenService.getToken()
       inicializarInfoSesion(state, token)
+    },
+    cerrarSesion: () => {
+      tokenService.removeToken();
+      socketService.socket.disconnect();
+      return estadoInicial;
     }
   },
   extraReducers: (builder) => {
@@ -60,21 +66,16 @@ export const sliceSesion = createSlice({
 
 })
 
-export const { iniciarSesion, cargarSesion } = sliceSesion.actions
+export const { iniciarSesion, cargarSesion, cerrarSesion } = sliceSesion.actions
 
-export const login = createAsyncThunk("sesion/login",async (credenciales: CamposLogin, { rejectWithValue }) => {
-  try {
-    const res = await authService.login(credenciales);
-    return res
-  }catch (e) {
-    const err = e as AxiosError
-    if (!err.response) {
 
-      return rejectWithValue({ error: err.code })
-    }
-    const message = (err.response.data as any).error
-    return rejectWithValue({ error: { status: err.response.status,message } })
-  }
+
+export const login = createAsyncThunk("sesion/login",async (credenciales: CamposLogin, ThunkAPI) => {
+  return await manageAxiosThunk(() => authService.login(credenciales),ThunkAPI);
 })
+export const verificar = createAsyncThunk("sesion/login",async ({ codigo, idcodigo }: {codigo: CamposCodigoVerificacion, idcodigo: string}, ThunkAPI) => {
+  return await manageAxiosThunk(() => authService.verificarCodigo(codigo, idcodigo),ThunkAPI);
+})
+
 
 export default sliceSesion.reducer;

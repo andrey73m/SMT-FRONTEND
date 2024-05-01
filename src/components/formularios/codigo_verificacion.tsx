@@ -7,7 +7,7 @@ import authService from "../../services/authService"
 import { useNavigate } from "react-router-dom"
 import FormularioAuth from "../UI/FormularioAuth"
 import Enlace from "../UI/Enlace"
-import { login } from "../../store/features/sesion"
+import { verificar } from "../../store/features/sesion"
 import { useDispatch } from "react-redux"
 
 const FormularioCodigoVerificacion = () => {
@@ -26,23 +26,23 @@ const FormularioCodigoVerificacion = () => {
     console.log(idcodigo)
     if (!idcodigo) return;
 
-    // const res = await dispatch(login(data)) as any
-    // if (res.payload.error) {
-    //   const response = res.payload.error
-    //   console.log("error:", res.payload.error)
-    //   if (response) {
-    //     if (response.status === 401) return setError("root", { message: response.message });
-    //   }
-    //   return setError("root", { message: "Error con el servidor" })
-    // }
-    // if (res.payload) {
-    //   if (res.payload.verificationId) {
-    //     const id = res.payload.verificationId
-    //     return navigate(`/verificacion/${id}`)
-    //   }
+    const res = await dispatch(verificar({ codigo: data, idcodigo })) as any
+    if (res.payload.error) {
+      const response = res.payload.error
+      console.log("error:", res.payload.error)
+      if (response) {
+        if (response.status === 401) return setError("root", { message: response.message });
+      }
+      return setError("root", { message: "Error con el servidor" })
+    }
+    if (res.payload) {
+      if (res.payload.verificationId) {
+        const id = res.payload.verificationId
+        return navigate(`/verificacion/${id}`)
+      }
 
-    //   return navigate("/")
-    // }
+      return navigate("/")
+    }
   }
 
   const reenvio = async () => {
