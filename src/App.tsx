@@ -9,6 +9,7 @@ import FormularioTicket from "./components/formularios/ticket"
 import { useEffect } from "react"
 import { useAppDispatch } from "./store"
 import { cargarSesion } from "./store/features/sesion"
+import TopBar from "./components/layout/TopBar"
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -22,11 +23,13 @@ const App = () => {
         <Routes>
           <Route path="/registro" element={<FormularioRegistrarse />}/>
           <Route path="/login" element={<FormularioLogin/>}/>
-          <Route path="/verificacion/:idcodigo" element={<FormularioCodigoVerificacion/>}/>
-          <Route path="/crear-ticket" element={<FormularioTicket />} />
-          <Route path="/direcciones" element={<FormularioDireccion />} />
-          <Route path="/catalogo" element={<FormularioComponente />} />
-          <Route path="/inventario" element={<FormularioInventario />} />
+          <Route path="/" element={<TopBar/>}>
+            <Route path="verificacion/:idcodigo" element={<FormularioCodigoVerificacion/>}/>
+            <Route path="crear-ticket" element={<FormularioTicket />} />
+            <Route path="direcciones" element={<FormularioDireccion />} />
+            <Route path="catalogo" element={<FormularioComponente />} />
+            <Route path="inventario" element={<FormularioInventario />} />
+          </Route>
         </Routes>
       </Router>
         

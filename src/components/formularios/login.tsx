@@ -53,7 +53,7 @@ const FormularioLogin = () => {
       <CampoTexto {...register("clave")} placeholder="Contraseña" type="password"/>
       <Boton type="submit" >Iniciar sesión</Boton>
       <p>¿No tienes cuenta?</p>
-      <Link to="/registrarse">
+      <Link to="/registro">
         <Enlace>Registrate aquí</Enlace>
       </Link>
     </FormularioAuth>

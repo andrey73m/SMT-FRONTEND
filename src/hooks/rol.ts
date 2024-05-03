@@ -7,6 +7,7 @@ const useRolUsuario = () => {
   const query = useQuery({
     queryKey: ["rol-usuario"],
     queryFn: authService.getRol,
+    retry: 1
   })
 
   return query.data?.rol

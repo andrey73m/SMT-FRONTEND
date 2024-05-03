@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux"
 import { sliceSesion } from "./features/sesion";
+import { sliceNotificaciones } from "./features/notificaciones";
 
 export const store = configureStore({
   reducer: {
-    sesion: sliceSesion.reducer
+    sesion: sliceSesion.reducer,
+    notificaciones: sliceNotificaciones.reducer
   }
 })
 
