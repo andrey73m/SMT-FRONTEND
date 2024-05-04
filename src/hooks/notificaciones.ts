@@ -17,8 +17,7 @@ export interface DataNotificacion{
 }
 
 const useNotificaciones = () => {
-  const queryClient = useQueryClient()
-
+  
   const notificationQuery = useQuery<DataNotificacion[]>({
     queryKey: ["notificaciones"],
     queryFn: async () => {
@@ -34,11 +33,22 @@ const useNotificaciones = () => {
     retry: 1
   })
 
-  const notificationsMutation = useMutation({
+  const hayPendientes = notificationQuery.data?.some(notificacion => !notificacion.visto)
+  
+  return {
+    notificaciones: notificationQuery.data,
+    cargando: notificationQuery.isFetching,
+    hayPendientes
+  };
+}
+
+const useMutationNotificaciones = () => {
+  const queryClient = useQueryClient()
+  const notificationView = useMutation({
     mutationFn: notificationService.setNotificationView,
     onSuccess: (vista: DataNotificacion) => {
-      const notificaciones = queryClient.getQueryData<DataNotificacion[]>(["notificaciones"])
-      if (!notificaciones) return;
+      vista.intervalo = timeService.convertirFechaEnIntervalo(vista.fecha_creacion)
+      const notificaciones = queryClient.getQueryData<DataNotificacion[]>(["notificaciones"]) || []
       queryClient.setQueryData(["notificaciones"], notificaciones.map(notificacion =>
         notificacion.idnotificacion === vista.idnotificacion ?
           vista : notificacion
@@ -46,14 +56,18 @@ const useNotificaciones = () => {
     }
   })
 
-  const marcarNotificacion = (idnotificacion:string) => {
-    console.log("MUTATING")
-    notificationsMutation.mutate(idnotificacion)
+  const agregarNotificacion = (notification: DataNotificacion) => {
+    const notificaciones = queryClient.getQueryData<DataNotificacion[]>(["notificaciones"]) || []
+    queryClient.setQueryData(["notificaciones"],[notification].concat(notificaciones))
   }
 
-  const hayPendientes = notificationQuery.data?.some(notificacion => !notificacion.visto)
-  
-  return { notificaciones: notificationQuery.data, cargando: notificationQuery.isFetching, hayPendientes, marcarNotificacion };
+  const marcarNotificacion = (idnotificacion:string) => {
+    notificationView.mutate(idnotificacion)
+  }
+
+  return { marcarNotificacion, agregarNotificacion }
 }
 
-export default useNotificaciones;
+
+
+export { useNotificaciones, useMutationNotificaciones };

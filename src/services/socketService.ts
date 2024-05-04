@@ -13,7 +13,7 @@ const socket: Socket<ServerEvents, any> =  io(`${env.BACKEND_ROOT}`,{
   autoConnect: false
 })
 
-export default { socket }
+export default socket
 
 socket.on("connect", () => {
   

@@ -7,11 +7,12 @@ import { useAppDispatch } from "../../store";
 import { cerrarSesion } from "../../store/features/sesion";
 import socketService from "../../services/socketService";
 import { Link, Outlet } from "react-router-dom";
-import { DataNotificacion, agregarNotificacion } from "../../store/features/notificaciones";
-import useNotificaciones from "../../hooks/notificaciones";
 import ListaNotificaciones from "./ListaNotificaciones";
 import IconoUsuario from "../icons/Usuario";
 import LogoPrincipal from "../icons/LogoPrincipal";
+import { useMutationNotificaciones, useNotificaciones } from "../../hooks";
+import { DataNotificacion } from "../../hooks/notificaciones";
+import timeService from "../../services/timeService";
 
 
 
@@ -29,8 +30,8 @@ const BotonTopBar = ({ className,children, ...props }: BotonProps) => {
 const BotonNotificaciones = () => {
   const [abierto, setAbierto] = useState(false)
   const [vistas, setVistas] = useState(true)
-  const { hayPendientes } = useNotificaciones()
-  const dispatch = useAppDispatch();
+  const { hayPendientes, notificaciones } = useNotificaciones()
+  const { agregarNotificacion } = useMutationNotificaciones()
   //TODO:OPCIONAL > MANEJAR CON REF QUE EL CLICK NO SEA SOBRE LA LISTA????
   const handleClose = () => {
     setAbierto(false)
@@ -39,19 +40,22 @@ const BotonNotificaciones = () => {
   const clickHandler = () => {
     setAbierto(true)
     setVistas(true);
-    document.addEventListener("mousedown",handleClose,{ once: true })
+    document.addEventListener("mousedown",handleClose)
   }
   useEffect(() => {
     const onNotification = (notificacion: DataNotificacion) => {
-      setVistas(false);
-      dispatch(agregarNotificacion(notificacion))
+      console.log("abierto:", abierto)
+      if (!abierto) setVistas(false);
+      notificacion.intervalo = timeService.convertirFechaEnIntervalo(notificacion.fecha_creacion)
+      agregarNotificacion(notificacion)
     }
-    socketService.socket.on("notificacion", onNotification);
+    socketService.on("notificacion", onNotification);
     console.log("useeffect")
     return () => {
-      socketService.socket.off("notificacion")
+      socketService.off("notificacion")
     }
   }, [])
+  useEffect(() => () => document.removeEventListener("mousedown", handleClose), [])
 
   return (
     <>
@@ -61,7 +65,7 @@ const BotonNotificaciones = () => {
           <span className="w-3 h-3 bg-fuchsia-600 rounded-full absolute right-1 bottom-1 "></span>
         }
       </BotonTopBar>
-      <ListaNotificaciones abierto = {abierto}/>
+      <ListaNotificaciones notificaciones={notificaciones} abierto = {abierto}/>
     </>
   )
 }
