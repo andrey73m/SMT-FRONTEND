@@ -18,5 +18,9 @@ export default {
     }catch(e){
       return null
     }
+  },
+  getAuthHeader: () => {
+    const token = cookies.get("token")
+    return { Authorization: token }
   }
 }

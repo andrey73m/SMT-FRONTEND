@@ -11,7 +11,7 @@ interface InfoSesion{
   nombres: string,
   apellidos: string,
   email: string,
-  rol?: string
+  nombreUsuario: string
 }
 interface EstadoSesion {
   info: InfoSesion,
@@ -24,7 +24,7 @@ const estadoInicial: EstadoSesion = {
     nombres: "",
     apellidos: "",
     email: "",
-    rol: ""
+    nombreUsuario: ""
   },
   haySesion: false
 }
@@ -36,8 +36,8 @@ const inicializarInfoSesion = (state: EstadoSesion, token: string) => {
     return;
   }
   socketService.socket.connect();
-  const { apellidos, email,idusuario,nombres } = tokenPayload as InfoSesion
-  state.info = { apellidos, email,idusuario,nombres }
+  const { apellidos, email,idusuario,nombres, nombreUsuario } = tokenPayload as InfoSesion
+  state.info = { apellidos, email,idusuario,nombres, nombreUsuario }
 }
 
 export const sliceSesion = createSlice({

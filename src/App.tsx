@@ -23,13 +23,15 @@ const App = () => {
         <Routes>
           <Route path="/registro" element={<FormularioRegistrarse />}/>
           <Route path="/login" element={<FormularioLogin/>}/>
+          <Route path="verificacion/:idcodigo" element={<FormularioCodigoVerificacion/>}/>
+
           <Route path="/" element={<TopBar/>}>
-            <Route path="verificacion/:idcodigo" element={<FormularioCodigoVerificacion/>}/>
             <Route path="crear-ticket" element={<FormularioTicket />} />
             <Route path="direcciones" element={<FormularioDireccion />} />
             <Route path="catalogo" element={<FormularioComponente />} />
             <Route path="inventario" element={<FormularioInventario />} />
           </Route>
+          
         </Routes>
       </Router>
         

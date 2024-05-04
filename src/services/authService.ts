@@ -12,8 +12,8 @@ export default {
   },
 
   registrarRol: async (data: CamposRegistro) => {
-    const token = tokenService.getToken()
-    const res = await axios.post(`${env.BACKEND_ROOT}/auth/register/${data.rol}`, data, { headers:{ Authorization:token } })
+    const auth = tokenService.getAuthHeader()
+    const res = await axios.post(`${env.BACKEND_ROOT}/auth/register/${data.rol}`, data, { headers: auth })
     return res.data;
   },
 
@@ -22,8 +22,8 @@ export default {
     return res.data;
   },
   getRol: async () => {
-    const token = tokenService.getToken()
-    const res = await axios.get(`${env.BACKEND_ROOT}/auth/rol`,{ headers:{ Authorization: token } })
+    const auth = tokenService.getAuthHeader()
+    const res = await axios.get(`${env.BACKEND_ROOT}/auth/rol`,{ headers: auth })
     return res.data;
   },
 
