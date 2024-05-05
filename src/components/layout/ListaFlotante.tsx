@@ -1,29 +1,25 @@
-import { ReactNode, forwardRef } from "react";
+import { LegacyRef, ReactNode, forwardRef } from "react";
+import ElementoFlotante, { ElementoFlotanteProps } from "./ElementoFlotante";
 
-interface ListaFlotanteProps {
+interface ListaFlotanteProps{
   abierto?: boolean;
   children: ReactNode;
-  className?: string
+  className?: string;
 }
  
-const ListaFlotante = forwardRef<HTMLDivElement, ListaFlotanteProps>(({ abierto, className,...props }, ref) => {
+const ListaFlotante = forwardRef<HTMLDivElement, ListaFlotanteProps>(({ abierto, ...props }, ref) => {
   return (
-    <div
-      className={`
-        flex
-        flex-col
-        ${abierto ? "visible scale-y-100" : "invisible scale-y-0"} 
-        transition-all
-        absolute 
-        ${className}
-      `}
+    <ElementoFlotante
+      enAbierto={["visible scale-y-100" , "invisible scale-y-0"]}
+      abierto = {abierto}
+      {...props}
       ref={ref}
     >
       {props.children}
-      
-    </div>
+    </ElementoFlotante>
   );
 })
- 
+
 ListaFlotante.displayName = "ListaFlotante"
+
 export default ListaFlotante;

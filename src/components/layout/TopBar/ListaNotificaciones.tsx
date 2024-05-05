@@ -40,9 +40,8 @@ const ListaNotificaciones = forwardRef<HTMLDivElement, ListaNotificacionesProps>
       abierto={abierto}
       className="
         top-full text-black
-        absolute
         rounded-sm bg-white right-0
-        shadow-lg w-full sm:w-96 border
+        shadow-lg w-full sm:w-[35rem] border
         mt-0.5 max-h-72  overflow-auto"
     
       ref = {ref}
