@@ -7,24 +7,22 @@ interface ServerEvents{
   notificacion: (notificacion: any) => void;
 }
 
-const socket: Socket<ServerEvents, any> =  io(`${env.BACKEND_ROOT}`,{
+export const socketService: Socket<ServerEvents, any> =  io(`${env.BACKEND_ROOT}`,{
   extraHeaders:{},
   auth: (cb) => cb({ token: tokenService.getToken() }),
   autoConnect: false
 })
 
-export default socket
-
-socket.on("connect", () => {
+socketService.on("connect", () => {
   
   
-  socket.on("disconnect", () => {
+  socketService.on("disconnect", () => {
     console.log("Socket desconectado")
-    socket.close()
-    socket.removeAllListeners();
+    socketService.close()
+    socketService.removeAllListeners();
   })
 
-  socket.on("connect_error",(e) => {
+  socketService.on("connect_error",(e) => {
     console.log("Conexion rechazada",e)
   })
 })

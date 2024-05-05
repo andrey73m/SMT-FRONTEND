@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import notificationService from "../services/notificationService";
 import timeService from "../services/timeService";
+import { useAppSelector } from "../store";
 
 export interface DataNotificacion{
   idnotificacion: string,
@@ -17,7 +18,7 @@ export interface DataNotificacion{
 }
 
 const useNotificaciones = () => {
-  
+  const abierto = useAppSelector(state => state.notificaciones.abierto)
   const notificationQuery = useQuery<DataNotificacion[]>({
     queryKey: ["notificaciones"],
     queryFn: async () => {
@@ -38,7 +39,8 @@ const useNotificaciones = () => {
   return {
     notificaciones: notificationQuery.data,
     cargando: notificationQuery.isFetching,
-    hayPendientes
+    hayPendientes,
+    abierto
   };
 }
 

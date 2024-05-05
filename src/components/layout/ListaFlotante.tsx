@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, forwardRef } from "react";
 
 interface ListaFlotanteProps {
   abierto?: boolean;
@@ -6,7 +6,7 @@ interface ListaFlotanteProps {
   className?: string
 }
  
-const ListaFlotante = ({ abierto, className,...props }: ListaFlotanteProps) => {
+const ListaFlotante = forwardRef<HTMLDivElement, ListaFlotanteProps>(({ abierto, className,...props }, ref) => {
   return (
     <div
       className={`
@@ -17,10 +17,13 @@ const ListaFlotante = ({ abierto, className,...props }: ListaFlotanteProps) => {
         absolute 
         ${className}
       `}
+      ref={ref}
     >
       {props.children}
+      
     </div>
   );
-}
+})
  
+ListaFlotante.displayName = "ListaFlotante"
 export default ListaFlotante;

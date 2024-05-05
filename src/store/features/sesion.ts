@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import socketService from "../../services/socketService";
+import { socketService } from "../../services/socketService";
 import { CamposLogin, CamposCodigoVerificacion } from "../../components/formularios/validators";
 import authService from "../../services/authService";
 import tokenService from "../../services/tokenService";
@@ -43,7 +43,7 @@ export const sliceSesion = createSlice({
   name: "sesion",
   initialState: estadoInicial,
   reducers: {
-    iniciarSesion: (state: EstadoSesion, action: PayloadAction<{token: string}>) => {
+    iniciarSesion: (state, action: PayloadAction<{token: string}>) => {
       inicializarInfoSesion(state,action.payload.token)
       tokenService.setToken(action.payload.token)
     },
@@ -54,16 +54,16 @@ export const sliceSesion = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(login.fulfilled, (state: EstadoSesion, action: PayloadAction<{token: string}>) => {
+    builder.addCase(login.fulfilled, (state, action: PayloadAction<{token: string}>) => {
       if (action.payload.token) sliceSesion.caseReducers.iniciarSesion(state, action)
     })
-    builder.addCase(cargarSesion.rejected, (state: EstadoSesion) => {
+    builder.addCase(cargarSesion.rejected, (state) => {
       tokenService.removeToken();
       socketService.disconnect();
       state.haySesion = false;
       state.info = estadoInicial.info;
     })
-    builder.addCase(cargarSesion.fulfilled, (state: EstadoSesion) => {
+    builder.addCase(cargarSesion.fulfilled, (state) => {
       const token = tokenService.getToken()
       inicializarInfoSesion(state, token)
     })
@@ -83,6 +83,8 @@ export const verificar = createAsyncThunk("sesion/login",async ({ codigo, idcodi
 })
 
 export const cargarSesion = createAsyncThunk("sesion/validar-token",async (_, ThunkAPI) => {
+  const token = tokenService.getToken()
+  if (!token) return;
   return await manageAxiosThunk(authService.validarSesion,ThunkAPI);
 })
 
