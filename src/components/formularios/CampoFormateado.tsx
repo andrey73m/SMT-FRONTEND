@@ -20,6 +20,7 @@ const CampoFormateado = forwardRef((props: Props, ref) => {
     <EditorTexto
       onChange={onEditorChange}
       value={contenido}
+      
     />
   )
 })

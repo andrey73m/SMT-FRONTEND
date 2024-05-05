@@ -13,10 +13,12 @@ const FormularioTicket = () => {
     if (info.email && info.email.length > 0){
       // console.log("")
       data.email = info.email;
+      const res = await ticketService.createTicket(data);
+      console.log("Creado")
+      return
     }
     
-    const res = await ticketService.createTicket(data);
-
+    const res = await ticketService.createTicketEmail(data);
     console.log("Creado")
   }
 

@@ -11,8 +11,8 @@ export default {
   },
 
   registrarRol: async (data: CamposRegistro) => {
-    const token = tokenService.getToken()
-    const res = await axios.post(`${env.BACKEND_ROOT}/auth/register/${data.rol}`, data, { headers:{ Authorization:token } })
+    const auth = tokenService.getAuthHeader()
+    const res = await axios.post(`${env.BACKEND_ROOT}/auth/register/${data.rol}`, data, { headers: auth })
     return res.data;
   },
 
@@ -21,27 +21,25 @@ export default {
     return res.data;
   },
   getRol: async () => {
-    const token = tokenService.getToken()
-    const res = await axios.get(`${env.BACKEND_ROOT}/auth/rol`,{ headers:{ Authorization: token } })
+    const auth = tokenService.getAuthHeader()
+    const res = await axios.get(`${env.BACKEND_ROOT}/auth/rol`,{ headers: auth })
     return res.data;
   },
 
   verificarCodigo: async(data:CamposCodigoVerificacion, id: string) => {
-    try{
-      const res = await axios.post(`${env.BACKEND_ROOT}/auth/verification/${id}`,data)
-      return res.data;
-    }catch(e){
-      const error = e as AxiosError;
-      return { error: error.response }
-    }
+    const res = await axios.post(`${env.BACKEND_ROOT}/auth/verification/${id}`,data)
+    return res.data;
+
   },
   reenviarCodigo: async(id: string) => {
-    try{
-      const res = await axios.post(`${env.BACKEND_ROOT}/auth/resendcode/${id}`)
-      return res.data;
-    }catch(e){
-      const error = e as AxiosError;
-      return { error: error.response }
-    }
+    const res = await axios.post(`${env.BACKEND_ROOT}/auth/resendcode/${id}`)
+    return res.data;
+
+  },
+  validarSesion: async() => {
+    const auth = tokenService.getAuthHeader()
+    const res = await axios.get(`${env.BACKEND_ROOT}/auth/validar-sesion`,{ headers: auth })
+    return res.data;
+
   }
 }

@@ -31,6 +31,7 @@ const App = () => {
             <Route path="catalogo" element={<FormularioComponente />} />
             <Route path="inventario" element={<FormularioInventario />} />
           </Route>
+          
         </Routes>
       </Router>
         
