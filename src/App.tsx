@@ -10,7 +10,7 @@ import { useEffect } from "react"
 import { useAppDispatch } from "./store"
 import { cargarSesion } from "./store/features/sesion"
 import TopBar from "./components/layout/TopBar"
-
+import MenuBar from "./components/layout/MenuBar"
 const App = () => {
   const dispatch = useAppDispatch()
   useEffect(() => {
@@ -23,7 +23,8 @@ const App = () => {
         <Routes>
           <Route path="/registro" element={<FormularioRegistrarse />}/>
           <Route path="/login" element={<FormularioLogin/>}/>
-          <Route path="/" element={<TopBar/>}>
+          <Route path="/" element={<TopBar/>}/>
+          <Route path="/prueba" element={<MenuBar/>}>
             <Route path="verificacion/:idcodigo" element={<FormularioCodigoVerificacion/>}/>
             <Route path="crear-ticket" element={<FormularioTicket />} />
             <Route path="direcciones" element={<FormularioDireccion />} />
