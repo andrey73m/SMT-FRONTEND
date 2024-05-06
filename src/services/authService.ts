@@ -2,7 +2,6 @@ import axios from "axios"
 import { env } from "../environment"
 import { CamposCodigoVerificacion, CamposLogin, CamposRegistro } from "../components/formularios/validators"
 import { AxiosError } from "axios"
-
 import tokenService from "./tokenService"
 
 export default {
@@ -44,15 +43,3 @@ export default {
 
   }
 }
-
-// export const crearDireccion = async(data: CamposDireccion) => {
-//   try{
-//     const token = cookies.get("token")
-//     const res = await axios.post(`${env.BACKEND_ROOT}/domicilio/direcciones`, data, { headers: { Authorization: token } })
-//     return res.data;
-//   }catch(e){
-//     const error = e as AxiosError;
-//     return { error: error.response }
-//   }
-  
-// }

@@ -6,8 +6,8 @@ import Spinner from "../../UI/Spinner";
 import { useEffect, useRef } from "react";
 import { Boton } from "../../UI";
 import VistaRol from "../../wrappers/VistaRol";
-import BotonPrimario from "../../UI/BotonPrimario";
-import BotonNegativo from "../../UI/BotonNegativo";
+import BotonPrimario from "../../UI/Botones/BotonPrimario";
+import BotonNegativo from "../../UI/Botones/BotonNegativo";
 
 
 interface DataTicket{
@@ -78,7 +78,7 @@ const VistaTicket = () => {
               </VistaRol>
               <div className="grow">
 
-                <BotonNegativo>Rechazar</BotonNegativo>
+                <BotonPrimarioNegativo>Rechazar</BotonPrimarioNegativo>
               </div>
             </>
           

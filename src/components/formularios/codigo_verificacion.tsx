@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form"
 import ErrorFormulario from "./Error"
 import { CamposCodigoVerificacion, codigoVerificacionResolver } from "./validators"
-import { Boton, CampoTexto } from "../UI"
+import {  CampoTexto } from "../UI"
 import { useParams } from "react-router-dom"
 import authService from "../../services/authService"
 import { useNavigate } from "react-router-dom"
@@ -9,6 +9,7 @@ import FormularioAuth from "../UI/FormularioAuth"
 import Enlace from "../UI/Enlace"
 import { verificar } from "../../store/features/sesion"
 import { useDispatch } from "react-redux"
+import { BotonPrimario } from "../UI/Botones"
 
 const FormularioCodigoVerificacion = () => {
 
@@ -55,7 +56,7 @@ const FormularioCodigoVerificacion = () => {
     <FormularioAuth titulo="Codigo verificación" onSubmit={handleSubmit(onSubmit)} className="rounded-lg bg-indigo-950 w-1/4 flex flex-col items-center justify-normal p-5">
       {errors.codigo && <ErrorFormulario>{errors.codigo.message}</ErrorFormulario>}
       <CampoTexto  {...register("codigo")} placeholder="Codigo de verificacion" type="text" />
-      <Boton type="submit" >Enviar codigo</Boton>
+      <BotonPrimario type="submit" >Enviar codigo</BotonPrimario>
       <Enlace onClick={reenvio} disabled={true} >Reenviar codigo</Enlace>
     </FormularioAuth>
   )

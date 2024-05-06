@@ -1,11 +1,12 @@
 import { useForm } from "react-hook-form"
-import { Boton, CampoTexto } from "../UI"
+import {  CampoTexto } from "../UI"
 import { direccionResolver, CamposDireccion } from "./validators";
 import ErrorFormulario from "./Error"
 import QuerySelect from "./QuerySelect";
 import axios from "axios";
 import { env } from "../../environment";
 import { useCallback } from "react";
+import { BotonPrimario } from "../UI/Botones";
 
 const FormularioDireccion = () => {
   const { register, handleSubmit, getValues,watch, formState: { errors } } = useForm<CamposDireccion>(
@@ -43,7 +44,7 @@ const FormularioDireccion = () => {
       {errors.cadena_direccion && <ErrorFormulario>{errors.cadena_direccion.message}</ErrorFormulario>}
       <CampoTexto  {...register("cadena_direccion")} placeholder="Direccion"/>
 
-      <Boton type="submit" >Guardar dirección</Boton>
+      <BotonPrimario type="submit" >Guardar dirección</BotonPrimario>
       
     </form>
   )

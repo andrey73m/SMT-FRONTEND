@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form"
-import { Boton, CampoTexto } from "../UI"
+import { CampoTexto } from "../UI"
 import { loginResolver, CamposLogin } from "./validators";
 import ErrorFormulario from "./Error"
 import { Link, useNavigate } from "react-router-dom";
@@ -8,6 +8,7 @@ import Enlace from "../UI/Enlace";
 import { login } from "../../store/features/sesion";
 import { useAppDispatch } from "../../store";
 import { ThunkResponse } from "../../store/utils";
+import { BotonPrimario } from "../UI/Botones";
 
 const FormularioLogin = () => {
   const { register, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<CamposLogin>(
@@ -51,7 +52,7 @@ const FormularioLogin = () => {
       <CampoTexto  {...register("email")} placeholder="Correo" type="email"/>
       {errors.clave && <ErrorFormulario>{errors.clave.message}</ErrorFormulario>}
       <CampoTexto {...register("clave")} placeholder="Contraseña" type="password"/>
-      <Boton type="submit" >Iniciar sesión</Boton>
+      <BotonPrimario type="submit" >Iniciar sesión</BotonPrimario>
       <p>¿No tienes cuenta?</p>
       <Link to="/registro">
         <Enlace>Registrate aquí</Enlace>
