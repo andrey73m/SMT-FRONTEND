@@ -15,9 +15,7 @@ const MenuBar = () => {
       setAbierto(true)
       document.addEventListener("mousedown",handleClose)
     }
-    useEffect(() =>
-      () => {document.removeEventListener("mousedown", handleClose)}
-    ,[])
+    useEffect(() => {document.removeEventListener("mousedown", handleClose)} , [])
 
     return (
       <>
