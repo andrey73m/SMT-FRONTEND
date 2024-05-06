@@ -32,7 +32,7 @@ const InfoUsuario = () => {
           <p className="text-indigo-300 text-xs">{info.nombreUsuario}</p>
 
         </div>
-        <div className="flex p-0.5 h-full mx-1 ">
+        <div className="flex p-0.5 h-full mx-0.5 sm:mx-1 ">
           <IconoUsuario />
         
         </div>

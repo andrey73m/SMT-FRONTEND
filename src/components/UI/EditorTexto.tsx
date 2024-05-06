@@ -1,15 +1,14 @@
-import { forwardRef } from "react";
-import { RefCallBack, useFormContext } from "react-hook-form";
+
 import ReactQuill from "react-quill"
 import "react-quill/dist/quill.snow.css"
 
 interface Props extends ReactQuill.ReactQuillProps{}
 
-const EditorTexto = (props:Props) => {
+const EditorTexto = ({ className,...props }:Props) => {
   return (
     <ReactQuill
       {...props}
-      className="w-full h-48 mb-12"
+      className={`w-full h-48 ${className}`}
       theme="snow"
     />
   )

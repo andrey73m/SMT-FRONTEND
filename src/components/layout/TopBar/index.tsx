@@ -13,7 +13,7 @@ const TopBar = () => {
 
   return (
     <>
-      <div className="flex sm:grow  w-full h-12 bg-violet-950 text-white">
+      <div className="flex relative top-0 sm:grow  w-full h-12 bg-violet-950 text-white z-50">
         
         <LogoTopBar/>
         <div className="flex grow justify-end pr-1">
@@ -36,7 +36,7 @@ const TopBar = () => {
           {
             haySesion &&
             <>
-              <div className="flex mx-2 gap-x-2 relative">
+              <div className="flex mx-2 gap-x-2 sm:relative">
                 <BotonTopBar >
                   <Config className="transition-all" />
                 </BotonTopBar>

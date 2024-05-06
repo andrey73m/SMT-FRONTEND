@@ -16,6 +16,7 @@ const ElementoFlotante = forwardRef<HTMLDivElement, ElementoFlotanteProps>(({ ab
         ${abierto ? enAbierto[0] : enAbierto[1]} 
         transition-all
         absolute 
+        z-50
         ${className}
       `}
       ref={ref}

@@ -10,6 +10,8 @@ import { useEffect } from "react"
 import { useAppDispatch } from "./store"
 import { cargarSesion } from "./store/features/sesion"
 import TopBar from "./components/layout/TopBar"
+import VisorTexto from "./components/UI/VisorTexto"
+import VistaTicket from "./components/views/tickets/VistaTicket"
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -27,6 +29,8 @@ const App = () => {
 
           <Route path="/" element={<TopBar/>}>
             <Route path="crear-ticket" element={<FormularioTicket />} />
+            <Route path="tickets" element={<VisorTexto/>} />
+            <Route path="tickets/:idticket" element={<VistaTicket />} />
             <Route path="direcciones" element={<FormularioDireccion />} />
             <Route path="catalogo" element={<FormularioComponente />} />
             <Route path="inventario" element={<FormularioInventario />} />

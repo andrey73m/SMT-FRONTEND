@@ -1,9 +1,10 @@
-interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement>{}
+export interface BotonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>{}
 
 
-const Boton = ({ children,...props }: Props) => {
+
+const Boton = ({ children, className,...props }: BotonProps) => {
   return(
-    <button className=" w-full rounded-lg bg-violet-700 p-2 text-white hover:bg-violet-500" {...props}>{children}</button>
+    <button className={` w-full rounded-lg  p-2 text-white  ${className}`} {...props}>{children}</button>
   )
 }
 
