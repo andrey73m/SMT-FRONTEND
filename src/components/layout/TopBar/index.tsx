@@ -14,7 +14,7 @@ const TopBar = () => {
 
   return (
     <>
-      <div className="flex relative top-0 sm:grow  w-full h-12 bg-violet-950 text-white z-50">
+      <div className="flex fixed top-0 w-full h-12 bg-violet-950 text-white z-50">
         <BotonMenu/>
         <LogoTopBar/>
         <div className="flex grow justify-end pr-1">
@@ -51,6 +51,7 @@ const TopBar = () => {
         </div>
       </div>
       <Outlet/>
+
     </>
   )
 }

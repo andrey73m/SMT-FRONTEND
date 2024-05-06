@@ -6,7 +6,10 @@ const useRolUsuario = () => {
 
   const query = useQuery({
     queryKey: ["rol-usuario"],
-    queryFn: authService.getRol,
+    queryFn: () => {
+      console.log("buscando rol")
+      return authService.getRol()
+    },
     retry: 1
   })
 

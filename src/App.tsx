@@ -12,8 +12,10 @@ import { cargarSesion } from "./store/features/sesion"
 import TopBar from "./components/layout/TopBar"
 import VisorTexto from "./components/UI/VisorTexto"
 import VistaTicket from "./components/views/tickets/VistaTicket"
+import Guardian from "./components/wrappers/Guardian"
+import FormularioServicio from "./components/formularios/servicio"
+import Home from "./components/pages/Home"
 
-import VistaRol from "./components/wrappers/VistaRol"
 const App = () => {
   const dispatch = useAppDispatch()
   useEffect(() => {
@@ -26,17 +28,22 @@ const App = () => {
         <Routes>
           <Route path="/registro" element={<FormularioRegistrarse />}/>
           <Route path="/login" element={<FormularioLogin/>}/>
+          <Route path="verificacion/:idcodigo" element={<FormularioCodigoVerificacion/>}/>
           <Route path="/" element={<TopBar/>}>
-            <Route path="verificacion/:idcodigo" element={<FormularioCodigoVerificacion/>}/>
+            <Route path="/" element={<Home/>}/>
             <Route path="crear-ticket" element={
-              <VistaRol roles={["cliente"]}>
-
+              <Guardian roles={["cliente"]} sinCuenta>
                 <FormularioTicket />
-              </VistaRol>
+              </Guardian>
             } />
             <Route path="tickets" element={<VisorTexto/>} />
-            <Route path="tickets/:idticket" element={<VistaTicket />} />
+            <Route path="tickets/:idticket" element={
+              <Guardian>
+                <VistaTicket />
+              </Guardian>
+            } />
             <Route path="direcciones" element={<FormularioDireccion />} />
+            <Route path="crear-servicio" element={<FormularioServicio/>}/>
             <Route path="catalogo" element={<FormularioComponente />} />
             <Route path="inventario" element={<FormularioInventario />} />
           </Route>

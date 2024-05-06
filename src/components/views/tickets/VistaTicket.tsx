@@ -13,7 +13,7 @@ import BotonNegativo from "../../UI/Botones/BotonNegativo";
 interface DataTicket{
   idticket: string;
   empleado_asignado: string;
-  idclasificacion: number;
+  idtipo_servicio: number;
   asunto: string;
   contenido: string;
   estado: string;

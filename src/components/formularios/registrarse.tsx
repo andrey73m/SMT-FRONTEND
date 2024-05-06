@@ -52,7 +52,10 @@ const FormularioRegistrarse = () => {
     }
     
     res = await authService.registrarRol(data).catch(errores)
- 
+    if (res) {
+      const id = res.verificationId
+      return navigate(`/verificacion/${id}`)
+    }
   }
 
   return (

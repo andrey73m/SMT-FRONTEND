@@ -6,6 +6,8 @@ import { componenteValidator, CamposComponente } from "./componente";
 import { inventarioValidator, CamposInventario } from "./inventario";
 import { codigoVerificacionValidator, CamposCodigoVerificacion } from "./codigo_verificacion";
 import { CamposTicket,ticketValidator } from "./ticket";
+import { servicioValidator } from "./servicio";
+import { CamposServicio } from "./servicio";
 
 const registroResolver = zodResolver(registroValidator)
 const loginResolver = zodResolver(loginValidator)
@@ -14,6 +16,8 @@ const componenteResolver = zodResolver(componenteValidator)
 const inventarioResolver = zodResolver(inventarioValidator)
 const codigoVerificacionResolver = zodResolver(codigoVerificacionValidator)
 const ticketResolver = zodResolver(ticketValidator)
+const servicioResolver = zodResolver(servicioValidator)
+
 
 export {
   registroResolver,
@@ -22,7 +26,8 @@ export {
   componenteResolver,
   inventarioResolver,
   codigoVerificacionResolver,
-  ticketResolver
+  ticketResolver,
+  servicioResolver
 }
 
 export type {
@@ -32,5 +37,6 @@ export type {
   CamposComponente,
   CamposInventario,
   CamposCodigoVerificacion,
-  CamposTicket
+  CamposTicket,
+  CamposServicio,
 }
