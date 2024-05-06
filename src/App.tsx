@@ -13,7 +13,6 @@ import TopBar from "./components/layout/TopBar"
 import VisorTexto from "./components/UI/VisorTexto"
 import VistaTicket from "./components/views/tickets/VistaTicket"
 
-import MenuBar from "./components/layout/MenuBar"
 import VistaRol from "./components/wrappers/VistaRol"
 const App = () => {
   const dispatch = useAppDispatch()

@@ -33,7 +33,7 @@ const BotonNotificaciones = () => {
   useEffect(() => {
     const onNotification = (notificacion: DataNotificacion) => {
       const state = store.getState()
-      if (!state.topBar.abierto) setVistas(false);
+      if (!state.topBar.notificacion.abierto) setVistas(false);
       notificacion.intervalo = timeService.convertirFechaEnIntervalo(notificacion.fecha_creacion)
       agregarNotificacion(notificacion)
     }
