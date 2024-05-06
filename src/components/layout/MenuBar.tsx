@@ -1,38 +1,26 @@
 import IconoMenu from "../icons/Menu";
-import { useState, useEffect } from "react";
 import MenuFlotante from "./MenuFlotante";
+import { useAppDispatch } from "../../store";
+import { abrirMenu } from "../../store/features/TopBar";
 
-const MenuBar = () => {
+//TODO:OPCIONAL > HACER QUE LA BARRA LATERAL SEA VISIBLE SIEMPRE EN PANTALLAS GRANDES
 
 
-  const BotonMenu = () => {
-    const [abierto, setAbierto] = useState(false)
+const BotonMenu = () => {
+  
+  const dispatch = useAppDispatch()
 
-    const handleClose = () => {
-      setAbierto(false)
-    }
-    const clickHandler = () => {
-      setAbierto(true)
-      document.addEventListener("mousedown",handleClose)
-    }
-    useEffect(() =>
-      () => {document.removeEventListener("mousedown", handleClose)}
-    ,[])
-
-    return (
-      <>
-        <IconoMenu onClick={clickHandler}/>
-        <MenuFlotante abierto={abierto}/>
-      </>
-    )
+  const clickHandler = () => {
+    dispatch(abrirMenu())
   }
 
   return (
-    
-    <div className="flex justify-end w-full h-10 bg-indigo-950 text-white pr-3">
-      <BotonPrimarioMenu/>
-    </div>
+    <>
+      <IconoMenu onMouseDown={clickHandler}/>
+      <MenuFlotante/>
+    </>
   )
 }
 
-export default MenuBar;
+
+export default BotonMenu;

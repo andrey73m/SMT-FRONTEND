@@ -1,7 +1,7 @@
 import { DataNotificacion, useMutationNotificaciones, useNotificaciones } from "../../../hooks"
 import timeService from "../../../services/timeService"
 import { store, useAppDispatch } from "../../../store"
-import { abrirNotificaciones,cerrarNotificaciones } from "../../../store/features/Topbar/notificacion"
+import { abrirNotificaciones,cerrarNotificaciones } from "../../../store/features/TopBar"
 import { socketService } from "../../../services/socketService"
 import { useEffect, useRef, useState } from "react"
 import BotonTopBar from "./Boton"
@@ -33,7 +33,7 @@ const BotonNotificaciones = () => {
   useEffect(() => {
     const onNotification = (notificacion: DataNotificacion) => {
       const state = store.getState()
-      if (!state.notificaciones.abierto) setVistas(false);
+      if (!state.topBar.abierto) setVistas(false);
       notificacion.intervalo = timeService.convertirFechaEnIntervalo(notificacion.fecha_creacion)
       agregarNotificacion(notificacion)
     }

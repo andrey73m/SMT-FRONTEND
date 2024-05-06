@@ -5,6 +5,7 @@ import BotonTopBar from "./Boton";
 import BotonNotificaciones from "./BotonNotificaciones";
 import LogoTopBar from "./Logo";
 import InfoUsuario from "./InfoUsuario";
+import BotonMenu from "../MenuBar";
 
 const TopBar = () => {
 
@@ -14,7 +15,7 @@ const TopBar = () => {
   return (
     <>
       <div className="flex relative top-0 sm:grow  w-full h-12 bg-violet-950 text-white z-50">
-        
+        <BotonMenu/>
         <LogoTopBar/>
         <div className="flex grow justify-end pr-1">
           {!haySesion &&

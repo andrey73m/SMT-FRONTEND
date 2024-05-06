@@ -1,25 +1,34 @@
 import { Link } from "react-router-dom";
-import Enlace from "../UI/Enlace";
+import { useAppDispatch } from "../../store";
+import { cerrarMenu } from "../../store/features/TopBar";
+import useMenuLateral from "../../hooks/menuLateral";
+import LogoTopBar from "./TopBar/Logo";
+import LogoPrincipal from "../icons/LogoPrincipal";
 
-interface MenuFlotanteProps {
-  abierto: boolean;
-}
 
-const MenuFlotante = ({ abierto }: MenuFlotanteProps) => {
-  
+
+const MenuFlotante = () => {
+  const { abierto } = useMenuLateral()
+
+  const dispatch = useAppDispatch()
+  const handleClose = () => {
+    dispatch(cerrarMenu())
+  }
   return (
     <div>
-      <div className={`${!abierto && "hidden"} bg-gray-600/50 h-screen w-full fixed top-0 
-      left-0 right-0 backdrop-blur-sm `}></div>
         
-      <div className={`${abierto ? "visible scale-w-72" : "invisible scale-w-0"} bg-indigo-600 min-h-screen w-72
-      fixed top-0 right-0 transition-all duration-500`}>
-        <div className="text-center py-3 text-2xl mb-7">SMT</div>
+      <div onClick={handleClose} className={`${!abierto && "hidden"} bg-gray-600/50 h-screen w-screen fixed top-0 
+     right-0 backdrop-blur-sm transition-all z-50`}></div>
+      <div className={`${abierto ? "left-0" : "-left-96"} bg-violet-950 min-h-screen w-72 sm:w-96 
+      fixed top-0  transition-all duration-100 z-50`}>
+        <div className="h-12 flex w-full bg-purple-900 mb-5 justify-center">
+          <LogoPrincipal/>
+        </div>
         
         <div className="text-center">
           <div className="text-2xs m-1 hover:bg-indigo-400 cursor-pointer">Hola</div>
-          <Link to="/login">
-            <Enlace>Inicia sesión aquí</Enlace>
+          <Link to="/login" >
+            <div className="text-2xs m-1  hover:bg-indigo-400 cursor-pointer">Iniciar sesión</div>
           </Link>
         </div>
       </div>

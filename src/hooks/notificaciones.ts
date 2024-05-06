@@ -18,7 +18,7 @@ export interface DataNotificacion{
 }
 
 const useNotificaciones = () => {
-  const abierto = useAppSelector(state => state.notificaciones.abierto)
+  const abierto = useAppSelector(state => state.topBar.notificacion.abierto)
   const notificationQuery = useQuery<DataNotificacion[]>({
     queryKey: ["notificaciones"],
     queryFn: async () => {
