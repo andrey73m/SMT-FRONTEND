@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@artsy/fresnel':
+    specifier: ^7.1.4
+    version: 7.1.4(react@18.2.0)
   '@hookform/resolvers':
     specifier: ^3.3.4
     version: 3.3.4(react-hook-form@7.51.3)
@@ -114,6 +117,15 @@ packages:
       '@jridgewell/gen-mapping': 0.3.5
       '@jridgewell/trace-mapping': 0.3.25
     dev: true
+
+  /@artsy/fresnel@7.1.4(react@18.2.0):
+    resolution: {integrity: sha512-qbUdxzlcI9Q9Ez+HfYDq7hlLoeFKC8EKcCckW+EltWu9SWL3px4QZIkr7NwYEz13q/nLvAlHMnbJ3TpSEEZ1zg==}
+    engines: {node: '>=12.20.2', yarn: 1.x.x}
+    peerDependencies:
+      react: '>=18.0.0'
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /@babel/code-frame@7.24.2:
     resolution: {integrity: sha512-y5+tLQyV8pg3fsiln67BVLD1P13Eg4lh5RW9mF0zUuvLrv9uIQ4MCL+CRT+FTsBlBjcIan6PGsLcBN0m3ClUyQ==}

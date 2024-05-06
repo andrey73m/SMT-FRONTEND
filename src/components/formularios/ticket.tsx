@@ -1,9 +1,10 @@
 import { useForm, FormProvider } from "react-hook-form";
-import { Boton, CampoTexto, EditorTexto } from "../UI";
+import {  CampoTexto, EditorTexto } from "../UI";
 import CampoFormateado from "./CampoFormateado";
 import { CamposTicket } from "./validators";
 import ticketService from "../../services/ticketService";
 import useSesion from "../../hooks/sesion";
+import { BotonPrimario } from "../UI/Botones";
 
 const FormularioTicket = () => {
 
@@ -30,7 +31,7 @@ const FormularioTicket = () => {
           {!haySesion && <CampoTexto placeholder="correo electronico" {...metodos.register("email")} />}
           <CampoTexto placeholder="Asunto" {...metodos.register("asunto")}/>
           <CampoFormateado name="contenido"/>
-          <Boton type="submit" >Enviar</Boton>
+          <BotonPrimario type="submit" >Enviar</BotonPrimario>
         </form>
       </FormProvider>
     </>

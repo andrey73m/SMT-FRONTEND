@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form"
-import { Boton, CampoTexto } from "../UI"
+import {  CampoTexto } from "../UI"
 import { componenteResolver, CamposComponente } from "./validators";
 import ErrorFormulario from "./Error"
+import { BotonPrimario } from "../UI/Botones";
 
 const FormularioComponente = () => {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<CamposComponente>(
@@ -32,7 +33,7 @@ const FormularioComponente = () => {
       {errors.descripcion && <ErrorFormulario>{errors.descripcion.message}</ErrorFormulario>}
       <CampoTexto  {...register("descripcion")} placeholder="Descripcion"/>
 
-      <Boton type="submit" >Guardar componente</Boton>
+      <BotonPrimario type="submit" >Guardar componente</BotonPrimario>
       
     </form>
   )

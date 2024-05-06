@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form"
-import { Boton, CampoTexto } from "../UI"
+import {  CampoTexto } from "../UI"
 import { inventarioResolver, CamposInventario } from "./validators";
 import ErrorFormulario from "./Error"
+import { BotonPrimario } from "../UI/Botones";
 
 const FormularioInventario = () => {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<CamposInventario>(
@@ -28,7 +29,7 @@ const FormularioInventario = () => {
       <CampoTexto  {...register("disponibilidad")} placeholder="Disponibilidad"/>
       {errors.precio && <ErrorFormulario>{errors.precio.message}</ErrorFormulario>}
       <CampoTexto  {...register("precio")} placeholder="Precio"/>
-      <Boton type="submit" >Actualizar inventario</Boton>
+      <BotonPrimario type="submit" >Actualizar inventario</BotonPrimario>
       
     </form>
   )

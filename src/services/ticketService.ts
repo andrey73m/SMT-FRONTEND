@@ -12,5 +12,20 @@ export default{
     const auth = tokenService.getAuthHeader()
     const res = await axios.post(`${env.BACKEND_ROOT}/tickets/email`, data, { headers: auth })
     return res.data;
+  },
+  getClientTicket: async (id: string) => {
+    const auth = tokenService.getAuthHeader()
+    const res = await axios.get(`${env.BACKEND_ROOT}/tickets/gestionar/${id}`, { headers: auth })
+    return res.data;
+  },
+  getTickets: async (id: string) => {
+    const auth = tokenService.getAuthHeader()
+    const res = await axios.get(`${env.BACKEND_ROOT}/tickets/${id}`, { headers: auth })
+    return res.data;
+  },
+  aceptarTicket: async (id: string) => {
+    const auth = tokenService.getAuthHeader()
+    const res = await axios.put(`${env.BACKEND_ROOT}/tickets/aceptar/${id}`,{}, { headers: auth })
+    return res.data;
   }
 }

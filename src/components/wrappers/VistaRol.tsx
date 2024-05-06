@@ -5,6 +5,7 @@ interface Props extends React.HTMLAttributes<HTMLElement>{
 
 const VistaRol = (props : Props) => {
   const rol = useRolUsuario()
+  console.log("rol",rol)
   return (props.roles.includes(rol) && props.children)
 }
 

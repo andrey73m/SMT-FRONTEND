@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form"
-import { Boton, CampoTexto , CampoFecha } from "../UI"
+import {  CampoTexto , CampoFecha } from "../UI"
 import { registroResolver, CamposRegistro } from "./validators"
 import ErrorFormulario from "./Error"
 import authService from "../../services/authService"
@@ -10,6 +10,7 @@ import Enlace from "../UI/Enlace"
 import { AxiosError } from "axios"
 import VistaRol from "../wrappers/VistaRol"
 import Select from "../UI/Select"
+import { BotonPrimario } from "../UI/Botones"
 
 const FormularioRegistrarse = () => {
 
@@ -84,7 +85,7 @@ const FormularioRegistrarse = () => {
       {errors.fecha_nac && <ErrorFormulario>{errors.fecha_nac.message}</ErrorFormulario>}
       <CampoFecha {...register("fecha_nac")} placeholder="Fecha de nacimiento"/>
 
-      <Boton type="submit" >Registrarse</Boton>
+      <BotonPrimario type="submit" >Registrarse</BotonPrimario>
       <p className="">¿Ya tiene cuenta?</p>
       <Link to="/login">
         <Enlace>Inicia sesión aquí</Enlace>

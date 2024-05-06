@@ -39,6 +39,9 @@ export default {
             "background-position": "right center"
           }
         }
+      },
+      fontFamily: {
+        poetsen: ["Poetsen One"]
       }
     },
   },
