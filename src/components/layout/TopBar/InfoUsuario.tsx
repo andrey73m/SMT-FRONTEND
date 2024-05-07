@@ -5,6 +5,7 @@ import { cerrarSesion } from "../../../store/features/sesion";
 import LogOut from "../../icons/LogOut";
 import IconoUsuario from "../../icons/Usuario";
 import BotonTopBar from "./Boton";
+import Config from "../../icons/Config";
 
 const InfoUsuario = () => {
   const { info } = useSesion()
@@ -24,11 +25,11 @@ const InfoUsuario = () => {
     setVisible(visible)
   }
   return (
-    <div className="flex gap-x-1 ml-2" onMouseEnter={() => updateVisible(true)} onMouseLeave={() => updateVisible(false)}>
+    <div className="flex ml-2 gap-x-1" onMouseEnter={() => updateVisible(true)} onMouseLeave={() => updateVisible(false)}>
       <div className="flex px-2 bg-indigo-950 border-l-2 border-r-2 border-dotted border-x-indigo-300 ">
 
         <div className="hidden md:flex flex-col text-right justify-center h-full transition-all">
-          <p className="text-xs">{info.nombres} {info.apellidos}</p>
+          <p className="text-xs text-nowrap">{info.nombres} {info.apellidos}</p>
           <p className="text-indigo-300 text-xs">{info.nombreUsuario}</p>
 
         </div>
@@ -38,9 +39,12 @@ const InfoUsuario = () => {
         </div>
       
       </div>
-      <div className={`flex ${visible ? "opacity-100" : "hidden opacity-0"}`}>
+      <div className={`flex shrink justify-center ${visible ? "" : "hidden"}`}>
         <BotonTopBar onClick={logoutHandler} >
           <LogOut className="hover:text-rose-600 transition-colors" ping={ping} />
+        </BotonTopBar>
+        <BotonTopBar >
+          <Config className="transition-all" />
         </BotonTopBar>
       </div>
     </div>

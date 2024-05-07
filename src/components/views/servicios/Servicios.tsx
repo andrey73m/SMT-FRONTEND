@@ -5,7 +5,8 @@ import Spinner from "../../UI/Spinner";
 interface DataServicio{
   idservicio: number,
   tipo_servicio: string,
-  descripcion: string
+  descripcion: string,
+  url_imagen: string
 }
 
 
@@ -23,10 +24,16 @@ const Servicios = (props: ServiciosProps) => {
   return (
     <>
       {
-        serviciosQuery.data?.map(servicio =>
-          <div key={servicio.idservicio} className="w-full p-5 h-auto border-2 border-gray-300 ">
-            <h3 className="font-bold text-3xl">{servicio.tipo_servicio}</h3>
-            <p>{servicio.descripcion}</p>
+        serviciosQuery.data?.map((servicio,i) =>
+
+          <div key={servicio.idservicio} className={`flex w-full items-center p-5 h-auto border-b-2 border-gray-300 ${i % 2 === 0 ? "justify-start " : "flex-row-reverse"}`}>
+            <div className="rounded-full h-80 w-80 bg-image bg-center mx-12" style={{ backgroundImage: `url('${servicio.url_imagen}')` }}>
+
+            </div>
+            <div className={`w-full md:w-3/5 ${i % 2 === 0 ? "text-left" : "text-right"}`}>
+              <h3 className="font-bold text-4xl">{servicio.tipo_servicio}</h3>
+              <p className="text-3xl">{servicio.descripcion}</p>
+            </div>
           </div>
         )
       }
