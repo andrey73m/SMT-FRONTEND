@@ -32,7 +32,7 @@ const App = () => {
           <Route path="/" element={<TopBar/>}>
             <Route path="/" element={<Home/>}/>
             <Route path="crear-ticket" element={
-              <Guardian roles={["cliente"]} sinCuenta>
+              <Guardian roles={["cliente"]} permitirSinAutenticar>
                 <FormularioTicket />
               </Guardian>
             } />

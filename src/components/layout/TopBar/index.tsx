@@ -6,12 +6,17 @@ import BotonNotificaciones from "./BotonNotificaciones";
 import LogoTopBar from "./Logo";
 import InfoUsuario from "./InfoUsuario";
 import BotonMenu from "../MenuBar";
+import { useEffect } from "react";
+import { useAppDispatch } from "../../../store";
+import { resetTobBar } from "../../../store/features/TopBar";
 
 const TopBar = () => {
 
   const { haySesion } = useSesion()
-  
+  const dispatch = useAppDispatch()
 
+  useEffect(() =>
+    () => {dispatch(resetTobBar())},[])
   return (
     <>
       <div className="flex fixed top-0 w-full h-12 bg-violet-950 text-white z-50">
