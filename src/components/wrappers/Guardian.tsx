@@ -1,19 +1,16 @@
-import { useRolUsuario } from "../../hooks";
+import { useValidacionRol } from "../../hooks";
 import { Navigate } from "react-router-dom";
 
 interface Props extends React.HTMLAttributes<HTMLElement> {
   roles?: string[];
-  sinCuenta?: boolean;
+  permitirSinAutenticar?: boolean;
   alt?: string;
 }
 
-const Guardian = ({ sinCuenta, roles = [], alt = "/", ...props }: Props) => {
-  const rol = useRolUsuario()
-  console.log("rol", rol)
-  return ((roles.includes(rol) || (sinCuenta && !rol)) ?
-    props.children
-    :
-    <Navigate to={alt} />
+const Guardian = ({ permitirSinAutenticar, roles = [], alt = "/", ...props }: Props) => {
+  const { valido } = useValidacionRol(roles,permitirSinAutenticar)
+  return (
+    valido ? props.children : <Navigate to={alt} />
   )
 }
 

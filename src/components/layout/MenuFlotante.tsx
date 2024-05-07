@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../store";
 import { cerrarMenu } from "../../store/features/TopBar";
 import useMenuLateral from "../../hooks/menuLateral";
-import LogoTopBar from "./TopBar/Logo";
 import LogoPrincipal from "../icons/LogoPrincipal";
 
 
@@ -27,8 +26,8 @@ const MenuFlotante = () => {
         
         <div className="text-center">
           <div className="text-2xs m-1 hover:bg-indigo-400 cursor-pointer">Hola</div>
-          <Link to="/login" >
-            <div className="text-2xs m-1  hover:bg-indigo-400 cursor-pointer">Iniciar sesión</div>
+          <Link to="/" >
+            <div className="text-2xs m-1  hover:bg-indigo-400 cursor-pointer">Inicio</div>
           </Link>
         </div>
       </div>
