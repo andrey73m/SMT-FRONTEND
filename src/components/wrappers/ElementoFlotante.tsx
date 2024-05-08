@@ -1,24 +1,16 @@
 import { ReactNode, forwardRef } from "react";
+import cn from "../../cn";
+import { ClassValue } from "clsx";
 
 export interface ElementoFlotanteProps {
-  abierto?: boolean;
   children: ReactNode;
   className?: string;
-  enAbierto: [string,string]
 }
 
-const ElementoFlotante = forwardRef<HTMLDivElement, ElementoFlotanteProps>(({ abierto, enAbierto, className, ...props }, ref) => {
+const ElementoFlotante = forwardRef<HTMLDivElement, ElementoFlotanteProps>(({ className, ...props }, ref) => {
   return (
     <div
-      className={`
-        flex
-        flex-col
-        ${abierto ? enAbierto[0] : enAbierto[1]} 
-        transition-all
-        absolute 
-        z-50
-        ${className}
-      `}
+      className={cn("flex flex-col transition-all absolute z-50", className)}
       ref={ref}
     >
       {props.children}

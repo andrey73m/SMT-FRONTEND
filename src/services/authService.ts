@@ -32,7 +32,7 @@ export default {
 
   },
   reenviarCodigo: async(id: string) => {
-    const res = await axios.post(`${env.BACKEND_ROOT}/auth/resendcode/${id}`)
+    const res = await axios.get(`${env.BACKEND_ROOT}/auth/resendcode/${id}`)
     return res.data;
 
   },

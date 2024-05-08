@@ -6,7 +6,7 @@ import { socketService } from "../../../services/socketService"
 import { useEffect, useRef, useState } from "react"
 import BotonTopBar from "./Boton"
 import IconoNotificacion from "../../icons/CampanaNotificacion"
-import ListaNotificaciones from "./ListaNotificaciones"
+import ListaNotificaciones from "../../views/notificaciones"
 
 const BotonNotificaciones = () => {
   const [vistas, setVistas] = useState(true)
@@ -15,7 +15,6 @@ const BotonNotificaciones = () => {
   const refLista = useRef(null)
 
   const dispatch = useAppDispatch()
-  //TODO:OPCIONAL > MANEJAR CON REF QUE EL CLICK NO SEA SOBRE LA LISTA????
   const handleClose = (e: MouseEvent) => {
     if (refLista.current && e.target !== refLista.current){
       dispatch(cerrarNotificaciones())

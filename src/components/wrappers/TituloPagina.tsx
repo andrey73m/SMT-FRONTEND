@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useMemo } from "react";
 
 interface TituloPaginaProps {
   titulo: string;
@@ -6,7 +6,7 @@ interface TituloPaginaProps {
 }
  
 const TituloPagina = ({ titulo, children }: TituloPaginaProps) => {
-  useEffect(() => {
+  useMemo(() => {
     console.log("Cambiando titulo")
     document.title = titulo
   }, [titulo])

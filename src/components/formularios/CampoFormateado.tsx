@@ -7,7 +7,7 @@ interface Props extends ReactQuill.ReactQuillProps{
   name: string;
 }
 
-const CampoFormateado = forwardRef((props: Props, ref) => {
+const CampoFormateado = forwardRef((props: Props) => {
   const { setValue, watch } = useFormContext()
 
   const onEditorChange = (state: string) => {
@@ -20,7 +20,7 @@ const CampoFormateado = forwardRef((props: Props, ref) => {
     <EditorTexto
       onChange={onEditorChange}
       value={contenido}
-      
+      {...props}
     />
   )
 })

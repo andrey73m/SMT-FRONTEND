@@ -4,7 +4,7 @@ import authService from "../services/authService"
 
 const useRolUsuario = () => {
 
-  const { data } = useQuery({
+  const { data, isFetching } = useQuery({
     queryKey: ["rol-usuario"],
     queryFn: () => {
       console.log("buscando rol")
@@ -15,6 +15,6 @@ const useRolUsuario = () => {
     refetchOnWindowFocus: false
   })
   
-  return { rol: data?.rol }
+  return { rol: data?.rol, isFetching }
 }
 export default useRolUsuario;

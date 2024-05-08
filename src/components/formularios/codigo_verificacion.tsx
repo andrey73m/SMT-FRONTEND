@@ -8,8 +8,8 @@ import { useNavigate } from "react-router-dom"
 import FormularioAuth from "../UI/FormularioAuth"
 import Enlace from "../UI/Enlace"
 import { verificar } from "../../store/features/sesion"
-import { useDispatch } from "react-redux"
 import { BotonPrimario } from "../UI/Botones"
+import { useAppDispatch } from "../../store"
 
 const FormularioCodigoVerificacion = () => {
 
@@ -22,11 +22,10 @@ const FormularioCodigoVerificacion = () => {
 
   const { idcodigo } = useParams()
   const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const onSubmit = async (data: CamposCodigoVerificacion) => {
     console.log(idcodigo)
     if (!idcodigo) return;
-
     const res = await dispatch(verificar({ codigo: data, idcodigo })) as any
     if (res.payload.error) {
       const response = res.payload.error
@@ -53,7 +52,7 @@ const FormularioCodigoVerificacion = () => {
   }
 
   return (
-    <FormularioAuth titulo="Codigo verificación" onSubmit={handleSubmit(onSubmit)} className="rounded-lg bg-indigo-950 w-1/4 flex flex-col items-center justify-normal p-5">
+    <FormularioAuth titulo="Codigo verificación" onSubmit={handleSubmit(onSubmit)} className="rounded-lg bg-indigo-950 flex flex-col items-center justify-normal p-5">
       {errors.codigo && <ErrorFormulario>{errors.codigo.message}</ErrorFormulario>}
       <CampoTexto  {...register("codigo")} placeholder="Codigo de verificacion" type="text" />
       <BotonPrimario type="submit" >Enviar codigo</BotonPrimario>

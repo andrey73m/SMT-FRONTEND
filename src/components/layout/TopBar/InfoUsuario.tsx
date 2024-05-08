@@ -1,18 +1,19 @@
 import { TouchEventHandler, useEffect, useRef, useState } from "react";
 import { useSesion } from "../../../hooks";
 import { useAppDispatch, useAppSelector } from "../../../store";
-import { cerrarSesion } from "../../../store/features/sesion";
-import LogOut from "../../icons/LogOut";
+
 import IconoUsuario from "../../icons/Usuario";
 import BotonTopBar from "./Boton";
 import Config from "../../icons/Config";
 import { setVisibleBotonPerfil, setToqueBotonPerfil } from "../../../store/features/TopBar";
 import ElementoFlotante from "../../wrappers/ElementoFlotante";
+import cn from "../../../cn";
+import BotonLogout from "./BotonLogout";
 
 const InfoUsuario = () => {
   const { info } = useSesion()
-  const [ping, setPing] = useState(false)
-  const [timeOut, setTimeOut] = useState(0)
+  
+  const timeOut = useRef(0)
   const { visible,toque, deslizado } = useAppSelector(state => state.topBar.botonesPerfil)
   const touchRef = useRef(0)
 
@@ -24,30 +25,24 @@ const InfoUsuario = () => {
     document.addEventListener("touchstart",startTouch)
     return () => document.removeEventListener("touchstart",startTouch)
   },[])
-  const logoutHandler = () => {
-    setPing(true)
-    setTimeout(() => {
-      dispatch(cerrarSesion());
-    }, 300);
-  }
+  
   const hoverVisible = (visible: boolean) => {
     dispatch(setVisibleBotonPerfil(visible))
   }
 
   const onSwipe: TouchEventHandler<HTMLDivElement> = (e) => {
     const touchNow = e.changedTouches[0].clientX
-    console.log("DIF", touchRef.current - touchNow)
-    if (touchNow > (touchRef.current + 80))
+    if (touchNow > (touchRef.current + 50))
       dispatch(setVisibleBotonPerfil(false))
-    if (touchNow < (touchRef.current - 80))
+    if (touchNow < (touchRef.current - 50))
       dispatch(setVisibleBotonPerfil(true))
   }
 
   const onTouch = () => {
     if (!deslizado){
       dispatch(setToqueBotonPerfil(true))
-      clearTimeout(timeOut)
-      setTimeOut(setTimeout(() => dispatch(setToqueBotonPerfil(false)), 4000))
+      clearTimeout(timeOut.current)
+      timeOut.current = setTimeout(() => dispatch(setToqueBotonPerfil(false)), 4000)
     }
   }
   return (
@@ -61,17 +56,18 @@ const InfoUsuario = () => {
         </div>
         <div className="flex p-0.5 h-full mx-0.5 sm:mx-1 " onTouchMove={onSwipe} onTouchEnd={onTouch}>
           <IconoUsuario />
-          <ElementoFlotante className="right-0 top-full bg-black/35 p-3 rounded-lg w-40 text-sm" enAbierto={["opacity-100", "opacity-0"]} abierto={toque}>Desliza a la izquierda para ver las opciones</ElementoFlotante>
+          <ElementoFlotante className={cn("right-0 top-full bg-black/35 p-3 rounded-lg w-40 text-sm", { "opacity-100": toque, "opacity-0": !toque })}>Desliza a la izquierda para ver las opciones</ElementoFlotante>
         </div>
       
       </div>
-      <div className={`flex shrink justify-center transition-all ${visible ? "opacity-100" : "opacity-0 hidden"}`}>
-        <BotonTopBar onClick={logoutHandler} >
-          <LogOut className="hover:text-rose-600 transition-colors" ping={ping} />
-        </BotonTopBar>
+      <div className={cn("flex gap-x-3 justify-center transition-all",{
+        "opacity-100": visible,
+        "opacity-0 hidden": !visible
+      })}>
         <BotonTopBar >
           <Config className="transition-all" />
         </BotonTopBar>
+        <BotonLogout/>
       </div>
     </div>
   );
