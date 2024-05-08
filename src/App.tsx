@@ -15,6 +15,7 @@ import VistaTicket from "./components/views/tickets/VistaTicket"
 import Guardian from "./components/wrappers/Guardian"
 import FormularioServicio from "./components/formularios/servicio"
 import Home from "./components/pages/Home"
+import AboutUs from "./components/pages/informacion"
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -45,6 +46,8 @@ const App = () => {
             <Route path="direcciones" element={<FormularioDireccion />} />
             <Route path="crear-servicio" element={<FormularioServicio/>}/>
             <Route path="catalogo" element={<FormularioComponente />} />
+            <Route path="quienes-somos" element={<AboutUs/>} />
+            <Route path="crear-producto" element={<FormularioInventario/>}/>
             <Route path="inventario" element={<FormularioInventario />} />
           </Route>
           

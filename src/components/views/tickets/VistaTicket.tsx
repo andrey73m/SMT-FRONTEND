@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import VisorTexto from "../../UI/VisorTexto";
 import Spinner from "../../UI/Spinner";
 import { useEffect, useRef } from "react";
-import { Boton } from "../../UI";
 import VistaRol from "../../wrappers/VistaRol";
 import BotonPrimario from "../../UI/Botones/BotonPrimario";
 import BotonNegativo from "../../UI/Botones/BotonNegativo";
@@ -78,7 +77,7 @@ const VistaTicket = () => {
               </VistaRol>
               <div className="grow">
 
-                <BotonPrimarioNegativo>Rechazar</BotonPrimarioNegativo>
+                <BotonNegativo>Rechazar</BotonNegativo>
               </div>
             </>
           
