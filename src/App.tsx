@@ -15,22 +15,42 @@ import VistaTicket from "./components/views/tickets/VistaTicket"
 import Guardian from "./components/wrappers/Guardian"
 import FormularioServicio from "./components/formularios/servicio"
 import Home from "./components/pages/Home"
+import TituloPagina from "./components/wrappers/TituloPagina"
+import { useQueryClient } from "@tanstack/react-query"
 
 const App = () => {
   const dispatch = useAppDispatch()
+  const queryClient = useQueryClient()
   useEffect(() => {
     dispatch(cargarSesion())
+    queryClient.refetchQueries({ queryKey: ["rol-usuario"] })
   },[])
   return (
     <>
       <Router>
         
         <Routes>
-          <Route path="/registro" element={<FormularioRegistrarse />}/>
-          <Route path="/login" element={<FormularioLogin/>}/>
-          <Route path="verificacion/:idcodigo" element={<FormularioCodigoVerificacion/>}/>
+          <Route path="/registro" element={
+            <TituloPagina titulo="Registro">
+              <FormularioRegistrarse />
+            </TituloPagina>
+          }/>
+          <Route path="/login" element={
+            <TituloPagina titulo="Inicio de sesión">
+              <FormularioLogin/>
+            </TituloPagina>
+          }/>
+          <Route path="verificacion/:idcodigo" element={
+            <TituloPagina titulo="Código de verificación" key="1">
+              <FormularioCodigoVerificacion/>
+            </TituloPagina>
+          }/>
           <Route path="/" element={<TopBar/>}>
-            <Route path="/" element={<Home/>}/>
+            <Route path="/" element={
+              <TituloPagina titulo="Página Inicio">
+                <Home/>
+              </TituloPagina>
+            }/>
             <Route path="crear-ticket" element={
               <Guardian roles={["cliente"]} permitirSinAutenticar>
                 <FormularioTicket />
@@ -38,9 +58,7 @@ const App = () => {
             } />
             <Route path="tickets" element={<VisorTexto/>} />
             <Route path="tickets/:idticket" element={
-              <Guardian>
-                <VistaTicket />
-              </Guardian>
+              <VistaTicket />
             } />
             <Route path="direcciones" element={<FormularioDireccion />} />
             <Route path="crear-servicio" element={<FormularioServicio/>}/>

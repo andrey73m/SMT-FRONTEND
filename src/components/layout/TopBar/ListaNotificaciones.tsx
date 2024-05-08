@@ -43,6 +43,7 @@ const ListaNotificaciones = forwardRef<HTMLDivElement, ListaNotificacionesProps>
     <ListaFlotante
       abierto={abierto}
       className="
+      XD
         top-full text-black
         rounded-sm bg-white right-0
         shadow-lg w-full sm:w-[35rem] border

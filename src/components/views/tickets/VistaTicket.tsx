@@ -78,7 +78,7 @@ const VistaTicket = () => {
               </VistaRol>
               <div className="grow">
 
-                <BotonPrimarioNegativo>Rechazar</BotonPrimarioNegativo>
+                <BotonNegativo>Rechazar</BotonNegativo>
               </div>
             </>
           
