@@ -19,7 +19,7 @@ const BotonLogout = () => {
 
   const dispatch = useAppDispatch()
   const logoutHandler = () => {
-    if (!safeTimer){
+    if (!safeTimer.current){
       setPing(true)
       setTimeout(() => {
         dispatch(cerrarSesion());

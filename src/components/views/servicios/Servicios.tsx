@@ -3,7 +3,7 @@ import servicioService from "../../../services/servicioService";
 import Spinner from "../../UI/Spinner";
 import cn from "../../../cn";
 import ImagenCircular from "../../layout/imagenes/ImagenCircular";
-import { DataServicio } from "./DataServicio";
+import { DataServicio } from "../../../modelos";
 
 
 

@@ -2,7 +2,8 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 
 const estadoInicial = {
   notificacion: {
-    abierto: false
+    abierto: false,
+    hayPendientes: false
   },
   menu:{
     abierto: false
@@ -34,6 +35,9 @@ export const sliceTopBar = createSlice({
       if (action.payload) state.botonesPerfil.deslizado = true
       state.botonesPerfil.visible = action.payload;
     },
+    setHayPendientes: (state, action: PayloadAction<boolean>) => {
+      state.notificacion.hayPendientes = action.payload;
+    },
     setToqueBotonPerfil: (state, action: PayloadAction<boolean>) => {
       state.botonesPerfil.toque = action.payload
     },
@@ -43,6 +47,6 @@ export const sliceTopBar = createSlice({
   }
 })
 
-export const { abrirNotificaciones, cerrarNotificaciones, abrirMenu, cerrarMenu, setVisibleBotonPerfil, setToqueBotonPerfil, resetTobBar } = sliceTopBar.actions
+export const { abrirNotificaciones, cerrarNotificaciones, abrirMenu, cerrarMenu, setVisibleBotonPerfil, setToqueBotonPerfil, resetTobBar,setHayPendientes } = sliceTopBar.actions
 
 export default sliceTopBar.reducer;

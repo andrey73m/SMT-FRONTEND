@@ -8,18 +8,10 @@ import { Boton } from "../../UI";
 import VistaRol from "../../wrappers/VistaRol";
 import BotonPrimario from "../../UI/Botones/BotonPrimario";
 import BotonNegativo from "../../UI/Botones/BotonNegativo";
+import { DataTicket } from "../../../modelos";
 
 
-interface DataTicket{
-  idticket: string;
-  empleado_asignado: string;
-  idtipo_servicio: number;
-  asunto: string;
-  contenido: string;
-  estado: string;
-  prioridad: string;
-  fecha_creacion:Date
-}
+
 
 interface VistaTicketProps {
   idticket: string

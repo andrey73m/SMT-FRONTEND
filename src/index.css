@@ -5,30 +5,30 @@
 @tailwind utilities;
 
 @layer utilities {
-  ::-webkit-scrollbar {
+  body::-webkit-scrollbar {
     width: 15px;
     height: 5px; 
     background-color: rgb(31, 11, 65);
   }
 
-  ::-webkit-scrollbar-track {
+  body::-webkit-scrollbar-track {
     --tw-bg-opacity: 1;
       background-color: rgb(31, 11, 65); 
   }
 
-  ::-webkit-scrollbar-thumb {
+  body::-webkit-scrollbar-thumb {
     --tw-bg-opacity: 1;
       background: linear-gradient(rgba(200, 46, 255, 1) 0%, rgba(109, 40, 217, 1) 64%);
     border-radius: 100vh;
     transition: 8s;
   }
 
-  ::-webkit-scrollbar-thumb:hover {
+  body::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(rgb(186, 43, 238) 0%, rgb(99, 37, 199) 64%);
     
   }
 
-  ::selection{
+  body::selection{
     background: rgb(45, 17, 95);
     color: white
   }

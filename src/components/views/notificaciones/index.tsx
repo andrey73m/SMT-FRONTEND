@@ -1,10 +1,13 @@
 
-import { DataNotificacion } from "../../../hooks";
+import { useNotificaciones } from "../../../hooks";
 import { useMutationNotificaciones } from "../../../hooks";
-import { forwardRef } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import cn from "../../../cn";
 import ElementoFlotante from "../../wrappers/ElementoFlotante";
+import { useAppDispatch, useAppSelector } from "../../../store";
+import { DataNotificacion } from "../../../modelos";
+import { cerrarNotificaciones } from "../../../store/features/TopBar";
 
 
 interface NotificacionProps{
@@ -34,20 +37,35 @@ const Notificacion = ({ notificacion }: NotificacionProps) => {
   );
 }
 
-interface ListaNotificacionesProps {
-  abierto: boolean
-  notificaciones: DataNotificacion[]
-}
+const ListaNotificaciones = () => {
+  const { notificaciones } = useNotificaciones()
+  const { abierto } = useAppSelector(state => state.topBar.notificacion)
+  const dispatch = useAppDispatch()
+  const refBandejaNotificaciones = useRef(null);
 
-const ListaNotificaciones = forwardRef<HTMLDivElement, ListaNotificacionesProps>(({ abierto, notificaciones }, ref) => {
+  const handleClose = (e: MouseEvent) => {
+    if (refBandejaNotificaciones.current && e.target !== refBandejaNotificaciones.current) {
+      dispatch(cerrarNotificaciones())
+      document.removeEventListener("mousedown", handleClose)
+    }
+
+  }
+
+  useEffect(() => {
+    console.log("creando evento: ", abierto)
+    if (abierto)
+      document.addEventListener("mousedown", handleClose)
+    else
+      document.removeEventListener("mousedown", handleClose)
+  },[abierto])
 
   return (
     <ElementoFlotante
-      className={cn("top-full text-black rounded-sm bg-white right-0 shadow-lg w-full sm:w-[35rem] border mt-0.5 max-h-72 mb-12 overflow-auto scale-y-100",{
+      className={cn("top-12 text-black rounded-sm bg-white right-0 shadow-lg w-full sm:w-[35rem] border mt-0.5 max-h-72 mb-12 overflow-auto scale-y-100",{
         "scale-y-0 invisible": !abierto
       })}
 
-      ref = {ref}
+      ref = {refBandejaNotificaciones}
     >
       <ul>
         {
@@ -63,8 +81,6 @@ const ListaNotificaciones = forwardRef<HTMLDivElement, ListaNotificacionesProps>
       }
     </ElementoFlotante>
   );
-})
-
-ListaNotificaciones.displayName = "ListaNotificaciones"
+}
  
 export default ListaNotificaciones;

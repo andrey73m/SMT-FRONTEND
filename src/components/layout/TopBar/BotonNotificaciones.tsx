@@ -1,33 +1,25 @@
-import { DataNotificacion, useMutationNotificaciones, useNotificaciones } from "../../../hooks"
+
 import timeService from "../../../services/timeService"
-import { store, useAppDispatch } from "../../../store"
+import { store, useAppDispatch, useAppSelector } from "../../../store"
 import { abrirNotificaciones,cerrarNotificaciones } from "../../../store/features/TopBar"
 import { socketService } from "../../../services/socketService"
 import { useEffect, useRef, useState } from "react"
 import BotonTopBar from "./Boton"
 import IconoNotificacion from "../../icons/CampanaNotificacion"
 import ListaNotificaciones from "../../views/notificaciones"
+import { useMutationNotificaciones } from "../../../hooks"
+import { DataNotificacion } from "../../../modelos"
 
 const BotonNotificaciones = () => {
   const [vistas, setVistas] = useState(true)
-  const { hayPendientes, notificaciones, abierto } = useNotificaciones()
+  const { hayPendientes } = useAppSelector(state => state.topBar.notificacion)
   const { agregarNotificacion } = useMutationNotificaciones()
-  const refLista = useRef(null)
-
   const dispatch = useAppDispatch()
-  const handleClose = (e: MouseEvent) => {
-    if (refLista.current && e.target !== refLista.current){
-      dispatch(cerrarNotificaciones())
-      document.removeEventListener("mousedown", handleClose)
-    }
 
-  }
 
   const clickHandler = () => {
     dispatch(abrirNotificaciones())
     setVistas(true);
-    
-    document.addEventListener("mousedown", handleClose)
   }
   useEffect(() => {
     const onNotification = (notificacion: DataNotificacion) => {
@@ -50,7 +42,7 @@ const BotonNotificaciones = () => {
           <span className="w-3 h-3 bg-fuchsia-600 rounded-full absolute right-1 bottom-1 "></span>
         }
       </BotonTopBar>
-      <ListaNotificaciones notificaciones={notificaciones} abierto={abierto} ref={refLista}/>
+      <ListaNotificaciones/>
     </>
   )
 }

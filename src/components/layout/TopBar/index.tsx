@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { useAppDispatch } from "../../../store";
 import { resetTobBar } from "../../../store/features/TopBar";
 import MenuFlotante from "../MenuFlotante";
+import ListaNotificaciones from "../../views/notificaciones";
 
 const TopBar = () => {
 
@@ -20,7 +21,10 @@ const TopBar = () => {
     () => {dispatch(resetTobBar())},[])
   return (
     <>
-      <div className="flex sticky top-0 w-full h-12 bg-violet-950 text-white z-40">
+      <div className="mt-12">
+        <Outlet />
+      </div>
+      <div className="flex fixed top-0 w-full h-12 bg-violet-950 text-white z-40">
         <BotonMenu/>
         <LogoTopBar/>
         <div className="flex h-full grow justify-end pr-1">
@@ -53,7 +57,7 @@ const TopBar = () => {
         </div>
       </div>
 
-      <Outlet/>
+      
       <MenuFlotante />
     </>
   )
