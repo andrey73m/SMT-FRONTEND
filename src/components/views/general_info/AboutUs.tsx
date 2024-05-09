@@ -3,7 +3,7 @@ const QuienesSomos = () => {
 
   return (
     <>
-      <div className=" text-center">
+      <div className=" text-left">
         <div className="p-5 h-auto border-b-2 border-gray-300" >
           <h3 className="font-bold text-4xl my-2">¿Quiénes somos?</h3>
           <p className="text-2xl">	Bienvenidos a Support Max TI, tu socio confiable en soluciones de mantenimiento y soporte informático. Quienes han estado

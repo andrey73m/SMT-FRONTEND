@@ -16,6 +16,7 @@ import Guardian from "./components/wrappers/Guardian"
 import FormularioServicio from "./components/formularios/servicio"
 import Home from "./components/pages/Home"
 import AboutUs from "./components/pages/informacion"
+import Inventario from "./components/pages/inventario"
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -47,6 +48,7 @@ const App = () => {
             <Route path="crear-servicio" element={<FormularioServicio/>}/>
             <Route path="catalogo" element={<FormularioComponente />} />
             <Route path="quienes-somos" element={<AboutUs/>} />
+            <Route path="productos" element={<Inventario/>}/>
             <Route path="crear-producto" element={<FormularioInventario/>}/>
             <Route path="inventario" element={<FormularioInventario />} />
           </Route>

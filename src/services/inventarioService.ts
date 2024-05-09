@@ -6,11 +6,11 @@ import { CamposInventario } from "../components/formularios/validators"
 export default {
   crearProducto: async (data: CamposInventario) => {
     const auth = tokenService.getAuthHeader()
-    const res = await axios.post(`${env.BACKEND_ROOT}/inventario/${data.idcomponente}`,data, { headers: auth })
+    const res = await axios.post(`${env.BACKEND_ROOT}/componentes/inventario/${data.idcomponente}`,data, { headers: auth })
     return res.data;
   },
   obtenerProducto: async () => {
-    const res = await axios.get(`${env.BACKEND_ROOT}/inventario`)
+    const res = await axios.get(`${env.BACKEND_ROOT}/componentes/inventario`)
     return res.data;
   },
 }
