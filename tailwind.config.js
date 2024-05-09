@@ -40,9 +40,12 @@ export default {
           }
         }
       },
-      fontFamily: {
-        poetsen: ["Poetsen One"]
+      spacing:{
+        "topbar": "3rem"
       }
+    },
+    fontFamily: {
+      poetsen: ["Poetsen One"]
     },
   },
   plugins: [],

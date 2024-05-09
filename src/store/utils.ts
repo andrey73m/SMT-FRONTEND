@@ -1,5 +1,5 @@
 import { AxiosError } from "axios"
-import { AsyncThunk, PayloadAction } from "@reduxjs/toolkit"
+import { PayloadAction } from "@reduxjs/toolkit"
 
 export interface ThunkResponse extends PayloadAction<any, string>{
   error: any

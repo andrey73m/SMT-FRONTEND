@@ -61,7 +61,7 @@ const ListaNotificaciones = () => {
 
   return (
     <ElementoFlotante
-      className={cn("top-12 text-black rounded-sm bg-white right-0 shadow-lg w-full sm:w-[35rem] border mt-0.5 max-h-72 mb-12 overflow-auto scale-y-100",{
+      className={cn("top-topbar text-black rounded-sm bg-white right-0 shadow-lg w-full sm:w-[35rem] border mt-0.5 max-h-72 overflow-auto scale-y-100",{
         "scale-y-0 invisible": !abierto
       })}
 

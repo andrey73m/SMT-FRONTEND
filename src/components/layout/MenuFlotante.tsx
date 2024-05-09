@@ -25,7 +25,7 @@ const MenuFlotante = () => {
         "left-0": abierto,
         "-left-96": !abierto
       })}>
-        <div className="h-12 flex w-full bg-purple-900 mb-5 justify-center">
+        <div className="h-topbar flex w-full bg-purple-900 mb-5 justify-center">
           <LogoPrincipal/>
         </div>
         

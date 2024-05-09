@@ -7,8 +7,8 @@ const AlternarFormularioTicket = () => {
   return (
     < div
       className = {cn("w-full top-0  transition-all bg-white z-40 overflow-y-auto", {
-        "fixed md:sticky h-dvh md:h-auto  md:top-12": mostrarFormulario,
-        "sticky top-12": !mostrarFormulario
+        "fixed md:sticky h-dvh md:h-auto  md:top-topbar": mostrarFormulario,
+        "sticky top-topbar": !mostrarFormulario
       })}>
 
       <div onClick={() => setMostrarFormulario(!mostrarFormulario)}
