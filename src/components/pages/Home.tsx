@@ -1,6 +1,6 @@
 
 import Servicios from "@/components/views/servicios/Servicios";
-import VistaRol from "@/components/wrappers/VistaRol";
+import { VistaRol } from "@/components/wrappers"
 import ImagenTitulo from "@/components/layout/imagenes/ImagenTitulo";
 import AlternarFormularioTicket from "@/components/layout/AlternarFormularioTicket";
 

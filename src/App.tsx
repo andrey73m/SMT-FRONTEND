@@ -12,10 +12,9 @@ import { cargarSesion } from "@/store/features/sesion"
 import TopBar from "@/components/layout/TopBar"
 import VisorTexto from "@/components/UI/VisorTexto"
 import VistaTicket from "@/components/views/tickets/VistaTicket"
-import Guardian from "@/components/wrappers/Guardian"
+import { Guardian, TituloPagina } from "@/components/wrappers"
 import FormularioServicio from "@/components/formularios/servicio"
 import Home from "@/components/pages/Home"
-import TituloPagina from "@/components/wrappers/TituloPagina"
 import { useQueryClient } from "@tanstack/react-query"
 
 const App = () => {

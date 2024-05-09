@@ -3,7 +3,7 @@ import notificationService from "@/services/notificationService";
 import timeService from "@/services/timeService";
 import { useAppDispatch } from "@/store";
 import { setHayPendientes } from "@/store/features/TopBar";
-import { DataNotificacion } from "@/modelos";
+import { DataNotificacion } from "@/models";
 import { useEffect } from "react";
 
 

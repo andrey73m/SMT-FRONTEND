@@ -6,7 +6,7 @@ import IconoUsuario from "@/components/icons/Usuario";
 import BotonTopBar from "./Boton";
 import Config from "@/components/icons/Config";
 import { setVisibleBotonPerfil, setToqueBotonPerfil } from "@/store/features/TopBar";
-import ElementoFlotante from "@/components/wrappers/ElementoFlotante";
+import { ElementoFlotante } from "@/components/wrappers"
 import cn from "@/cn";
 import BotonLogout from "./BotonLogout";
 
@@ -42,7 +42,7 @@ const InfoUsuario = () => {
     if (!deslizado){
       dispatch(setToqueBotonPerfil(true))
       clearTimeout(timeOut.current)
-      timeOut.current = setTimeout(() => dispatch(setToqueBotonPerfil(false)), 4000)
+      timeOut.current = window.setTimeout(() => dispatch(setToqueBotonPerfil(false)), 4000)
     }
   }
   return (

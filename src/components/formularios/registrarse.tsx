@@ -8,7 +8,7 @@ import FormularioAuth from "../UI/FormularioAuth"
 import { Link } from "react-router-dom"
 import Enlace from "../UI/Enlace"
 import { AxiosError } from "axios"
-import VistaRol from "../wrappers/VistaRol"
+import { VistaRol } from "../wrappers"
 import Select from "../UI/Select"
 import { BotonPrimario } from "../UI/Botones"
 

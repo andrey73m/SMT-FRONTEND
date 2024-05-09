@@ -4,10 +4,10 @@ import { useParams } from "react-router-dom";
 import VisorTexto from "@/components/UI/VisorTexto";
 import Spinner from "@/components/UI/Spinner";
 import { useEffect } from "react";
-import VistaRol from "@/components/wrappers/VistaRol";
+import { VistaRol } from "@/components/wrappers"
 import BotonPrimario from "@/components/UI/Botones/BotonPrimario";
 import BotonNegativo from "@/components/UI/Botones/BotonNegativo";
-import { DataTicket } from "@/modelos";
+import { DataTicket } from "@/models";
 
 
 

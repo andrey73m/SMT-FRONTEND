@@ -8,7 +8,7 @@ import BotonTopBar from "./Boton"
 import IconoNotificacion from "@/components/icons/CampanaNotificacion"
 import ListaNotificaciones from "@/components/views/notificaciones"
 import { useMutationNotificaciones } from "@/hooks"
-import { DataNotificacion } from "@/modelos"
+import { DataNotificacion } from "@/models"
 
 const BotonNotificaciones = () => {
   const [vistas, setVistas] = useState(true)

@@ -4,9 +4,9 @@ import { useMutationNotificaciones } from "@/hooks";
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import cn from "@/cn";
-import ElementoFlotante from "@/components/wrappers/ElementoFlotante";
+import { ElementoFlotante } from "@/components/wrappers"
 import { useAppDispatch, useAppSelector } from "@/store";
-import { DataNotificacion } from "@/modelos";
+import { DataNotificacion } from "@/models";
 import { cerrarNotificaciones } from "@/store/features/TopBar";
 
 

@@ -1,6 +1,5 @@
 import { ReactNode, forwardRef } from "react";
 import cn from "@/cn";
-import { ClassValue } from "clsx";
 
 export interface ElementoFlotanteProps {
   children: ReactNode;
