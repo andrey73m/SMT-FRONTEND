@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 
 const estadoInicial = {
+  visible: true,
   notificacion: {
     abierto: false,
     hayPendientes: false
@@ -19,6 +20,9 @@ export const sliceTopBar = createSlice({
   name: "estado-topbar",
   initialState: estadoInicial,
   reducers:{
+    setVisible: (state,action: PayloadAction<boolean>) => {
+      state.visible = action.payload;
+    },
     abrirNotificaciones: (state) => {
       state.notificacion.abierto = true;
     },

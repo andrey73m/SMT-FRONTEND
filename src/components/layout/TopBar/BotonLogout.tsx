@@ -3,10 +3,12 @@ import LogOut from "@/components/icons/LogOut";
 import BotonTopBar from "./Boton";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { cerrarSesion } from "@/store/features/sesion";
+import { useQueryClient } from "@tanstack/react-query";
  
 const BotonLogout = () => {
   const safeTimer = useRef(0)
   const { visible } = useAppSelector(state => state.topBar.botonesPerfil)
+  const queryClient = useQueryClient()
 
   const limpiarTimer = () => {
     clearTimeout(safeTimer.current);
@@ -23,6 +25,7 @@ const BotonLogout = () => {
       setPing(true)
       setTimeout(() => {
         dispatch(cerrarSesion());
+        queryClient.setQueryData(["rol-usuario"], null)
       }, 300);
     }
   }

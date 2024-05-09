@@ -1,6 +1,7 @@
 
 import ReactQuill from "react-quill"
 import "react-quill/dist/quill.snow.css"
+import "react-quill/dist/quill.bubble.css"
 import cn from "@/cn"
 
 interface Props extends ReactQuill.ReactQuillProps{}
@@ -10,7 +11,7 @@ const EditorTexto = ({ className,...props }:Props) => {
     <ReactQuill
       {...props}
       className={cn("w-full h-full",className)}
-      theme="snow"
+      theme={props.readOnly ? "bubble" : "snow"}
     />
   )
 }

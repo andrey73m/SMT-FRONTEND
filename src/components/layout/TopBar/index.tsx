@@ -7,15 +7,16 @@ import LogoTopBar from "./Logo";
 import InfoUsuario from "./InfoUsuario";
 import BotonMenu from "./BotonMenu";
 import { useEffect } from "react";
-import { useAppDispatch } from "@/store";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { resetTobBar } from "@/store/features/TopBar";
 import MenuFlotante from "../MenuFlotante";
+import cn from "@/cn";
 
 const TopBar = () => {
 
   const { haySesion } = useSesion()
   const dispatch = useAppDispatch()
-
+  const { visible } = useAppSelector(state => state.topBar)
   useEffect(() =>
     () => {dispatch(resetTobBar())},[])
   return (
@@ -23,7 +24,9 @@ const TopBar = () => {
       <div className="mt-topbar">
         <Outlet />
       </div>
-      <div className="flex fixed top-0 w-full h-topbar bg-violet-950 text-white z-40">
+      <div className={cn("flex transition-transform fixed top-0 w-full h-topbar bg-violet-950 text-white z-40",{
+        "top-topbar": !visible
+      })}>
         <BotonMenu/>
         <LogoTopBar/>
         <div className="flex h-full grow justify-end pr-1">

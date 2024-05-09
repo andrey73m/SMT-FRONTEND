@@ -1,19 +1,16 @@
+import cn from "@/cn";
 import EditorTexto from "./EditorTexto"
 
 interface VisorTextoProps{
   contenido: string
-  contenedor: string
+  className?: string
 }
 
-const VisorTexto = ({ contenedor, contenido }: VisorTextoProps) => {
+const VisorTexto = ({ contenido, className }: VisorTextoProps) => {
   return (
     <EditorTexto
-      className="text-2xl -z-40"
+      className={cn("text-2xl -z-40",className)}
       readOnly
-      modules={{ toolbar: {
-        container: `#${contenedor}`
-      } }}
-      formats={["font"]}
       value={contenido}
     />
   );

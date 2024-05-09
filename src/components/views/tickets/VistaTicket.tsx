@@ -19,10 +19,11 @@ interface VistaTicketProps {
 
 const VistaTicket = () => {
   const { idticket } = useParams()
-  const ticket = useQuery<DataTicket>({
+  const { data: ticket, isFetching, isSuccess, ...ticketQuery } = useQuery<DataTicket>({
     queryKey:["ticket-prueba"],
     queryFn: () => ticketService.getClientTicket(idticket || ""),
   })
+  
   
   const handleAccept = async () => {
     if (idticket){
@@ -31,34 +32,43 @@ const VistaTicket = () => {
     }
   }
   useEffect(() => {
-    ticket.refetch()
+    ticketQuery.refetch()
   },[idticket])
-  if (ticket.isSuccess){
-    console.log("ticket",ticket.data)
+  if (isSuccess){
+    console.log("ticket",ticket)
   }
-  if (ticket.isLoading) return (<Spinner/>)
+  if (isFetching) return (<Spinner/>)
   //TODO:OPCIONAL > USAR FRESNEL PARA MANEJO DE MEDIAQUERY
   return(
     <>
       {
-        ticket.data &&
+        ticket &&
       <div className="flex flex-col px-2 md:px-32 relative transition-all mt-topbar">
-        <h2 id="TITULO_TICKET" className=" font-bold md:text-center text-3xl">{ticket.data?.asunto}</h2>
-        <VisorTexto contenedor="TITULO_TICKET" contenido={ticket.data?.contenido || ""} />
+        <div>
+          <h2  className=" font-bold text-3xl">{ticket?.asunto}</h2>
+          <p className="font-bold text-gray-500">
+            {
+              ticket.email ?
+                <>Usuario no registrado -{ticket.email}</> :
+                <>{ticket.usuario.nombres} {ticket.usuario.apellidos}  </>
+            }
+          </p>
+        </div>
+        <VisorTexto className="" contenido={ticket?.contenido || ""} />
         <span className="flex justify-between text-white items-center px-4">
           <div className="flex bg-sky-700 p-1 px-2 my-1 rounded-full justify-center items-center">
             <span className="w-3 h-3 animate-pulse bg-cyan-100 rounded-full mx-1"></span>
             <p className="font-bold">
-              {ticket.data.estado.toUpperCase()}
+              {ticket.estado.toUpperCase()}
             </p>
           </div>
-          <p className="text-gray-500 text-lg text-right w-auto">{new Date(ticket.data.fecha_creacion).toDateString()}</p>
+          <p className="text-gray-500 text-lg text-right w-auto">{new Date(ticket.fecha_creacion).toDateString()}</p>
         </span>
         <VistaRol roles={["admin", "empleado"]}>
           
           <div className="flex flex-col sm:flex-row gap-2 my-2 transition-all">
             {
-              ticket.data.estado === "nuevo" &&
+              ticket.estado === "nuevo" &&
             
             <>
               <VistaRol roles={["empleado"]}>

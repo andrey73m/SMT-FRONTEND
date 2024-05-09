@@ -1,13 +1,16 @@
 import { useState } from "react";
 import cn from "@/cn";
 import FormularioTicket from "../formularios/ticket";
- 
+
 const AlternarFormularioTicket = () => {
   const [mostrarFormulario, setMostrarFormulario] = useState(false)
+  
   return (
+    
     < div
-      className = {cn("w-full top-0  transition-all bg-white z-40 overflow-y-auto", {
-        "fixed md:sticky h-dvh md:h-auto  md:top-topbar": mostrarFormulario,
+      
+      className = {cn("flex  flex-col w-full top-0  transition-all bg-white z-40", {
+        "fixed pt-topbar md:pt-0 md:sticky h-dvh md:h-auto  md:top-topbar": mostrarFormulario,
         "sticky top-topbar": !mostrarFormulario
       })}>
 
@@ -18,7 +21,7 @@ const AlternarFormularioTicket = () => {
         })}>Si tienes problemas, ¡Mándanos un ticket!</div>
 
 
-      <div className={cn("bg-white", { "opacity-0 hidden": !mostrarFormulario, "opacity-100": mostrarFormulario })}>
+      <div className={cn("bg-white overflow-y-auto grow", { "opacity-0 hidden": !mostrarFormulario, "opacity-100": mostrarFormulario })}>
         <FormularioTicket/>
       </div>
     </div >

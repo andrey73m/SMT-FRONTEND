@@ -35,7 +35,12 @@ const Servicios = () => {
     queryKey: ["servicios"],
     queryFn: servicioService.obtenerServicios,
   })
-  if (serviciosQuery.isLoading) return <Spinner/>
+  if (serviciosQuery.isLoading)
+    return(
+      <div className="flex h-16 justify-center">
+        <Spinner className="h-full" />
+      </div>
+    )
   return (
     <>
       {
