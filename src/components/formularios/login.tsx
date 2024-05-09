@@ -5,9 +5,9 @@ import ErrorFormulario from "./Error"
 import { Link, useNavigate } from "react-router-dom";
 import FormularioAuth from "../UI/FormularioAuth";
 import Enlace from "../UI/Enlace";
-import { login } from "../../store/features/sesion";
-import { useAppDispatch } from "../../store";
-import { ThunkResponse } from "../../store/utils";
+import { login } from "@/store/features/sesion";
+import { useAppDispatch } from "@/store";
+import { ThunkResponse } from "@/store/utils";
 import { BotonPrimario } from "../UI/Botones";
 
 const FormularioLogin = () => {

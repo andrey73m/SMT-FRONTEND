@@ -1,9 +1,9 @@
 import { useForm, FormProvider } from "react-hook-form";
-import {  CampoTexto, EditorTexto } from "../UI";
+import CampoTexto from "../UI/CampoTexto";
 import CampoFormateado from "./CampoFormateado";
 import { CamposTicket } from "./validators";
-import ticketService from "../../services/ticketService";
-import useSesion from "../../hooks/sesion";
+import ticketService from "@/services/ticketService";
+import useSesion from "@/hooks/sesion";
 import { BotonPrimario } from "../UI/Botones";
 
 const FormularioTicket = () => {

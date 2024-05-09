@@ -1,13 +1,13 @@
-import { TouchEventHandler, useEffect, useRef, useState } from "react";
-import { useSesion } from "../../../hooks";
-import { useAppDispatch, useAppSelector } from "../../../store";
+import { TouchEventHandler, useEffect, useRef } from "react";
+import { useSesion } from "@/hooks";
+import { useAppDispatch, useAppSelector } from "@/store";
 
-import IconoUsuario from "../../icons/Usuario";
+import IconoUsuario from "@/components/icons/Usuario";
 import BotonTopBar from "./Boton";
-import Config from "../../icons/Config";
-import { setVisibleBotonPerfil, setToqueBotonPerfil } from "../../../store/features/TopBar";
-import ElementoFlotante from "../../wrappers/ElementoFlotante";
-import cn from "../../../cn";
+import Config from "@/components/icons/Config";
+import { setVisibleBotonPerfil, setToqueBotonPerfil } from "@/store/features/TopBar";
+import ElementoFlotante from "@/components/wrappers/ElementoFlotante";
+import cn from "@/cn";
 import BotonLogout from "./BotonLogout";
 
 const InfoUsuario = () => {

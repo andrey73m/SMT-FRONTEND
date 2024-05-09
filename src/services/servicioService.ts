@@ -1,7 +1,7 @@
 import axios from "axios"
-import { env } from "../environment"
+import { env } from "@/environment"
 import tokenService from "./tokenService"
-import { CamposServicio } from "../components/formularios/validators"
+import { CamposServicio } from "@/components/formularios/validators"
 
 export default {
   crearServicio: async (data: CamposServicio) => {

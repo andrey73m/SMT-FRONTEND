@@ -1,5 +1,5 @@
 
-import { useSesion } from "../../../hooks";
+import { useSesion } from "@/hooks";
 import { Link, Outlet } from "react-router-dom";
 import BotonTopBar from "./Boton";
 import BotonNotificaciones from "./BotonNotificaciones";
@@ -7,8 +7,8 @@ import LogoTopBar from "./Logo";
 import InfoUsuario from "./InfoUsuario";
 import BotonMenu from "./BotonMenu";
 import { useEffect } from "react";
-import { useAppDispatch } from "../../../store";
-import { resetTobBar } from "../../../store/features/TopBar";
+import { useAppDispatch } from "@/store";
+import { resetTobBar } from "@/store/features/TopBar";
 import MenuFlotante from "../MenuFlotante";
 
 const TopBar = () => {

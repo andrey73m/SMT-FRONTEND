@@ -1,6 +1,6 @@
 import axios from "axios"
 import tokenService from "./tokenService"
-import { env } from "../environment"
+import { env } from "@/environment"
 
 export default {
   getNotifications: async () => {

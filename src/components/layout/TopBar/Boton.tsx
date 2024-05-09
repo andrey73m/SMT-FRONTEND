@@ -1,4 +1,4 @@
-import cn from "../../../cn";
+import cn from "@/cn";
 
 interface BotonProps extends React.HTMLAttributes<HTMLDivElement> { }
 

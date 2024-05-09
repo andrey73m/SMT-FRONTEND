@@ -1,5 +1,5 @@
 import { useState } from "react";
-import cn from "../../cn";
+import cn from "@/cn";
 import FormularioTicket from "../formularios/ticket";
  
 const AlternarFormularioTicket = () => {

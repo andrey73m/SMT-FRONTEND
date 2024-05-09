@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import cn from "../../cn";
+import cn from "@/cn";
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement>{}
 

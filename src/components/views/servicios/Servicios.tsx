@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import servicioService from "../../../services/servicioService";
-import Spinner from "../../UI/Spinner";
-import cn from "../../../cn";
-import ImagenCircular from "../../layout/imagenes/ImagenCircular";
-import { DataServicio } from "../../../modelos";
+import servicioService from "@/services/servicioService";
+import Spinner from "@/components/UI/Spinner";
+import cn from "@/cn";
+import { ImagenCircular } from "@/components/layout/imagenes";
+import { DataServicio } from "@/modelos";
 
 
 

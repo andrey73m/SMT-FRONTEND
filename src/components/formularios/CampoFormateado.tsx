@@ -1,4 +1,4 @@
-import { forwardRef, useEffect } from "react"
+import { forwardRef } from "react"
 import { EditorTexto } from "../UI"
 import { useFormContext } from "react-hook-form"
 import ReactQuill from "react-quill"

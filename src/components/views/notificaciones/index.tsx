@@ -1,13 +1,13 @@
 
-import { useNotificaciones } from "../../../hooks";
-import { useMutationNotificaciones } from "../../../hooks";
+import { useNotificaciones } from "@/hooks";
+import { useMutationNotificaciones } from "@/hooks";
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import cn from "../../../cn";
-import ElementoFlotante from "../../wrappers/ElementoFlotante";
-import { useAppDispatch, useAppSelector } from "../../../store";
-import { DataNotificacion } from "../../../modelos";
-import { cerrarNotificaciones } from "../../../store/features/TopBar";
+import cn from "@/cn";
+import ElementoFlotante from "@/components/wrappers/ElementoFlotante";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { DataNotificacion } from "@/modelos";
+import { cerrarNotificaciones } from "@/store/features/TopBar";
 
 
 interface NotificacionProps{

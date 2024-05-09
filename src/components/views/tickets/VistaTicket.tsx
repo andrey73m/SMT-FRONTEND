@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import ticketService from "../../../services/ticketService";
+import ticketService from "@/services/ticketService";
 import { useParams } from "react-router-dom";
-import VisorTexto from "../../UI/VisorTexto";
-import Spinner from "../../UI/Spinner";
+import VisorTexto from "@/components/UI/VisorTexto";
+import Spinner from "@/components/UI/Spinner";
 import { useEffect } from "react";
-import VistaRol from "../../wrappers/VistaRol";
-import BotonPrimario from "../../UI/Botones/BotonPrimario";
-import BotonNegativo from "../../UI/Botones/BotonNegativo";
-import { DataTicket } from "../../../modelos";
+import VistaRol from "@/components/wrappers/VistaRol";
+import BotonPrimario from "@/components/UI/Botones/BotonPrimario";
+import BotonNegativo from "@/components/UI/Botones/BotonNegativo";
+import { DataTicket } from "@/modelos";
 
 
 

@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import { useAppDispatch } from "../../store";
-import { cerrarMenu } from "../../store/features/TopBar";
-import useMenuLateral from "../../hooks/menuLateral";
+import { useAppDispatch } from "@/store";
+import { cerrarMenu } from "@/store/features/TopBar";
+import useMenuLateral from "@/hooks/menuLateral";
 import LogoPrincipal from "../icons/LogoPrincipal";
-import cn from "../../cn";
+import cn from "@/cn";
 
 
 

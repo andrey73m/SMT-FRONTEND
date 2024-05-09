@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
-import LogOut from "../../icons/LogOut";
+import LogOut from "@/components/icons/LogOut";
 import BotonTopBar from "./Boton";
-import { useAppDispatch, useAppSelector } from "../../../store";
-import { cerrarSesion } from "../../../store/features/sesion";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { cerrarSesion } from "@/store/features/sesion";
  
 const BotonLogout = () => {
   const safeTimer = useRef(0)
@@ -14,7 +14,7 @@ const BotonLogout = () => {
   }
   if (visible){
     if (safeTimer.current) limpiarTimer();
-    safeTimer.current = setTimeout(limpiarTimer,300)
+    safeTimer.current = window.setTimeout(limpiarTimer,300)
   }
 
   const dispatch = useAppDispatch()

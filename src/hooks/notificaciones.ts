@@ -1,9 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import notificationService from "../services/notificationService";
-import timeService from "../services/timeService";
-import { useAppDispatch } from "../store";
-import { setHayPendientes } from "../store/features/TopBar";
-import { DataNotificacion } from "../modelos";
+import notificationService from "@/services/notificationService";
+import timeService from "@/services/timeService";
+import { useAppDispatch } from "@/store";
+import { setHayPendientes } from "@/store/features/TopBar";
+import { DataNotificacion } from "@/modelos";
 import { useEffect } from "react";
 
 

@@ -1,4 +1,4 @@
-import { useValidacionRol } from "../../hooks";
+import { useValidacionRol } from "@/hooks";
 
 
 interface Props extends React.HTMLAttributes<HTMLElement>{

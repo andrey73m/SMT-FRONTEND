@@ -1,15 +1,14 @@
 import { useForm } from "react-hook-form"
 import ErrorFormulario from "./Error"
 import { CamposCodigoVerificacion, codigoVerificacionResolver } from "./validators"
-import {  CampoTexto } from "../UI"
-import { useParams } from "react-router-dom"
-import authService from "../../services/authService"
-import { useNavigate } from "react-router-dom"
+import CampoTexto from "../UI/CampoTexto"
+import { useParams, useNavigate } from "react-router-dom"
+import authService from "@/services/authService"
 import FormularioAuth from "../UI/FormularioAuth"
 import Enlace from "../UI/Enlace"
-import { verificar } from "../../store/features/sesion"
+import { verificar } from "@/store/features/sesion"
 import { BotonPrimario } from "../UI/Botones"
-import { useAppDispatch } from "../../store"
+import { useAppDispatch } from "@/store"
 
 const FormularioCodigoVerificacion = () => {
 

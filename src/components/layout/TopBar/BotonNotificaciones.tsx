@@ -1,14 +1,14 @@
 
-import timeService from "../../../services/timeService"
-import { store, useAppDispatch, useAppSelector } from "../../../store"
-import { abrirNotificaciones,cerrarNotificaciones } from "../../../store/features/TopBar"
-import { socketService } from "../../../services/socketService"
+import timeService from "@/services/timeService"
+import { store, useAppDispatch, useAppSelector } from "@/store"
+import { abrirNotificaciones } from "@/store/features/TopBar"
+import { socketService } from "@/services/socketService"
 import { useEffect, useRef, useState } from "react"
 import BotonTopBar from "./Boton"
-import IconoNotificacion from "../../icons/CampanaNotificacion"
-import ListaNotificaciones from "../../views/notificaciones"
-import { useMutationNotificaciones } from "../../../hooks"
-import { DataNotificacion } from "../../../modelos"
+import IconoNotificacion from "@/components/icons/CampanaNotificacion"
+import ListaNotificaciones from "@/components/views/notificaciones"
+import { useMutationNotificaciones } from "@/hooks"
+import { DataNotificacion } from "@/modelos"
 
 const BotonNotificaciones = () => {
   const [vistas, setVistas] = useState(true)

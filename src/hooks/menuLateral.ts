@@ -1,4 +1,4 @@
-import { useAppSelector } from "../store"
+import { useAppSelector } from "@/store"
 
 const useMenuLateral = () => {
   const { abierto } = useAppSelector(state => state.topBar.menu)

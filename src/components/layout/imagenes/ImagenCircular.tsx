@@ -1,5 +1,5 @@
 import React from "react";
-import cn from "../../../cn";
+import cn from "@/cn";
 
 interface ImagenCircularProps extends React.HTMLAttributes<HTMLDivElement> {
   url_imagen: string
