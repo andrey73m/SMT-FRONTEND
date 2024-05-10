@@ -1,11 +1,12 @@
-interface Props extends React.HTMLProps<HTMLParagraphElement>{}
+import TextoClickable, { TextoClickableProps } from "./TextoClickable";
 
-const Enlace = (props: Props) => {
+
+const Enlace = (props: TextoClickableProps) => {
   return(
-    <p
+    <TextoClickable
       {...props}
-      className="hover:underline text-violet-400 hover:text-violet-300 hover:cursor-pointer">{props.children}
-    </p>
+      className="text-violet-400 hover:text-violet-300">{props.children}
+    </TextoClickable>
   )
 }
 

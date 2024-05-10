@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from "@/store";
 import { resetTobBar } from "@/store/features/TopBar";
 import MenuFlotante from "../MenuFlotante";
 import cn from "@/cn";
+import RedirectionURILink from "@/components/wrappers/RedirectionURILink";
 
 const TopBar = () => {
 
@@ -33,14 +34,14 @@ const TopBar = () => {
           {!haySesion &&
             <>
               <BotonTopBar className="px-2">
-                <Link to="/registro">
+                <RedirectionURILink to="/registro">
                   <p className="font-bold">Regístrate</p>
-                </Link>
+                </RedirectionURILink>
               </BotonTopBar>
               <BotonTopBar className="px-2">
-                <Link to="/login">
+                <RedirectionURILink to="/login">
                   <p className="font-bold">LogIn</p>
-                </Link>
+                </RedirectionURILink>
               </BotonTopBar>
             </>
           }

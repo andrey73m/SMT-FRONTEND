@@ -11,7 +11,7 @@ const useRolUsuario = () => {
       return authService.getRol()
     },
     retry: 1,
-    staleTime: 7500,
+    staleTime: 1000 * 60 * 10,
     refetchOnWindowFocus: false
   })
   

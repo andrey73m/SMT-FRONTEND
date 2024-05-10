@@ -15,6 +15,7 @@ export interface DataTicket{
   estado: string;
   prioridad: string;
   fecha_creacion:Date;
-  usuario: UsuarioTicket;
+  usuario?: UsuarioTicket;
+  empleado?: UsuarioTicket
 }
 
