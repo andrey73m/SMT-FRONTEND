@@ -2,13 +2,15 @@ import { useForm } from "react-hook-form"
 import { CampoTexto } from "../UI"
 import { loginResolver, CamposLogin } from "./validators";
 import ErrorFormulario from "./Error"
-import { Link, useNavigate } from "react-router-dom";
 import FormularioAuth from "../UI/FormularioAuth";
 import Enlace from "../UI/Enlace";
 import { login } from "@/store/features/sesion";
 import { useAppDispatch } from "@/store";
 import { ThunkResponse } from "@/store/utils";
 import { BotonPrimario } from "../UI/Botones";
+import useNavigateParams from "@/hooks/navigateParams";
+import QueyrParamsLink from "../wrappers/QueryParamsLink";
+import { useRedireccionParam } from "@/hooks/parametroRedireccion";
 
 const FormularioLogin = () => {
   const { register, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<CamposLogin>(
@@ -20,7 +22,8 @@ const FormularioLogin = () => {
       resolver: loginResolver
     }
   )
-  const navigate = useNavigate();
+  const navigate = useNavigateParams();
+  const redireccion = useRedireccionParam()
   const dispatch = useAppDispatch();
   const onSubmit = async(data: CamposLogin) => {
     
@@ -40,7 +43,7 @@ const FormularioLogin = () => {
         return navigate(`/verificacion/${id}`)
       }
 
-      return navigate("/")
+      return navigate(redireccion, false)
     }
     
   }
@@ -54,9 +57,9 @@ const FormularioLogin = () => {
       <CampoTexto {...register("clave")} placeholder="Contraseña" type="password"/>
       <BotonPrimario type="submit" >Iniciar sesión</BotonPrimario>
       <p>¿No tienes cuenta?</p>
-      <Link to="/registro">
+      <QueyrParamsLink to="/registro">
         <Enlace>Registrate aquí</Enlace>
-      </Link>
+      </QueyrParamsLink>
     </FormularioAuth>
       
   )

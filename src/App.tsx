@@ -5,17 +5,16 @@ import FormularioComponente from "@/components/formularios/componente"
 import FormularioInventario from "@/components/formularios/inventario"
 import FormularioCodigoVerificacion from "@/components/formularios/codigo_verificacion"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import FormularioTicket from "@/components/formularios/ticket"
 import { useEffect } from "react"
 import { useAppDispatch } from "@/store"
 import { cargarSesion } from "@/store/features/sesion"
 import TopBar from "@/components/layout/TopBar"
-import VisorTexto from "@/components/UI/VisorTexto"
-import VistaTicket from "@/components/views/tickets/VistaTicket"
 import { Guardian, TituloPagina } from "@/components/wrappers"
 import FormularioServicio from "@/components/formularios/servicio"
 import Home from "@/components/pages/Home"
 import { useQueryClient } from "@tanstack/react-query"
+
+import PaginaTickets from "./components/pages/Tickets"
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -50,14 +49,13 @@ const App = () => {
                 <Home/>
               </TituloPagina>
             }/>
-            <Route path="crear-ticket" element={
-              <Guardian roles={["cliente"]} permitirSinAutenticar>
-                <FormularioTicket />
+
+            <Route path="tickets" element={
+              <Guardian todos>
+                <TituloPagina titulo="Tickets">
+                  <PaginaTickets />
+                </TituloPagina>
               </Guardian>
-            } />
-            <Route path="tickets" element={<VisorTexto/>} />
-            <Route path="tickets/:idticket" element={
-              <VistaTicket />
             } />
             <Route path="direcciones" element={<FormularioDireccion />} />
             <Route path="crear-servicio" element={<FormularioServicio/>}/>

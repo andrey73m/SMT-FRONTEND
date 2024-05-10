@@ -3,14 +3,14 @@ import {  CampoTexto , CampoFecha } from "../UI"
 import { registroResolver, CamposRegistro } from "./validators"
 import ErrorFormulario from "./Error"
 import authService from "@/services/authService"
-import { useNavigate } from "react-router-dom"
 import FormularioAuth from "../UI/FormularioAuth"
-import { Link } from "react-router-dom"
 import Enlace from "../UI/Enlace"
 import { AxiosError } from "axios"
 import { VistaRol } from "../wrappers"
 import Select from "../UI/Select"
 import { BotonPrimario } from "../UI/Botones"
+import QueyrParamsLink from "../wrappers/QueryParamsLink"
+import useNavigateParams from "@/hooks/navigateParams"
 
 const FormularioRegistrarse = () => {
 
@@ -27,7 +27,8 @@ const FormularioRegistrarse = () => {
       resolver: registroResolver
     }
   )
-  const navigate = useNavigate();
+  const navigate = useNavigateParams();
+  
   const onSubmit = async(data: CamposRegistro) => {
     console.log(data)
 
@@ -90,9 +91,9 @@ const FormularioRegistrarse = () => {
 
       <BotonPrimario type="submit" >Registrarse</BotonPrimario>
       <p className="">¿Ya tiene cuenta?</p>
-      <Link to="/login">
+      <QueyrParamsLink to="/login">
         <Enlace>Inicia sesión aquí</Enlace>
-      </Link>
+      </QueyrParamsLink>
     </FormularioAuth>
   )
 

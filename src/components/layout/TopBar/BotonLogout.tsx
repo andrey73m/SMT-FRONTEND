@@ -26,6 +26,7 @@ const BotonLogout = () => {
       setTimeout(() => {
         dispatch(cerrarSesion());
         queryClient.setQueryData(["rol-usuario"], null)
+        queryClient.invalidateQueries({ queryKey:["rol-usuario"] })
       }, 300);
     }
   }

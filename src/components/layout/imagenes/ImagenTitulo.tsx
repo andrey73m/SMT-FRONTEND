@@ -1,3 +1,5 @@
+import ImagenBlur from "./ImagenBlur";
+
 interface ImagenTituloProps {
   titulo: string;
   urlImagen: string;
@@ -5,13 +7,9 @@ interface ImagenTituloProps {
  
 const ImagenTitulo = ({ titulo, urlImagen }: ImagenTituloProps) => {
   return (
-    <div
-      className="bg-cover  bg-fixed h-96 flex  backdrop-blur-sm  bg-center z-0"
-      style={{ backgroundImage: `url('${urlImagen}')` }}>
-      <div className="flex backdrop-blur-sm w-full h-full bg-black/50 justify-center items-center">
-        <h2 className="font-bold text-center text-white text-7xl sm:text-8xl top-topbar sticky">{titulo}</h2>
-      </div>
-    </div>
+    <ImagenBlur urlImagen={urlImagen} classNameContenedor="bg-black/50 justify-center items-center flex">
+      <h2 className="font-bold text-center text-white text-7xl sm:text-8xl top-topbar sticky">{titulo}</h2>
+    </ImagenBlur>
   );
 }
  

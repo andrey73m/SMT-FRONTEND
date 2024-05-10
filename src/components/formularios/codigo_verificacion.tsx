@@ -2,13 +2,14 @@ import { useForm } from "react-hook-form"
 import ErrorFormulario from "./Error"
 import { CamposCodigoVerificacion, codigoVerificacionResolver } from "./validators"
 import CampoTexto from "../UI/CampoTexto"
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams, useNavigate, useSearchParams } from "react-router-dom"
 import authService from "@/services/authService"
 import FormularioAuth from "../UI/FormularioAuth"
 import Enlace from "../UI/Enlace"
 import { verificar } from "@/store/features/sesion"
 import { BotonPrimario } from "../UI/Botones"
 import { useAppDispatch } from "@/store"
+import { useRedireccionParam } from "@/hooks/parametroRedireccion"
 
 const FormularioCodigoVerificacion = () => {
 
@@ -20,6 +21,7 @@ const FormularioCodigoVerificacion = () => {
   })
 
   const { idcodigo } = useParams()
+  const redireccion = useRedireccionParam()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const onSubmit = async (data: CamposCodigoVerificacion) => {
@@ -40,7 +42,7 @@ const FormularioCodigoVerificacion = () => {
         return navigate(`/verificacion/${id}`)
       }
 
-      return navigate("/")
+      return navigate(redireccion)
     }
   }
 

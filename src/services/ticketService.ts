@@ -10,7 +10,7 @@ export default{
   },
   createTicket: async (data: CamposTicket) => {
     const auth = tokenService.getAuthHeader()
-    const res = await axios.post(`${env.BACKEND_ROOT}/tickets/email`, data, { headers: auth })
+    const res = await axios.post(`${env.BACKEND_ROOT}/tickets`, data, { headers: auth })
     return res.data;
   },
   getClientTicket: async (id: string) => {
@@ -18,9 +18,9 @@ export default{
     const res = await axios.get(`${env.BACKEND_ROOT}/tickets/gestionar/${id}`, { headers: auth })
     return res.data;
   },
-  getTickets: async (id: string) => {
+  getTickets: async (params?: object) => {
     const auth = tokenService.getAuthHeader()
-    const res = await axios.get(`${env.BACKEND_ROOT}/tickets/${id}`, { headers: auth })
+    const res = await axios.get(`${env.BACKEND_ROOT}/tickets/gestionar`, { headers: auth, params })
     return res.data;
   },
   aceptarTicket: async (id: string) => {
