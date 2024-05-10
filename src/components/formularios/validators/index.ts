@@ -27,7 +27,7 @@ export {
   inventarioResolver,
   codigoVerificacionResolver,
   ticketResolver,
-  servicioResolver
+  servicioResolver,
 }
 
 export type {

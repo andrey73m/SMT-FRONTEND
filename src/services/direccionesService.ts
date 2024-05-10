@@ -8,8 +8,8 @@ import tokenService from "@/tokenService"
 export default {
   crearDireccion: async (data: CamposDireccion) => {
     try{
-      const token = tokenService.getToken()
-      const res = await axios.post(`${env.BACKEND_ROOT}/domicilio/direcciones`, data, { headers: { Authorization: token } })
+      const auth = tokenService.getAuthHeader()
+      const res = await axios.post(`${env.BACKEND_ROOT}/domicilio/direcciones`, data, { headers: auth })
       return res.data;
     }catch(e){
       const error = e as AxiosError;
@@ -17,8 +17,8 @@ export default {
     }
   },
   obtenerDireccion: async () => {
-    const token = tokenService.getToken()
-    const res = await axios.get(`${env.BACKEND_ROOT}/domicilio/direcciones`, { headers: { Authorization: token } })
+    const auth = tokenService.getAuthHeader()
+    const res = await axios.get(`${env.BACKEND_ROOT}/domicilio/direcciones`, { headers: auth })
     return res.data;
   },
 }
