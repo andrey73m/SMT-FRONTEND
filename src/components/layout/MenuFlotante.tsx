@@ -33,6 +33,9 @@ const MenuFlotante = () => {
           <Link to="quienes-somos">
             <div className="text-2xs m-1  hover:bg-indigo-400 cursor-pointer">Sobre nosotros</div>
           </Link>
+          <Link to="productos">
+            <div className="text-2xs m-1  hover:bg-indigo-400 cursor-pointer">Productos</div>
+          </Link>
 
         </div>
       </div>
