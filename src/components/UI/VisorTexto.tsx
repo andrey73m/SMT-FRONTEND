@@ -1,4 +1,4 @@
-import EditorTexto from "./EditorTexto";
+import EditorTexto from "./EditorTexto"
 
 interface VisorTextoProps{
   contenido: string

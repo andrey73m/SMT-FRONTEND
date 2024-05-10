@@ -1,9 +1,9 @@
 import { useForm, FormProvider } from "react-hook-form";
-import {  CampoTexto, EditorTexto } from "../UI";
+import CampoTexto from "../UI/CampoTexto";
 import CampoFormateado from "./CampoFormateado";
 import { CamposTicket } from "./validators";
-import ticketService from "../../services/ticketService";
-import useSesion from "../../hooks/sesion";
+import ticketService from "@/services/ticketService";
+import useSesion from "@/hooks/sesion";
 import { BotonPrimario } from "../UI/Botones";
 
 const FormularioTicket = () => {
@@ -26,11 +26,13 @@ const FormularioTicket = () => {
   return (
     <>
       <FormProvider {...metodos}>
-        <form onSubmit={metodos.handleSubmit(onSubmit)} className="text-black grow bg-white flex flex-col items-center justify-normal p-5">
+        <form onSubmit={metodos.handleSubmit(onSubmit)} id="formulario-ticket" className="text-black grow bg-white flex flex-col items-center justify-normal p-5">
           <h1 className="mb-5 font-bold text-3xl">Cuéntanos ¿Qué problema tienes?</h1>
-          {!haySesion && <CampoTexto placeholder="correo electronico" {...metodos.register("email")} />}
+          {!haySesion && <CampoTexto placeholder="Tu correo de contacto" {...metodos.register("email")} />}
           <CampoTexto placeholder="Asunto" {...metodos.register("asunto")}/>
-          <CampoFormateado name="contenido"/>
+          <div className="h-36 w-full mb-24 sm:mb-12">
+            <CampoFormateado name="contenido"/>
+          </div>
           <BotonPrimario type="submit" >Enviar</BotonPrimario>
         </form>
       </FormProvider>

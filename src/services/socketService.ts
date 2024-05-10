@@ -1,4 +1,4 @@
-import { env } from "../environment"
+import { env } from "@/environment"
 import { io, Socket } from "socket.io-client"
 import tokenService from "./tokenService";
 

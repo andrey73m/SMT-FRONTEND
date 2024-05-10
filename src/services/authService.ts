@@ -1,7 +1,6 @@
 import axios from "axios"
-import { env } from "../environment"
-import { CamposCodigoVerificacion, CamposLogin, CamposRegistro } from "../components/formularios/validators"
-import { AxiosError } from "axios"
+import { env } from "@/environment"
+import { CamposCodigoVerificacion, CamposLogin, CamposRegistro } from "@/components/formularios/validators"
 import tokenService from "./tokenService"
 
 export default {
@@ -32,7 +31,7 @@ export default {
 
   },
   reenviarCodigo: async(id: string) => {
-    const res = await axios.post(`${env.BACKEND_ROOT}/auth/resendcode/${id}`)
+    const res = await axios.get(`${env.BACKEND_ROOT}/auth/resendcode/${id}`)
     return res.data;
 
   },

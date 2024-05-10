@@ -1,4 +1,4 @@
-import LogoPrincipal from "../../icons/LogoPrincipal";
+import LogoPrincipal from "@/components/icons/LogoPrincipal";
 
  
 const LogoTopBar = () => {

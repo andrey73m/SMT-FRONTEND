@@ -1,8 +1,8 @@
 import axios from "axios"
-import { env } from "../environment"
+import { env } from "@/environment"
 import { AxiosError } from "axios"
-import { CamposDireccion } from "../components/formularios/validators"
-import tokenService from "./tokenService"
+import { CamposDireccion } from "@/components/formularios/validators"
+import tokenService from "@/tokenService"
 
 
 export default {

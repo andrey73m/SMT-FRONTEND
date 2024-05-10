@@ -4,7 +4,7 @@ import { direccionResolver, CamposDireccion } from "./validators";
 import ErrorFormulario from "./Error"
 import QuerySelect from "./QuerySelect";
 import axios from "axios";
-import { env } from "../../environment";
+import { env } from "@/environment";
 import { useCallback } from "react";
 import { BotonPrimario } from "../UI/Botones";
 

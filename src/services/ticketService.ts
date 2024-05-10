@@ -1,6 +1,6 @@
 import axios from "axios";
-import { CamposTicket } from "../components/formularios/validators";
-import { env } from "../environment";
+import { CamposTicket } from "@/components/formularios/validators";
+import { env } from "@/environment";
 import tokenService from "./tokenService";
 
 export default{

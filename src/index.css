@@ -3,3 +3,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  body::-webkit-scrollbar {
+    width: 15px;
+    height: 5px; 
+    background-color: rgb(31, 11, 65);
+  }
+
+  body::-webkit-scrollbar-track {
+    --tw-bg-opacity: 1;
+      background-color: rgb(31, 11, 65); 
+  }
+
+  body::-webkit-scrollbar-thumb {
+    --tw-bg-opacity: 1;
+      background: linear-gradient(rgba(200, 46, 255, 1) 0%, rgba(109, 40, 217, 1) 64%);
+    border-radius: 100vh;
+    transition: 8s;
+  }
+
+  body::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(rgb(186, 43, 238) 0%, rgb(99, 37, 199) 64%);
+    
+  }
+
+  body::selection{
+    background: rgb(45, 17, 95);
+    color: white
+  }
+}
+
+  

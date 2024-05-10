@@ -1,4 +1,4 @@
-import { useValidacionRol } from "../../hooks";
+import { useValidacionRol } from "@/hooks";
 import { Navigate } from "react-router-dom";
 
 interface Props extends React.HTMLAttributes<HTMLElement> {

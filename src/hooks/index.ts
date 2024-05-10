@@ -1,7 +1,4 @@
 export { default as useRolUsuario } from "./rol"
-export { useNotificaciones, useMutationNotificaciones } from "./notificaciones"
+export { useMutationNotificaciones,useNotificaciones } from "./notificaciones"
 export { default as useSesion } from "./sesion"
 export { default as useValidacionRol } from "./validacionRol"
-
-
-export type { DataNotificacion } from "./notificaciones"

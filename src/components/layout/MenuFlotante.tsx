@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import { useAppDispatch } from "../../store";
-import { cerrarMenu } from "../../store/features/TopBar";
-import useMenuLateral from "../../hooks/menuLateral";
+import { useAppDispatch } from "@/store";
+import { cerrarMenu } from "@/store/features/TopBar";
+import useMenuLateral from "@/hooks/menuLateral";
 import LogoPrincipal from "../icons/LogoPrincipal";
+import cn from "@/cn";
 
 
 
@@ -14,13 +15,17 @@ const MenuFlotante = () => {
     dispatch(cerrarMenu())
   }
   return (
-    <div>
+    <div className="text-white">
         
-      <div onClick={handleClose} className={`${!abierto && "hidden"} bg-gray-600/50 h-screen w-screen fixed top-0 
-     right-0 backdrop-blur-sm transition-all z-50`}></div>
-      <div className={`${abierto ? "left-0" : "-left-96"} bg-violet-950 min-h-screen w-72 sm:w-96 
-      fixed top-0  transition-all duration-100 z-50`}>
-        <div className="h-12 flex w-full bg-purple-900 mb-5 justify-center">
+      <div onClick={handleClose}
+        className={cn(" bg-gray-600/50 h-screen w-screen fixed top-0 right-0 backdrop-blur-sm transition-all z-50",{
+          "hidden": !abierto
+        })}/>
+      <div className={cn("bg-violet-950 min-h-screen w-72 sm:w-96 fixed top-0  transition-all duration-100 z-50",{
+        "left-0": abierto,
+        "-left-96": !abierto
+      })}>
+        <div className="h-topbar flex w-full bg-purple-900 mb-5 justify-center">
           <LogoPrincipal/>
         </div>
         

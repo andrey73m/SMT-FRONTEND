@@ -1,8 +1,8 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { socketService } from "../../services/socketService";
-import { CamposLogin, CamposCodigoVerificacion } from "../../components/formularios/validators";
-import authService from "../../services/authService";
-import tokenService from "../../services/tokenService";
+import { socketService } from "@/services/socketService";
+import { CamposLogin, CamposCodigoVerificacion } from "@/components/formularios/validators";
+import authService from "@/services/authService";
+import tokenService from "@/services/tokenService";
 import { manageAxiosThunk } from "../utils";
 
 interface InfoSesion{

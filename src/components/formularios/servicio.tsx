@@ -1,10 +1,10 @@
 import { servicioResolver } from "./validators";
-import { CamposServicio } from "./validators/servicio";
+import { CamposServicio } from "./validators";
 import ErrorFormulario from "./Error";
 import { CampoTexto } from "../UI";
 import { BotonPrimario } from "../UI/Botones";
 import { useForm } from "react-hook-form";
-import servicioService from "../../services/servicioService";
+import servicioService from "@/services/servicioService";
 
 const FormularioServicio = () => {
   const { register, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<CamposServicio>(

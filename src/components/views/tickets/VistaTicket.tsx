@@ -1,24 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import ticketService from "../../../services/ticketService";
+import ticketService from "@/services/ticketService";
 import { useParams } from "react-router-dom";
-import VisorTexto from "../../UI/VisorTexto";
-import Spinner from "../../UI/Spinner";
-import { useEffect, useRef } from "react";
-import VistaRol from "../../wrappers/VistaRol";
-import BotonPrimario from "../../UI/Botones/BotonPrimario";
-import BotonNegativo from "../../UI/Botones/BotonNegativo";
+import VisorTexto from "@/components/UI/VisorTexto";
+import Spinner from "@/components/UI/Spinner";
+import { useEffect } from "react";
+import { VistaRol } from "@/components/wrappers"
+import BotonPrimario from "@/components/UI/Botones/BotonPrimario";
+import BotonNegativo from "@/components/UI/Botones/BotonNegativo";
+import { DataTicket } from "@/models";
 
 
-interface DataTicket{
-  idticket: string;
-  empleado_asignado: string;
-  idtipo_servicio: number;
-  asunto: string;
-  contenido: string;
-  estado: string;
-  prioridad: string;
-  fecha_creacion:Date
-}
+
 
 interface VistaTicketProps {
   idticket: string
@@ -50,7 +42,7 @@ const VistaTicket = () => {
     <>
       {
         ticket.data &&
-      <div className="flex flex-col px-2 md:px-32 relative transition-all mt-12">
+      <div className="flex flex-col px-2 md:px-32 relative transition-all mt-topbar">
         <h2 id="TITULO_TICKET" className=" font-bold md:text-center text-3xl">{ticket.data?.asunto}</h2>
         <VisorTexto contenedor="TITULO_TICKET" contenido={ticket.data?.contenido || ""} />
         <span className="flex justify-between text-white items-center px-4">
