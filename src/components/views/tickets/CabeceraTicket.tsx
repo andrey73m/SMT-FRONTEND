@@ -1,9 +1,8 @@
 import { TextoClickable } from "@/components/UI";
-import IconoFlecha from "@/components/icons/Flecha";
 import { VistaRol } from "@/components/wrappers";
-import { useRedireccionParam } from "@/hooks/parametroRedireccion";
 import { DataTicket } from "@/models";
 import {  useNavigate } from "react-router-dom";
+import BotonAnterior from "@/components/layout/BotonAnterior"
 
 interface CabeceraTicketProps {
   ticket: DataTicket;
@@ -12,18 +11,13 @@ interface CabeceraTicketProps {
 
 const CabeceraTicket = ({ ticket,abierto }: CabeceraTicketProps) => {
   const navigate = useNavigate()
-  const redireccion = useRedireccionParam("/tickets")
-  const cerrar = () => {
-    navigate(redireccion)
-  }
+  
   return (
     <>
       <div className="flex gap-x-3 items-center py-2">
         {
           abierto &&
-          <div onClick={cerrar} className="w-10 h-10 rounded-full p-1 text-slate-400 hover:text-slate-500 hover:bg-slate-200 transition-colors sticky top-0 left-0">
-            <IconoFlecha />
-          </div>
+          <BotonAnterior className="transition-colors sticky top-0 left-0" defaultPath="/tickets"/>
         }
       
         <div className="pl-3 pt-2">
@@ -33,7 +27,7 @@ const CabeceraTicket = ({ ticket,abierto }: CabeceraTicketProps) => {
               {
                 ticket.usuario ?
 
-                  <TextoClickable onClick={() => navigate({ pathname: "/tickets", search: `idusuario=${ticket.usuario.idusuario}` })}>
+                  <TextoClickable onClick={() => navigate({ pathname: "/tickets", search: `idusuario=${ticket.usuario?.idusuario}` })}>
                     {ticket.usuario.nombres} {ticket.usuario.apellidos}
                   </TextoClickable>
                   :
@@ -45,10 +39,10 @@ const CabeceraTicket = ({ ticket,abierto }: CabeceraTicketProps) => {
             </VistaRol>
             <VistaRol roles={["cliente", "admin"]}>
                 
-              <p>
+              <p className="font-normal">
                 {
                   ticket.empleado ?
-                    <>{ticket.empleado.nombres} {ticket.empleado.apellidos}</> :
+                    <><b>Atendido por:</b> {ticket.empleado.nombres} {ticket.empleado.apellidos}</> :
                     <>No hay un empleado asignado</>
                 }
               </p>

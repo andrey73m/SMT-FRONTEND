@@ -31,9 +31,10 @@ const AlternarFormularioGestionarTicket = ({ ticket, recienAceptado }:AlternarPr
       {
         !recienAceptado &&
         (
-          !mostrarFormulario ?
-            <BotonPositivo onClick={() => setMostrarFormulario(!mostrarFormulario)}>Editar</BotonPositivo> :
-            <Boton className="bg-white shadow-lg my-2 text-teal-500 hover:bg-teal-200" onClick={() => setMostrarFormulario(!mostrarFormulario)}>Cerrar</Boton>
+          <BotonPositivo negar={mostrarFormulario} onClick={() => setMostrarFormulario(!mostrarFormulario)}>{
+            mostrarFormulario ?
+              "Cerrar" : "Editar"
+          }</BotonPositivo>
         )
       }
 

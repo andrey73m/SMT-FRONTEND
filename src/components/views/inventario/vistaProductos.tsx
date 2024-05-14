@@ -18,7 +18,7 @@ interface DataInventario{
 const Productos = () => {
   const productosQuery = useQuery<DataInventario[]>({
     queryKey: ["productos"],
-    queryFn: inventarioService.obtenerProducto,
+    queryFn: inventarioService.obtenerProductos,
   })
   if (productosQuery.isLoading) return <Spinner/>
   return (

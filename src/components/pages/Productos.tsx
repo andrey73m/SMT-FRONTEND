@@ -1,6 +1,6 @@
 import Productos from "../views/inventario/vistaProductos";
 
-const Inventario = () => {
+const PaginaProductos = () => {
   return (
     <>
       <div
@@ -19,4 +19,4 @@ const Inventario = () => {
   );
 }
  
-export default Inventario;
+export default PaginaProductos;

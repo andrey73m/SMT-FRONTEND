@@ -5,7 +5,7 @@ import Boton, { BotonProps } from "./Boton";
 
 const BotonPrimario = ({ className, ...props }: BotonProps) => {
   return (
-    <Boton {...props} className={cn("bg-slate-200 hover:bg-slate-300 text-violet-600 ", className)} />
+    <Boton {...props} className={cn("bg-amber-400 hover:bg-amber-300", className)} />
   );
 }
 
