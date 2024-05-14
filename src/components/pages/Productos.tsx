@@ -12,7 +12,7 @@ const PaginaProductos = () => {
         </div>
       </div>
       
-      <div className="min-h-screen py-6 px-10 lg:grid grid-cols-3 gap-6">
+      <div className="min-h-screen py-6 px-10 lg:grid grid-cols-3 gap-6 bg-slate-100">
         <Productos />
       </div>
     </>

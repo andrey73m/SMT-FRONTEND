@@ -50,7 +50,7 @@ const Producto = ({ idproducto }: ProductoProps) => {
                 <p className="text-end text-slate-400">SKU: {producto.sku}</p>
                 <p>Marca <b>{CapitalizeString(producto.marca)}</b></p>
                 <h2 className="font-bold text-2xl">{producto.nombre}</h2>
-                <p className="text-3xl">${formatoPrecio.format(producto.precio)}</p>
+                <p className="text-3xl">{formatoPrecio.format(producto.precio)}</p>
                 <p className="text-xl text-gray-400">{producto.descripcion}</p>
               </div>
               <div className="*:p-3 text-2xl font-bold flex flex-col gap-y-2">
