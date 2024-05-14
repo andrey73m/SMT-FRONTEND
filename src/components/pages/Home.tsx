@@ -16,7 +16,7 @@ const Home = () => {
       <VistaRol roles={["cliente"]} permitirSinAutenticar>
         <AlternarFormularioTicket/>
       </VistaRol>
-      <div className="flex h-full flex-col py-6 px-10 gap-y-5">
+      <div className="flex h-full flex-col py-6 px-6 md:px-10 gap-y-5">
         <Servicios />
       </div>
     </>

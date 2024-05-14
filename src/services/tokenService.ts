@@ -7,10 +7,11 @@ export default {
     return cookies.get("token")
   },
   setToken: (token: string) => {
-    cookies.set("token", token)
+    cookies.remove("token",{ path: "/" })
+    cookies.set("token", token,{ path: "/" })
   },
   removeToken: () => {
-    cookies.remove("token")
+    cookies.remove("token",{ path: "/" })
   },
   decodeToken: (token: string) => {
     try{

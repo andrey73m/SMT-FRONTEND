@@ -2,18 +2,24 @@ import { useValidacionRol } from "@/hooks";
 import { Navigate, useLocation } from "react-router-dom";
 import { VistaRolProps } from "./VistaRol";
 import SpinnerPagina from "../UI/SpinnerPagina";
+import { useCreateRedireccionQuery } from "@/hooks/createQuery";
 
 interface Props extends VistaRolProps {
   alt?: string;
 }
 
-const Guardian = ({ permitirSinAutenticar, roles = [], alt = "", todos, ...props }: Props) => {
-  const { pathname } = useLocation()
+const Guardian = ({ permitirSinAutenticar, roles, alt = "", ...props }: Props) => {
+  const param = useCreateRedireccionQuery()
+  const { valido, isFetching, rol } = useValidacionRol(roles,permitirSinAutenticar)
   if (!alt){
-    alt = "/login?redireccion=" + pathname
+    alt = rol ? "/" : "/login?" + param
   }
-  const { valido, isFetching } = useValidacionRol(roles,permitirSinAutenticar, todos)
-  if (isFetching) return <SpinnerPagina/>
+  if (isFetching){
+    return(
+      <div className="flex justify-center bg-black/50 absolute top-0 left-0 h-screen w-screen backdrop-blur-lg items-center">
+        <SpinnerPagina />
+      </div>)
+  }
   return (
     valido ? props.children : <Navigate to={alt} />
   )

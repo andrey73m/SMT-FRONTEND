@@ -3,32 +3,42 @@ import { DataTicket } from "@/models";
 import ticketService from "@/services/ticketService";
 import { useQuery } from "@tanstack/react-query";
 import Ticket from "./Ticket";
-import { useState } from "react";
+
 
 interface ListaTicketsProps {
-  params: URLSearchParams
+  params: URLSearchParams,
+  idticket?: string
 }
  
-const ListaTickets = ({ params }: ListaTicketsProps) => {
-  const [ticketAbierto, setTicketAbierto] = useState("")
+const ListaTickets = ({ params, idticket }: ListaTicketsProps) => {
   const { data: tickets, isFetching, isSuccess, ...ticketQuery } = useQuery<DataTicket[]>({
     queryKey: ["tickets"],
-    queryFn: () => ticketService.getTickets(params),
-    retry: 0
+    queryFn: async () => {
+      if (idticket) return [await ticketService.getClientTicket(idticket)]
+      return ticketService.getTickets(params)
+    },
+    retry: 0,
+    refetchOnWindowFocus: false
   })
+
   if (isFetching) return <SpinnerPagina/>
   return (
     <div className="flex flex-col gap-y-4 pt-2 px-5 border-gray-200">
       {
         isSuccess &&
-        tickets.map(ticket =>
-          <Ticket
-            key={ticket.idticket}
-            ticket={ticket}
-            setAbierto={setTicketAbierto}
-            abierto={ticketAbierto === ticket.idticket}/>
+        tickets.length > 0 ?
 
-        )
+          tickets.map(ticket =>
+            <Ticket
+              key={ticket.idticket}
+              ticket={ticket}
+              idticket={idticket}
+            />
+
+          )
+          :
+          <p className="text-gray-500  text-xl text-center">Parece que no hay tickets que mostrar</p>
+
       }
     </div>
   );

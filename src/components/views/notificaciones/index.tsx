@@ -8,6 +8,7 @@ import { ElementoFlotante } from "@/components/wrappers"
 import { useAppDispatch, useAppSelector } from "@/store";
 import { DataNotificacion } from "@/models";
 import { cerrarNotificaciones } from "@/store/features/TopBar";
+import { useCreateRedireccionQuery } from "@/hooks/createQuery";
 
 
 interface NotificacionProps{
@@ -18,10 +19,11 @@ const Notificacion = ({ notificacion }: NotificacionProps) => {
 
   const { marcarNotificacion } = useMutationNotificaciones()
   const navigate = useNavigate()
+  const search = useCreateRedireccionQuery()
   const handleClick = () => {
     marcarNotificacion(notificacion.idnotificacion)
-    if (notificacion.idevento === 3)
-      navigate(`/tickets/${notificacion.idfuente}`)
+    if (notificacion.idevento === 3 || notificacion.idevento === 4)
+      navigate({ pathname: `/tickets/${notificacion.idfuente}` ,search })
   }
   return (
     <span onMouseDown={handleClick}

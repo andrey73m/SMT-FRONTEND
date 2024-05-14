@@ -1,11 +1,23 @@
-import { Link } from "react-router-dom";
+import { NavLink, NavLinkProps } from "react-router-dom";
 import { useAppDispatch } from "@/store";
 import { cerrarMenu } from "@/store/features/TopBar";
 import useMenuLateral from "@/hooks/menuLateral";
 import LogoPrincipal from "../icons/LogoPrincipal";
 import cn from "@/cn";
+import { VistaRol } from "../wrappers";
 
 
+const LinkMenu = ({ to,children }:NavLinkProps) => {
+  return (
+    <NavLink className={({ isActive }) => {
+      return cn("text-2xs w-full  text-white text-xl hover:bg-indigo-400 cursor-pointer p-2",{
+        "bg-white text-indito-800 hover:bg-indigo-100": isActive
+      })
+    }} to={to} >
+      {children}
+    </NavLink>
+  )
+}
 
 const MenuFlotante = () => {
   const { abierto } = useMenuLateral()
@@ -15,9 +27,9 @@ const MenuFlotante = () => {
     dispatch(cerrarMenu())
   }
   return (
-    <div className="text-white">
+    <div onClick={handleClose} className="">
         
-      <div onClick={handleClose}
+      <div
         className={cn(" bg-gray-600/50 h-screen w-screen fixed top-0 right-0 backdrop-blur-sm transition-all z-50",{
           "hidden": !abierto
         })}/>
@@ -25,22 +37,31 @@ const MenuFlotante = () => {
         "left-0": abierto,
         "-left-96": !abierto
       })}>
-        <div className="h-topbar flex w-full bg-purple-900 mb-5 justify-center">
+        <div className="h-topbar flex w-full bg-purple-900 justify-center">
           <LogoPrincipal/>
         </div>
         
-        <div className="text-center">
-          <div className="text-2xs m-1 hover:bg-indigo-400 cursor-pointer">Hola</div>
-          <Link to="/" >
-            <div className="text-2xs m-1  hover:bg-indigo-400 cursor-pointer">Inicio</div>
-          </Link>
+        <div className="flex flex-col text-center">
+          <LinkMenu to="/" >
+            Inicio
+          </LinkMenu>
+          <VistaRol todos>
+            <LinkMenu to="/tickets" >
+            Tickets
+            </LinkMenu>
 
-          <Link to="quienes-somos">
-            <div className="text-2xs m-1  hover:bg-indigo-400 cursor-pointer">Sobre nosotros</div>
-          </Link>
-          <Link to="productos">
-            <div className="text-2xs m-1  hover:bg-indigo-400 cursor-pointer">Productos</div>
-          </Link>
+          </VistaRol>
+          <VistaRol roles={["admin"]}>
+            <LinkMenu to="/registro" >
+              Registrar
+            </LinkMenu>
+          </VistaRol>
+          <LinkMenu to="productos">
+            Productos
+          </LinkMenu>
+          <LinkMenu to="quienes-somos">
+            Sobre nosotros
+          </LinkMenu>
 
         </div>
       </div>

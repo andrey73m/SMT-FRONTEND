@@ -17,6 +17,7 @@ import AboutUs from "./components/pages/informacion"
 import Inventario from "./components/pages/inventario"
 
 import PaginaTickets from "./components/pages/Tickets"
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -27,6 +28,7 @@ const App = () => {
   },[])
   return (
     <>
+      
       <Router>
         
         <Routes>
@@ -41,7 +43,7 @@ const App = () => {
             </TituloPagina>
           }/>
           <Route path="verificacion/:idcodigo" element={
-            <TituloPagina titulo="Código de verificación" key="1">
+            <TituloPagina titulo="Código de verificación">
               <FormularioCodigoVerificacion/>
             </TituloPagina>
           }/>
@@ -53,12 +55,21 @@ const App = () => {
             }/>
 
             <Route path="tickets" element={
-              <Guardian todos>
+              <Guardian>
                 <TituloPagina titulo="Tickets">
                   <PaginaTickets />
                 </TituloPagina>
               </Guardian>
-            } />
+            } >
+            </Route>
+            <Route path="tickets/:idticket" element={
+              <Guardian>
+                <TituloPagina titulo="Detalles ticket">
+                  <PaginaTickets key="1" />
+                </TituloPagina>
+              </Guardian>
+            }>
+            </Route>
             <Route path="direcciones" element={<FormularioDireccion />} />
             <Route path="crear-servicio" element={<FormularioServicio/>}/>
             <Route path="catalogo" element={<FormularioComponente />} />
@@ -70,7 +81,7 @@ const App = () => {
         </Routes>
       </Router>
         
-      
+      <ToastContainer/>
     </>
   )
 }

@@ -1,3 +1,12 @@
+export enum EstadosTicket{
+  NUEVO = "nuevo",
+  ACEPTADO = "aceptado",
+  LISTO = "listo",
+  EN_PROCESO = "en proceso",
+  RESUELTO = "resuelto",
+  CERRADO = "cerrado"
+}
+
 export interface UsuarioTicket{
   nombres: string;
   apellidos: string;
@@ -12,7 +21,7 @@ export interface DataTicket{
   asunto: string;
   email?: string
   contenido: string;
-  estado: string;
+  estado: EstadosTicket;
   prioridad: string;
   fecha_creacion:Date;
   usuario?: UsuarioTicket;

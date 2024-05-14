@@ -1,24 +1,23 @@
 import { forwardRef } from "react";
-import Select from "../UI/Select";
+import SelectLabel, { SelectLabelProps } from "./SelectLabel";
 
-interface Props extends React.SelectHTMLAttributes<HTMLSelectElement>{
+export interface PropsSelectDinamico extends SelectLabelProps{
   optionLabel: string;
   value: string;
 
   options: any[];
 }
 
-const SelectDinamico = forwardRef<HTMLSelectElement, Props>(({ optionLabel, value, options,...props }: Props, ref) => {
+const SelectDinamico = forwardRef<HTMLSelectElement, PropsSelectDinamico>(({ optionLabel, value, options,...props }, ref) => {
   return (
-    <Select ref={ref} {...props}>
+    <SelectLabel ref={ref} {...props}>
       {options && options.map(option =>
         <option key={option[value]} label={option[optionLabel]} value={option[value]}></option>
       )}
-    </Select>
+    </SelectLabel>
   )
 })
 
 SelectDinamico.displayName = "SelectDinamico"
 
 export default SelectDinamico;
-export type { Props as PropsSelectDinamico }

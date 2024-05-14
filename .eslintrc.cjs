@@ -26,6 +26,7 @@ module.exports = {
     "no-unused-vars": "warn",
     "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/no-explicit-any":0,
+    "react-hooks/exhaustive-deps":0,
     "eqeqeq": "warn",
     "no-trailing-spaces": ["warn", { "skipBlankLines": true }],
     "object-curly-spacing": [

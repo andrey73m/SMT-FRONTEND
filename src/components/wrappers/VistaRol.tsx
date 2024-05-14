@@ -7,8 +7,8 @@ export interface VistaRolProps extends React.HTMLAttributes<HTMLElement>{
   todos?: boolean
 }
 
-const VistaRol = ({ permitirSinAutenticar, roles = [], todos,...props } : VistaRolProps) => {
-  const { valido } = useValidacionRol(roles, permitirSinAutenticar, todos)
+const VistaRol = ({ permitirSinAutenticar, roles,...props } : VistaRolProps) => {
+  const { valido } = useValidacionRol(roles, permitirSinAutenticar)
   return (valido && props.children)
   
 }

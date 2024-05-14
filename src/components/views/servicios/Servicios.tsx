@@ -15,15 +15,15 @@ interface ServicioProps{
 const Servicio = ({ servicio, esPar }: ServicioProps) => {
   return (
     <div
-      className={cn("flex flex-col lg:flex-row w-full items-center p-5 h-auto border-b-2 border-gray-300",{
+      className={cn("flex flex-col lg:flex-row w-full items-center p-0 md:p-5 h-auto border-b-2 border-gray-300",{
         "justify-start ":esPar, "lg:flex-row-reverse":!esPar
       })}>
-      <ImagenCircular url_imagen={servicio.url_imagen}/>
+      <ImagenCircular className="m-3" url_imagen={servicio.url_imagen}/>
       <div className={cn("w-full lg:w-3/5",{
         "text-left": esPar, "lg:text-right":!esPar
       })}>
-        <h3 className="font-bold text-4xl">{servicio.tipo_servicio}</h3>
-        <p className="text-3xl">{servicio.descripcion}</p>
+        <h3 className="font-bold text-3xl mb-5">{servicio.tipo_servicio}</h3>
+        <p className="text-2xl leading-10">{servicio.descripcion}</p>
       </div>
     </div>
   )
