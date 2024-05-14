@@ -1,6 +1,6 @@
 
 import { useSesion } from "@/hooks";
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import BotonTopBar from "./Boton";
 import BotonNotificaciones from "./BotonNotificaciones";
 import LogoTopBar from "./Logo";
@@ -12,6 +12,8 @@ import { resetTobBar } from "@/store/features/TopBar";
 import MenuFlotante from "../MenuFlotante";
 import cn from "@/cn";
 import RedirectionURILink from "@/components/wrappers/RedirectionURILink";
+import BotonCarritoCompras from "./BotonCarritoCompras";
+import { VistaRol } from "@/components/wrappers";
 
 const TopBar = () => {
 
@@ -49,7 +51,9 @@ const TopBar = () => {
             haySesion &&
             <>
               <div className="flex h-full px-2 gap-x-2 sm:relative">
-                
+                <VistaRol roles={["cliente"]}>
+                  <BotonCarritoCompras/>
+                </VistaRol>
                 <BotonNotificaciones />
                 
                 <InfoUsuario/>

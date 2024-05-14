@@ -28,6 +28,16 @@ export default{
     const res = await axios.put(`${env.BACKEND_ROOT}/tickets/aceptar/${id}`,{}, { headers: auth })
     return res.data;
   },
+  descartarTicketUsuario: async (id: string) => {
+    const auth = tokenService.getAuthHeader()
+    const res = await axios.put(`${env.BACKEND_ROOT}/tickets/gestionar/descartar/${id}`,{}, { headers: auth })
+    return res.data;
+  },
+  reabrirTicket: async (id: string) => {
+    const auth = tokenService.getAuthHeader()
+    const res = await axios.put(`${env.BACKEND_ROOT}/tickets/gestionar/reabrir/${id}`,{}, { headers: auth })
+    return res.data;
+  },
   gestionarTicket: async (data: CamposGestionTicket,id: string) => {
     const auth = tokenService.getAuthHeader()
     const res = await axios.put(`${env.BACKEND_ROOT}/tickets/gestionar/${id}`,data, { headers: auth })

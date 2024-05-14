@@ -12,13 +12,13 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSesion } from "@/hooks";
 import { useNavigate } from "react-router-dom";
 import CabeceraTicket from "./CabeceraTicket";
-import { BotonSecundario } from "@/components/UI/Botones";
+import { BotonPrimario, BotonSecundario } from "@/components/UI/Botones";
 import CuerpoTicket from "./CuerpoTicket";
 import AlternarFormularioGestionarTicket from "@/components/layout/AlternarFormularioGestion";
 import { EstadosTicket } from "@/models/DataTicket";
 import { AxiosError } from "axios";
 
-import { toast, Bounce, ToastContainer } from "react-toastify";
+import { toast, Bounce } from "react-toastify";
 
 
 interface TicketProps{
@@ -59,9 +59,35 @@ const Ticket = ({ ticket, idticket }: TicketProps) => {
       }
     }
   })
+  const discardMutation = useMutation<DataTicket>({
+    mutationFn: () => ticketService.descartarTicketUsuario(ticket.idticket),
+    onSuccess: (updated) => {
+      const data = queryClient.getQueryData<DataTicket[]>(["tickets"])
+      queryClient.setQueryData(["tickets"], data?.map(ticket => ticket.idticket === updated.idticket ? updated : ticket))
+    },
+    onError: (error) => {
+    }
+  })
+  const reopenMutation = useMutation<DataTicket>({
+    mutationFn: () => ticketService.reabrirTicket(ticket.idticket),
+    onSuccess: (updated) => {
+      const data = queryClient.getQueryData<DataTicket[]>(["tickets"])
+      queryClient.setQueryData(["tickets"], data?.map(ticket => ticket.idticket === updated.idticket ? updated : ticket))
+    },
+    onError: (error) => {
+    }
+  })
   const handleAccept = async () => {
     if (ticket.idticket)
       acceptMutation.mutate()
+  }
+  const handleDiscard = async () => {
+    if (ticket.idticket)
+      discardMutation.mutate()
+  }
+  const handleReopen = async () => {
+    if (ticket.idticket)
+      reopenMutation.mutate()
   }
   const navigate = useNavigate()
   //TODO:OPCIONAL > USAR FRESNEL PARA MANEJO DE MEDIAQUERY
@@ -76,43 +102,45 @@ const Ticket = ({ ticket, idticket }: TicketProps) => {
         <CuerpoTicket ticket={ticket}/>
         {
           abierto &&
-        <VistaRol roles={["admin", "empleado"]}>
-          
-          <div className="flex flex-col sm:flex-row gap-2 my-2 transition-all">
-            {
-              ticket.estado === EstadosTicket.NUEVO &&
-            
             <>
-              <VistaRol roles={["empleado"]}>
-                <div className="grow">
-
-                  <BotonPositivo onClick={handleAccept}>Aceptar</BotonPositivo>
-                </div>
-              </VistaRol>
-              <div className="grow">
-
-                <BotonNegativo>Rechazar</BotonNegativo>
-              </div>
-            </>
-          
-            }
-            {
-              //TODO CONDICIONES PARA CLASIFICACION DE LOS ADMINS
-              ticket.empleado_asignado === info.idusuario &&
-
+              {
+                ticket.estado !== EstadosTicket.CERRADO ?
                   <>
-                    {
-                      <AlternarFormularioGestionarTicket recienAceptado={ticket.estado === EstadosTicket.ACEPTADO} ticket ={ticket}/>
-                    }
-                  
-                  </>
+                    <VistaRol roles={["admin", "empleado"]}>
+          
+                      <div className="flex flex-col sm:flex-row gap-2 my-2 transition-all">
+                        <>
+                          {
+                            !ticket.empleado_asignado &&
+                    <VistaRol roles={["empleado"]}>
+                      <div className="grow">
 
-            }
-          </div>
-        </VistaRol>
+                        <BotonPositivo onClick={handleAccept}>Aceptar</BotonPositivo>
+                      </div>
+                    </VistaRol>
+                          }
+                          <div className="grow">
+
+                            <BotonNegativo onClick={handleDiscard}>Descartar</BotonNegativo>
+                          </div>
+                        </>
+                      </div>
+                    </VistaRol>
+                    <VistaRol roles={["admin"]} or={ticket.empleado_asignado === info.idusuario}>
+                      <AlternarFormularioGestionarTicket recienAceptado={ticket.estado === EstadosTicket.ACEPTADO} ticket={ticket} />
+                    </VistaRol>
+                  </>
+                  :
+                  <VistaRol roles={["admin"]}>
+                    <BotonSecundario onClick={handleReopen}>Reabrir</BotonSecundario>
+                  </VistaRol>
+              }
+            </>
         
+        //TODO CONDICIONES PARA CLASIFICACION DE LOS ADMINS
         }
-        {!abierto && <BotonSecundario className="my-2" onClick={() => navigate(`/tickets/${ticket.idticket}`)}>Ir a detalles</BotonSecundario>}
+        
+        {!abierto && <BotonPrimario negar className="my-2" onClick={() => navigate(`/tickets/${ticket.idticket}`)}>Ir a detalles</BotonPrimario>}
       </div>
     </>
   )

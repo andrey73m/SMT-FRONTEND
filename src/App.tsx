@@ -14,10 +14,11 @@ import FormularioServicio from "@/components/formularios/servicio"
 import Home from "@/components/pages/Home"
 import { useQueryClient } from "@tanstack/react-query"
 import AboutUs from "./components/pages/informacion"
-import Inventario from "./components/pages/inventario"
+import PaginaProductos from "./components/pages/Productos"
 
 import PaginaTickets from "./components/pages/Tickets"
 import { ToastContainer } from "react-toastify";
+import PaginaDetallesProducto from "./components/pages/DetallesProducto"
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -74,7 +75,12 @@ const App = () => {
             <Route path="crear-servicio" element={<FormularioServicio/>}/>
             <Route path="catalogo" element={<FormularioComponente />} />
             <Route path="quienes-somos" element={<AboutUs/>} />
-            <Route path="productos" element={<Inventario/>}/>
+            <Route path="productos" element={<PaginaProductos/>}/>
+            <Route path="productos/:idproducto" element={
+              <TituloPagina titulo="Detalles: ">
+                <PaginaDetallesProducto />
+              </TituloPagina>
+            } />
             <Route path="crear-producto" element={<FormularioInventario/>}/>
           </Route>
           

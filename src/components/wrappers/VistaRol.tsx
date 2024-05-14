@@ -1,14 +1,12 @@
 import { useValidacionRol } from "@/hooks";
+import { opcionesValidacionRol } from "@/hooks/validacionRol";
+import { PropsWithChildren } from "react";
 
 
-export interface VistaRolProps extends React.HTMLAttributes<HTMLElement>{
-  roles?: string[];
-  permitirSinAutenticar?: boolean
-  todos?: boolean
-}
+export interface VistaRolProps extends opcionesValidacionRol, PropsWithChildren{}
 
-const VistaRol = ({ permitirSinAutenticar, roles,...props } : VistaRolProps) => {
-  const { valido } = useValidacionRol(roles, permitirSinAutenticar)
+const VistaRol = (props : VistaRolProps) => {
+  const { valido } = useValidacionRol(props as opcionesValidacionRol)
   return (valido && props.children)
   
 }

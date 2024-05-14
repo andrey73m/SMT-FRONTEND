@@ -1,14 +1,23 @@
 import useRolUsuario from "./rol"
 
-const useValidacionRol = (roles?: string[], permitirSinAutenticar: boolean = false) => {
+export interface opcionesValidacionRol{
+  roles?: string[];
+  permitirSinAutenticar?: boolean
+  esperarRol?: boolean
+  or?: boolean
+}
+
+const useValidacionRol = ({ roles, permitirSinAutenticar, esperarRol = true, or }:opcionesValidacionRol) => {
   const { rol, isFetching } = useRolUsuario()
   return {
     rol,
     isFetching,
     valido:
-      (!roles && !permitirSinAutenticar && rol)
+      or ||
+      ((!roles && !permitirSinAutenticar && rol)
       || (roles && roles.includes(rol))
-      || (permitirSinAutenticar && !isFetching && !rol)
+      || (permitirSinAutenticar && !esperarRol && !rol)
+      || (permitirSinAutenticar && !isFetching && !rol))
   }
 
 }

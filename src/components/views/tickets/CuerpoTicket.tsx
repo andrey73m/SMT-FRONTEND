@@ -15,7 +15,7 @@ const CuerpoTicket = ({ ticket }: CuerpoTicketProps) => {
   const tagEstado = () => {
     const estadoCapital = CapitalizeString(ticket.estado)
     return (
-      <div className={cn("flex p-1 px-2 py-1 rounded-full justify-center items-center",{
+      <div className={cn("flex my-2 p-1 px-2 py-1 rounded-full justify-center items-center",{
         "bg-teal-400":ticket.estado === EstadosTicket.NUEVO,
         "bg-violet-500": ticket.estado === EstadosTicket.ACEPTADO,
         "bg-teal-600": ticket.estado === EstadosTicket.LISTO,

@@ -1,16 +1,17 @@
 import { useValidacionRol } from "@/hooks";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { VistaRolProps } from "./VistaRol";
 import SpinnerPagina from "../UI/SpinnerPagina";
 import { useCreateRedireccionQuery } from "@/hooks/createQuery";
+import { opcionesValidacionRol } from "@/hooks/validacionRol";
 
 interface Props extends VistaRolProps {
   alt?: string;
 }
 
-const Guardian = ({ permitirSinAutenticar, roles, alt = "", ...props }: Props) => {
+const Guardian = ({ alt = "", ...props }: Props) => {
   const param = useCreateRedireccionQuery()
-  const { valido, isFetching, rol } = useValidacionRol(roles,permitirSinAutenticar)
+  const { valido, isFetching, rol } = useValidacionRol(props as opcionesValidacionRol)
   if (!alt){
     alt = rol ? "/" : "/login?" + param
   }
