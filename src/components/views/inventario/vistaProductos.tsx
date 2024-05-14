@@ -31,13 +31,13 @@ const Productos = () => {
          
             <div className="p-5 rounded-xl shadow-md cursor-pointer hover:shadow-2xl">
                   
-              <div className="transition-all lg:rounded-full h-80 w-full mb-4 lg:mb-0 lg:w-80  bg-center bg-cover mx-auto"
+              <div className="transition-all h-72 w-full mb-4 lg:mb-0 lg:w-80  bg-center bg-cover mx-auto"
                 style={{ backgroundImage: `url('${producto.url_imagen}')` }}> </div>
 
               <div className="m-6">
-                <h3 className="font-bold text-3xl">{producto.nombre}</h3>
-                <p className="text-2xl m-2">Unidades disponibles: {producto.disponibilidad}</p>
-                <p className="text-2xl m-2">Precio: ${producto.precio}</p>
+                <h3 className="font-bold text-2xl line-clamp-1">{producto.nombre}</h3>
+                <p className="font-light text-2xl m-2">Unidades disponibles: {producto.disponibilidad}</p>
+                <p className="font-light text-2xl m-2">Precio: ${producto.precio}</p>
               </div>
               
             </div>

@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import servicioService from "@/services/servicioService";
 import Spinner from "@/components/UI/Spinner";
 import cn from "@/cn";
-import { ImagenCircular } from "@/components/layout/Imagenes";
+import { ImagenCircular } from "@/components/layout/imagenes";
 import { DataServicio } from "@/models";
 
 
