@@ -15,7 +15,7 @@ const TarjetaProducto = ({ producto }: TarjetaProductoProps) => {
       <div className="py-5 rounded-xl shadow-md cursor-pointer hover:shadow-2xl bg-white min-w-80" onClick={() => navigate(`/productos/${producto.idproducto}`)}>
                   
         <div className="transition-all h-72 w-full mb-4 lg:mb-0 lg:w-80 bg-center bg-cover mx-auto"
-          style={{ backgroundImage: `url('${producto.url_imagen}')` }}> </div>
+          style={{ backgroundImage: `url('${producto.url_imagen}')` }}/>
 
         <div className="p-6 *:leading-10">
           <h3 className="font-bold text-2xl line-clamp-1">{producto.nombre}</h3>

@@ -1,4 +1,4 @@
-import { ImagenTitulo } from "../layout/imagenes";
+import { ImagenTitulo } from "@/components/layout/FormatoImagenes";
 import QuienesSomos from "../views/general_info/AboutUs";
 
 const AboutUs = () => {

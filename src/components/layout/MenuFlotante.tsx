@@ -45,7 +45,7 @@ const MenuFlotante = () => {
           <LinkMenu to="/" >
             Inicio
           </LinkMenu>
-          <VistaRol todos>
+          <VistaRol>
             <LinkMenu to="/tickets" >
             Tickets
             </LinkMenu>

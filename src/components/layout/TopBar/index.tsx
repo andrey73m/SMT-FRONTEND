@@ -15,6 +15,7 @@ import RedirectionURILink from "@/components/wrappers/RedirectionURILink";
 import BotonCarritoCompras from "./BotonCarritoCompras";
 import { VistaRol } from "@/components/wrappers";
 import { ToastContainer } from "react-toastify";
+import ProductosCarrito from "@/components/views/carritoCompras/ProductosCarrito";
 
 const TopBar = () => {
 
@@ -26,8 +27,8 @@ const TopBar = () => {
   return (
     <>
       <div className="mt-topbar">
-        <ToastContainer className="absolute top-topbar left-0" />
         <Outlet />
+        <ToastContainer className="absolute top-topbar left-1/2" />
       </div>
       <div className={cn("flex transition-transform fixed top-0 w-full h-topbar bg-violet-950 text-white z-40",{
         "top-topbar": !visible
@@ -66,7 +67,7 @@ const TopBar = () => {
         </div>
       </div>
 
-      
+      <ProductosCarrito/>
       <MenuFlotante />
     </>
   )

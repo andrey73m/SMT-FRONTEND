@@ -1,4 +1,4 @@
-import { ImagenTitulo } from "../layout/imagenes";
+import { ImagenTitulo } from "../layout/FormatoImagenes";
 import Productos from "../views/inventario/vistaProductos";
 
 const PaginaProductos = () => {
