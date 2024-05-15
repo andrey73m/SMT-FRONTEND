@@ -7,7 +7,7 @@ import { useFormContext } from "react-hook-form";
 
 interface Props extends SelectLabelProps{
   queryKey: string
-  queryFn: () => Promise<any>
+  queryFn: () => Promise<any> | never[]
   optionLabel: string;
   value: string;
 }

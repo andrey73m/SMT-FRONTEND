@@ -14,6 +14,7 @@ import cn from "@/cn";
 import RedirectionURILink from "@/components/wrappers/RedirectionURILink";
 import BotonCarritoCompras from "./BotonCarritoCompras";
 import { VistaRol } from "@/components/wrappers";
+import { ToastContainer } from "react-toastify";
 
 const TopBar = () => {
 
@@ -25,6 +26,7 @@ const TopBar = () => {
   return (
     <>
       <div className="mt-topbar">
+        <ToastContainer className="absolute top-topbar left-0" />
         <Outlet />
       </div>
       <div className={cn("flex transition-transform fixed top-0 w-full h-topbar bg-violet-950 text-white z-40",{

@@ -3,10 +3,12 @@ import {  CampoTexto } from "../UI"
 import { direccionResolver, CamposDireccion } from "./validators";
 import ErrorFormulario from "./Error"
 import QuerySelect from "./QuerySelect";
-import axios from "axios";
-import { env } from "@/environment";
-import { useCallback } from "react";
+import { AxiosError } from "axios";
 import { BotonPrimario } from "../UI/Botones";
+import direccionesService from "@/services/direccionesService";
+import { useCallback } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { Bounce, ToastContainer, toast } from "react-toastify";
 
 const FormularioDireccion = () => {
   const metodos = useForm<CamposDireccion>(
@@ -16,30 +18,71 @@ const FormularioDireccion = () => {
         c_dane_municipio: "",
         barrio: "",
         cadena_direccion: "",
+        predeterminada: false,
       },
       resolver: direccionResolver
     }
   )
-  const { register, handleSubmit, getValues, watch, formState: { errors } } = metodos
+  const { register, handleSubmit, getValues, watch, reset, formState: { errors } } = metodos
   
-  const onSubmit = (data: CamposDireccion) => {
-    
+  const mutacionCrearDireccion = useMutation({
+    mutationFn:direccionesService.crearDireccion,
+    onSuccess: () => {
+      toast("Direccion creada", {
+        autoClose: 5000,
+        hideProgressBar: false,
+        draggable: true,
+        progress: 0,
+        theme: "light",
+        transition: Bounce,
+        className: "bg-green-300 w-96 select-none text-green-800 p-2 rounded-sm my-2",
+
+      })
+      reset()
+    },
+    onError: (error) => {
+      const e = error as AxiosError<{error: string}>
+      toast(e.response?.data.error, {
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+        className: "bg-red-300 w-96 select-none text-red-600 p-2 rounded-sm my-2",
+
+      })
+    } ,
+  });
+  
+  const onSubmit = async (data: CamposDireccion) => {
     console.log(data)
+    // mutacionCrearDireccion.mutate(data)
 
   }
-  // estas funciones no deberian ir aqui pero era para probar, y tambien luego le explico lo del useCallback porque si es algo raro
-  const query = useCallback(async () => (await axios.get(`${env.BACKEND_ROOT}/domicilio/listadepartamentos`)).data, [])
-  const query2 = useCallback(async () => (await axios.get(`${env.BACKEND_ROOT}/domicilio/listamunicipios/${getValues().c_dane_departamento}`)).data
-    , [watch().c_dane_departamento])
+
+  const queryMunicipios = useCallback(() => {
+    const codigo_departamento = getValues().c_dane_departamento;
+    if (codigo_departamento)
+      return direccionesService.obtenerMunicipios(codigo_departamento)
+    return []
+  }
+  ,[watch().c_dane_departamento])
+
   return (
     <FormProvider {...metodos} >
+        
+
       <form onSubmit={handleSubmit(onSubmit)} className="w-1/4 flex flex-col items-center justify-normal p-5">
         <h1 className="mb-5 font-bold text-3xl">Ingresar dirección</h1>
         {errors.c_dane_departamento && <ErrorFormulario>{errors.c_dane_departamento.message}</ErrorFormulario>}
         {/* <CampoTexto  {...register("c_dane_departamento")} placeholder="Departamento"/> */}
-        <QuerySelect label="Departamento" optionLabel="departamento" value="c_digo_dane_del_departamento" queryKey="select-departamentos" queryFn={query} {...register("c_dane_departamento")}/>
+        <input className="border-2" type="checkbox" {...register("predeterminada")}/>
+        <QuerySelect label="Departamento" optionLabel="departamento" value="c_digo_dane_del_departamento" queryKey="select-departamentos" queryFn={direccionesService.obtenerDepartamentos} {...register("c_dane_departamento")}/>
         {errors.c_dane_municipio && <ErrorFormulario>{errors.c_dane_municipio.message}</ErrorFormulario>}
-        <QuerySelect label="Municipio" optionLabel="municipio" value="c_digo_dane_del_municipio" queryKey="select-municipios" queryFn={query2} {...register("c_dane_municipio")} />
+        <QuerySelect label="Municipio" optionLabel="municipio" value="c_digo_dane_del_municipio" queryKey="select-municipios" queryFn={queryMunicipios} {...register("c_dane_municipio")} />
         {errors.barrio && <ErrorFormulario>{errors.barrio.message}</ErrorFormulario>}
         <CampoTexto  {...register("barrio")} placeholder="Barrio"/>
         {errors.cadena_direccion && <ErrorFormulario>{errors.cadena_direccion.message}</ErrorFormulario>}

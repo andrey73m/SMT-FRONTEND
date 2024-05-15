@@ -17,9 +17,7 @@ import AboutUs from "./components/pages/informacion"
 import PaginaProductos from "./components/pages/Productos"
 
 import PaginaTickets from "./components/pages/Tickets"
-import { ToastContainer } from "react-toastify";
 import PaginaDetallesProducto from "./components/pages/DetallesProducto"
-
 const App = () => {
   const dispatch = useAppDispatch()
   const queryClient = useQueryClient()
@@ -86,8 +84,7 @@ const App = () => {
           
         </Routes>
       </Router>
-        
-      <ToastContainer/>
+      
     </>
   )
 }

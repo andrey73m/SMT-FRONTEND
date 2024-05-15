@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import inventarioService from "../../../services/inventarioService";
-import Spinner from "../../UI/Spinner";
 import TarjetaProducto from "./tarjetaProducto";
 import { DataProducto } from "@/models/DataProducto";
+import { SpinnerPagina } from "@/components/UI";
 
 
 
@@ -10,8 +10,9 @@ const Productos = () => {
   const productosQuery = useQuery<DataProducto[]>({
     queryKey: ["productos"],
     queryFn: inventarioService.obtenerProductos,
+    refetchOnWindowFocus: false,
   })
-  if (productosQuery.isLoading) return <Spinner/>
+  if (productosQuery.isLoading) return <SpinnerPagina/>
   
   return (
     <>
