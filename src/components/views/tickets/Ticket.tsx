@@ -1,7 +1,6 @@
 
 import ticketService from "@/services/ticketService";
 
-import VisorTexto from "@/components/UI/VisorTexto";
 
 import { VistaRol } from "@/components/wrappers"
 import BotonNegativo from "@/components/UI/Botones/BotonNegativo";
@@ -17,9 +16,7 @@ import CuerpoTicket from "./CuerpoTicket";
 import AlternarFormularioGestionarTicket from "@/components/layout/AlternarFormularioGestion";
 import { EstadosTicket } from "@/models/DataTicket";
 import { AxiosError } from "axios";
-
-import { toast, Bounce } from "react-toastify";
-
+import { notificarError } from "@/utils";
 
 interface TicketProps{
   ticket: DataTicket
@@ -46,16 +43,7 @@ const Ticket = ({ ticket, idticket }: TicketProps) => {
       const e = error as AxiosError
       if (e.response?.status === 409){
         console.log("No puedes aceptarlo")
-        toast("Parece que el ticket ya fue asignado a alguien mas", {
-          position: "bottom-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          transition: Bounce,
-        })
+        notificarError("Este ticket ya fue aceptado")
       }
     }
   })
@@ -93,7 +81,7 @@ const Ticket = ({ ticket, idticket }: TicketProps) => {
   //TODO:OPCIONAL > USAR FRESNEL PARA MANEJO DE MEDIAQUERY
   return(
     <>
-      <div className={cn("bg-white flex w-full flex-col relative transition-all  overflow-y-auto", {
+      <div  className={cn("bg-white flex w-full flex-col relative transition-all  overflow-y-auto", {
         "z-10 border-2 px-5 py-5": !abierto,
         "h-full fixed left-0 top-0 pt-topbar p-3 w-full z-30": abierto
       })}>

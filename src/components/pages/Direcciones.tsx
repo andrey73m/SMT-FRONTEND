@@ -1,4 +1,4 @@
-import { ImagenTitulo } from "../layout/imagenes";
+import { ImagenTitulo } from "../layout/FormatoImagenes";
 import Direcciones from "../views/direcciones/VistaDirecciones";
 import { VistaRol } from "../wrappers";
 

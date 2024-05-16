@@ -20,7 +20,7 @@ const Especificaciones = ({ idcomponente }: EspecificacionesProps) => {
   console.log(especificaciones)
   return isSuccess && (
     
-    <div className=" text-xl w-full border-t-2 my-2">
+    <div className=" lg:text-xl w-full border-t-2 my-2">
       {
         <table className="w-full border-spacing-3 ">
           <tbody>

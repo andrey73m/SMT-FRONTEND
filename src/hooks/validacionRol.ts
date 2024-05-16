@@ -1,4 +1,5 @@
 import useRolUsuario from "./rol"
+import useSesion from "./sesion";
 
 export interface opcionesValidacionRol{
   roles?: string[];
@@ -9,12 +10,15 @@ export interface opcionesValidacionRol{
 
 const useValidacionRol = ({ roles, permitirSinAutenticar, esperarRol = true, or }:opcionesValidacionRol) => {
   const { rol, isFetching } = useRolUsuario()
+  const { haySesion } = useSesion()
+  console.log(roles)
   return {
     rol,
     isFetching,
     valido:
       or ||
-      ((!roles && !permitirSinAutenticar && rol)
+      ((!esperarRol && !roles && haySesion && !permitirSinAutenticar)
+      || (!roles && rol && !permitirSinAutenticar)
       || (roles && roles.includes(rol))
       || (permitirSinAutenticar && !esperarRol && !rol)
       || (permitirSinAutenticar && !isFetching && !rol))

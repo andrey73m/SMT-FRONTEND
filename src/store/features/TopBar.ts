@@ -13,6 +13,9 @@ const estadoInicial = {
     visible: false,
     toque: false,
     deslizado: false
+  },
+  carritoCompras:{
+    abierto: false
   }
 }
 
@@ -45,12 +48,15 @@ export const sliceTopBar = createSlice({
     setToqueBotonPerfil: (state, action: PayloadAction<boolean>) => {
       state.botonesPerfil.toque = action.payload
     },
+    setCarritoCompras: (state, action: PayloadAction<boolean>) => {
+      state.carritoCompras.abierto = action.payload
+    },
     resetTobBar: () => {
       return estadoInicial;
     }
   }
 })
 
-export const { abrirNotificaciones, cerrarNotificaciones, abrirMenu, cerrarMenu, setVisibleBotonPerfil, setToqueBotonPerfil, resetTobBar,setHayPendientes } = sliceTopBar.actions
+export const { abrirNotificaciones, cerrarNotificaciones, abrirMenu, cerrarMenu, setVisibleBotonPerfil, setToqueBotonPerfil, resetTobBar,setHayPendientes,setCarritoCompras,setVisible } = sliceTopBar.actions
 
 export default sliceTopBar.reducer;

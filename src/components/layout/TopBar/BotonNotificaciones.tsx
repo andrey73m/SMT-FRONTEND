@@ -9,6 +9,7 @@ import IconoNotificacion from "@/components/icons/CampanaNotificacion"
 import ListaNotificaciones from "@/components/views/notificaciones"
 import { useMutationNotificaciones } from "@/hooks"
 import { DataNotificacion } from "@/models"
+import PuntoIndicador from "../PuntoIndicador"
 
 const BotonNotificaciones = () => {
   const [vistas, setVistas] = useState(true)
@@ -39,7 +40,7 @@ const BotonNotificaciones = () => {
       <BotonTopBar onClick={clickHandler} >
         <IconoNotificacion nuevas={!vistas} className="group-hover:text-cyan-200 transition-colors" />
         {hayPendientes &&
-          <span className="w-3 h-3 bg-fuchsia-600 rounded-full absolute right-1 bottom-1 "></span>
+          <PuntoIndicador className="absolute right-1 bottom-1"/>
         }
       </BotonTopBar>
       <ListaNotificaciones/>

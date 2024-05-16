@@ -19,6 +19,8 @@ import PaginaProductos from "./components/pages/Productos"
 import PaginaTickets from "./components/pages/Tickets"
 import PaginaDetallesProducto from "./components/pages/DetallesProducto"
 import PaginaDirecciones from "./components/pages/Direcciones"
+import PaginaConversacion from "./components/pages/Conversacion"
+import PaginaConversaciones from "./components/pages/Conversaciones"
 const App = () => {
   const dispatch = useAppDispatch()
   const queryClient = useQueryClient()
@@ -72,6 +74,21 @@ const App = () => {
             </Route>
             <Route  path="direcciones" element={<PaginaDirecciones/>} />
             <Route path="direccion" element={<FormularioDireccion />} />
+            <Route path="direcciones" element={<FormularioDireccion />} />
+            <Route path="chats" element={
+              <Guardian>
+                <TituloPagina titulo="Conversaciones">
+                  <PaginaConversaciones/>
+                </TituloPagina>
+              </Guardian>
+            }>
+              <Route path=":idticket" element={
+                <TituloPagina titulo="Conversacion: ">
+                  <PaginaConversacion />
+                </TituloPagina>
+              } />
+            </Route>
+            
             <Route path="crear-servicio" element={<FormularioServicio/>}/>
             <Route path="catalogo" element={<FormularioComponente />} />
             <Route path="quienes-somos" element={<AboutUs/>} />
