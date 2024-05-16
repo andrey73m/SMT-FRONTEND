@@ -56,10 +56,10 @@ const FormularioDireccion = () => {
       })
     } ,
   });
-  
+
   const onSubmit = async (data: CamposDireccion) => {
     console.log(data)
-    // mutacionCrearDireccion.mutate(data)
+    mutacionCrearDireccion.mutate(data)
 
   }
 
@@ -72,26 +72,25 @@ const FormularioDireccion = () => {
   ,[watch().c_dane_departamento])
 
   return (
-    <FormProvider {...metodos} >
-        
-
-      <form onSubmit={handleSubmit(onSubmit)} className="w-1/4 flex flex-col items-center justify-normal p-5">
-        <h1 className="mb-5 font-bold text-3xl">Ingresar dirección</h1>
-        {errors.c_dane_departamento && <ErrorFormulario>{errors.c_dane_departamento.message}</ErrorFormulario>}
-        {/* <CampoTexto  {...register("c_dane_departamento")} placeholder="Departamento"/> */}
-        <input className="border-2" type="checkbox" {...register("predeterminada")}/>
-        <QuerySelect label="Departamento" optionLabel="departamento" value="c_digo_dane_del_departamento" queryKey="select-departamentos" queryFn={direccionesService.obtenerDepartamentos} {...register("c_dane_departamento")}/>
-        {errors.c_dane_municipio && <ErrorFormulario>{errors.c_dane_municipio.message}</ErrorFormulario>}
-        <QuerySelect label="Municipio" optionLabel="municipio" value="c_digo_dane_del_municipio" queryKey="select-municipios" queryFn={queryMunicipios} {...register("c_dane_municipio")} />
-        {errors.barrio && <ErrorFormulario>{errors.barrio.message}</ErrorFormulario>}
-        <CampoTexto  {...register("barrio")} placeholder="Barrio"/>
-        {errors.cadena_direccion && <ErrorFormulario>{errors.cadena_direccion.message}</ErrorFormulario>}
-        <CampoTexto  {...register("cadena_direccion")} placeholder="Direccion"/>
-
-        <BotonPrimario type="submit" >Guardar dirección</BotonPrimario>
-      
-      </form>
-    </FormProvider>
+    <div className="flex justify-center">
+      <FormProvider {...metodos} >
+        <form onSubmit={handleSubmit(onSubmit)} className="w-1/4 flex flex-col items-center justify-normal p-5 ">
+          <h1 className="mb-5 font-bold text-3xl">Crea una nueva dirección</h1>
+          {errors.c_dane_departamento && <ErrorFormulario>{errors.c_dane_departamento.message}</ErrorFormulario>}
+          <QuerySelect label="Departamento" optionLabel="departamento" value="c_digo_dane_del_departamento" queryKey="select-departamentos" queryFn={direccionesService.obtenerDepartamentos} {...register("c_dane_departamento")}/>
+          {errors.c_dane_municipio && <ErrorFormulario>{errors.c_dane_municipio.message}</ErrorFormulario>}
+          <QuerySelect label="Municipio" optionLabel="municipio" value="c_digo_dane_del_municipio" queryKey="select-municipios" queryFn={queryMunicipios} {...register("c_dane_municipio")} />
+          {errors.barrio && <ErrorFormulario>{errors.barrio.message}</ErrorFormulario>}
+          <CampoTexto  {...register("barrio")} placeholder="Barrio"/>
+          {errors.cadena_direccion && <ErrorFormulario>{errors.cadena_direccion.message}</ErrorFormulario>}
+          <CampoTexto  {...register("cadena_direccion")} placeholder="Direccion"/>
+          <h3 className="p-3">
+            <input className="border-2" type="checkbox" {...register("predeterminada")}/> Dirección predeterminada
+          </h3>
+          <BotonPrimario type="submit" >Guardar dirección</BotonPrimario>
+        </form>
+      </FormProvider>
+    </div>
   )
 
 }

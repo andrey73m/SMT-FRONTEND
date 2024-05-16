@@ -41,15 +41,3 @@ export const reenviarCodigo = async(id: string) => {
   }
   
 }
-
-// export const crearDireccion = async(data: CamposDireccion) => {
-//   try{
-//     const token = cookies.get("token")
-//     const res = await axios.post(`${env.BACKEND_ROOT}/domicilio/direcciones`, data, { headers: { Authorization: token } })
-//     return res.data;
-//   }catch(e){
-//     const error = e as AxiosError;
-//     return { error: error.response }
-//   }
-  
-// }

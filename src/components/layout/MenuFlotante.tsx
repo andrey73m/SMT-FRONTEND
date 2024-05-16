@@ -59,6 +59,13 @@ const MenuFlotante = () => {
           <LinkMenu to="productos">
             Productos
           </LinkMenu>
+
+          <VistaRol roles={["cliente"]}>
+            <LinkMenu to="direcciones">
+            Direcciones
+            </LinkMenu>
+          </VistaRol>
+
           <LinkMenu to="quienes-somos">
             Sobre nosotros
           </LinkMenu>

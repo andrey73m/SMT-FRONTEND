@@ -18,6 +18,7 @@ import PaginaProductos from "./components/pages/Productos"
 
 import PaginaTickets from "./components/pages/Tickets"
 import PaginaDetallesProducto from "./components/pages/DetallesProducto"
+import PaginaDirecciones from "./components/pages/Direcciones"
 const App = () => {
   const dispatch = useAppDispatch()
   const queryClient = useQueryClient()
@@ -69,7 +70,8 @@ const App = () => {
               </Guardian>
             }>
             </Route>
-            <Route path="direcciones" element={<FormularioDireccion />} />
+            <Route  path="direcciones" element={<PaginaDirecciones/>} />
+            <Route path="direccion" element={<FormularioDireccion />} />
             <Route path="crear-servicio" element={<FormularioServicio/>}/>
             <Route path="catalogo" element={<FormularioComponente />} />
             <Route path="quienes-somos" element={<AboutUs/>} />
