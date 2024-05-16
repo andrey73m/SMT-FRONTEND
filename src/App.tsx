@@ -18,7 +18,7 @@ import PaginaProductos from "./components/pages/Productos"
 
 import PaginaTickets from "./components/pages/Tickets"
 import PaginaDetallesProducto from "./components/pages/DetallesProducto"
-import PaginConversacion from "./components/pages/Conversacion"
+import PaginaConversacion from "./components/pages/Conversacion"
 import PaginaConversaciones from "./components/pages/Conversaciones"
 const App = () => {
   const dispatch = useAppDispatch()
@@ -79,9 +79,9 @@ const App = () => {
                 </TituloPagina>
               </Guardian>
             }>
-              <Route path=":idchat" element={
+              <Route path=":idticket" element={
                 <TituloPagina titulo="Conversacion: ">
-                  <PaginConversacion />
+                  <PaginaConversacion />
                 </TituloPagina>
               } />
             </Route>

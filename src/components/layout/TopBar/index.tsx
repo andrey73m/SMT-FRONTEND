@@ -19,19 +19,33 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { useMutacionOnline } from "@/hooks/online";
 import { socketService } from "@/services/socketService";
+import { DataMensajeRecibido } from "@/models/Conversacion";
+import { useQueryClient } from "@tanstack/react-query";
 const TopBar = () => {
 
   const { haySesion } = useSesion()
   const dispatch = useAppDispatch()
   const { visible } = useAppSelector(state => state.topBar)
   const { invalidarOnline } = useMutacionOnline()
+  const queryClient = useQueryClient();
   useEffect(() =>
     () => {dispatch(resetTobBar())}
   ,[])
   useEffect(() => {
+    const onMessage = (mensaje: DataMensajeRecibido) => {
+      queryClient.setQueryData<DataMensajeRecibido[]>(["mensajes-conversacion"], (mensajes) => {
+        if (!mensajes) return [mensaje]
+        return mensajes.concat(mensaje)
+      })
+    }
+
+    socketService.on("chat:mensaje-nuevo", onMessage)
     socketService.on("cambio-en-online",invalidarOnline)
     
-    return () => {}
+    return () => {
+      socketService.removeListener("chat:mensaje-nuevo")
+      socketService.removeListener("cambio-en-online")
+    }
   }, [])
   return (
     <>

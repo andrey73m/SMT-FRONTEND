@@ -7,9 +7,12 @@ import useSesion from "@/hooks/sesion";
 import { BotonPrimario } from "../UI/Botones";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { notificarError, notificarExito } from "@/utils";
-import { useAppDispatch } from "@/store";
 
-const FormularioTicket = () => {
+interface FormularioTicketProps{
+  closeOnSubmit?: ()=>void
+}
+
+const FormularioTicket = ({ closeOnSubmit }:FormularioTicketProps) => {
 
   const { info, haySesion } = useSesion()
   const queryClient = useQueryClient();
@@ -19,7 +22,6 @@ const FormularioTicket = () => {
       contenido: ""
     }
   })
-  const dispatch = useAppDispatch()
   const mutacionSubmit = useMutation({
     mutationFn: ticketService.createTicket,
     onSuccess: (e) => {
@@ -32,6 +34,9 @@ const FormularioTicket = () => {
       }
       metodos.reset()
       queryClient.invalidateQueries({ queryKey:["tickets"] })
+      if (closeOnSubmit){
+        closeOnSubmit()
+      }
     },
     onError: (e) => {
       console.log(e)

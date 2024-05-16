@@ -14,7 +14,7 @@ const ListaTickets = ({ params, idticket }: ListaTicketsProps) => {
   const { data: tickets, isLoading, isSuccess, ...ticketQuery } = useQuery<DataTicket[]>({
     queryKey: ["tickets"],
     queryFn: async () => {
-      if (idticket) return [await ticketService.getClientTicket(idticket)]
+      if (idticket) return [await ticketService.getTicket(idticket)]
       return ticketService.getTickets(params)
     },
     retry: 0,

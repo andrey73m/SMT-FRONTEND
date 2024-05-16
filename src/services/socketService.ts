@@ -1,14 +1,19 @@
 import { env } from "@/environment"
 import { io, Socket } from "socket.io-client"
 import tokenService from "./tokenService";
+import { DataMensajeEnviado, DataMensajeRecibido } from "@/models/Conversacion";
 
 
 interface ServerEvents{
   notificacion: (notificacion: any) => void;
   "cambio-en-online": () => void;
+  "chat:mensaje-nuevo": (mensaje: DataMensajeRecibido) => void;
+}
+interface ClientEvents {
+  "chat:enviar-mensaje": (mensaje: DataMensajeEnviado, estado: (mensaje: DataMensajeRecibido)=>void) => void
 }
 
-export const socketService: Socket<ServerEvents, any> =  io(`${env.BACKEND_ROOT}`,{
+export const socketService: Socket<ServerEvents, ClientEvents> =  io(`${env.BACKEND_ROOT}`,{
   extraHeaders:{},
   auth: (cb) => cb({ token: tokenService.getToken() }),
   autoConnect: false

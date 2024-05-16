@@ -11,6 +11,16 @@ export const formatoPrecio = new Intl.NumberFormat(navigator.language, {
   maximumFractionDigits: 0
 })
 
+export const formatearHora = (fecha: Date) => {
+  const formatoHora = new Intl.DateTimeFormat(navigator.language, {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: false
+  })
+
+  return formatoHora.format(new Date(fecha))
+}
+
 export const notificarError = (mensaje: string, timer: number = 5000) => {
   toast.error(mensaje, {
     position: "bottom-right",

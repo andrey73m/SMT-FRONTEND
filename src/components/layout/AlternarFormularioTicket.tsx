@@ -22,7 +22,7 @@ const AlternarFormularioTicket = () => {
 
 
       <div className={cn("bg-white overflow-y-auto grow", { "opacity-0 hidden": !mostrarFormulario, "opacity-100": mostrarFormulario })}>
-        <FormularioTicket/>
+        <FormularioTicket closeOnSubmit={() => setMostrarFormulario(false)}/>
       </div>
     </div >
   );

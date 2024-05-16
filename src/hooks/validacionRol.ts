@@ -11,6 +11,7 @@ export interface opcionesValidacionRol{
 const useValidacionRol = ({ roles, permitirSinAutenticar, esperarRol = true, or }:opcionesValidacionRol) => {
   const { rol, isFetching } = useRolUsuario()
   const { haySesion } = useSesion()
+  console.log(roles)
   return {
     rol,
     isFetching,

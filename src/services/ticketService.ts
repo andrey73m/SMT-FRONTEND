@@ -9,7 +9,7 @@ export default{
     const res = await axios.post(`${env.BACKEND_ROOT}/tickets/email`, data, { headers: auth })
     return res.data;
   },
-  getClientTicket: async (id: string) => {
+  getTicket: async (id: string) => {
     const auth = tokenService.getAuthHeader()
     const res = await axios.get(`${env.BACKEND_ROOT}/tickets/gestionar/${id}`, { headers: auth })
     return res.data;

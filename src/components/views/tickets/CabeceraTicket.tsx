@@ -67,7 +67,7 @@ const CabeceraTicket = ({ ticket,abierto }: CabeceraTicketProps) => {
       </div>
       <div className="grow flex justify-end px-5">
 
-        <BotonChat idchat={"prueba"} className="transition-colors sticky top-0 left-0" />
+        <BotonChat idchat={ticket.idticket} className="transition-colors sticky top-0 left-0" />
       </div>
     </div>
   );
