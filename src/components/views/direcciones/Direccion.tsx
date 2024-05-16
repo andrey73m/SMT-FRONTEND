@@ -5,7 +5,8 @@ import direccionesService from "@/services/direccionesService";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { Bounce, toast } from "react-toastify";
-
+import FormularioDireccion from "@/components/formularios/direccion";
+import DialogoMostrar from "@/components/UI/DialogoMostrar";
 interface DireccionesProps {
   direccion: DataDireccion
 }
@@ -14,37 +15,7 @@ const Direccion = ({ direccion }: DireccionesProps) => {
   
   const queryClient = useQueryClient()
 
-  const mutacionActualizarDireccion = useMutation<DataDireccion>({
-    mutationFn: () => direccionesService.actualizarDireccion(direccion.iddireccion),
-    onSuccess: (updated) => {
-      toast("Direccion actualizada", {
-        autoClose: 5000,
-        hideProgressBar: false,
-        draggable: true,
-        progress: 0,
-        theme: "light",
-        transition: Bounce,
-        className: "bg-green-300 w-96 select-none text-green-800 p-2 rounded-sm my-2",
-      })
-      const data = queryClient.getQueryData<DataDireccion[]>(["direcciones"])
-      queryClient.setQueryData(["direcciones"], data?.map(direccion => direccion.iddireccion === updated.iddireccion ? updated : direccion))
-    },
-    onError: (error) => {
-      const e = error as AxiosError<{error: string}>
-      toast(e.response?.data.error, {
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-        className: "bg-red-300 w-96 select-none text-red-600 p-2 rounded-sm my-2",
-
-      })
-    } ,
-  });
+  
 
   const mutacionEliminarDireccion = useMutation<DataDireccion>({
     mutationFn: () => direccionesService.eliminarDireccion(direccion.iddireccion),
@@ -78,11 +49,6 @@ const Direccion = ({ direccion }: DireccionesProps) => {
     } ,
   });
 
-  const handleUpdate = async () => {
-    if (direccion.iddireccion)
-      mutacionActualizarDireccion.mutate()
-  }
-
   const handleDelete = async () => {
     if (direccion.iddireccion)
 
@@ -94,7 +60,16 @@ const Direccion = ({ direccion }: DireccionesProps) => {
       <div className="rounded-xl bg-white w-auto">
         <div className="flex justify-end h-0">
           <div className="my-7 mx-2 flex justify-end min-h-10">
-            <BotonEditar  onClick={handleUpdate}/>
+            
+            <BotonEditar/>
+            <DialogoMostrar>
+              <div className="relative">
+                <div className="flex justify-end absolute w-full">
+                  <BotonEliminar className="h-10"/>
+                </div>
+                <FormularioDireccion modoActualizar direccion={direccion}/>
+              </div>
+            </DialogoMostrar>
             <BotonEliminar onClick={handleDelete}/>
           </div>
         </div>

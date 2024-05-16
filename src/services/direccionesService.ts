@@ -26,9 +26,10 @@ export default {
     return res.data;
   },
 
-  actualizarDireccion: async (id: string) => {
+  actualizarDireccion: async ({ id, data } : { id:string, data:CamposDireccion }) => {
     const auth = tokenService.getAuthHeader()
-    const res = await axios.put(`${env.BACKEND_ROOT}/domicilio/direcciones/${id}`, { headers: auth })
+    console.log(auth)
+    const res = await axios.put(`${env.BACKEND_ROOT}/domicilio/direcciones/${id}`, data , { headers: auth })
     return res.data;
   },
 
