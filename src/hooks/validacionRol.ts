@@ -16,7 +16,8 @@ const useValidacionRol = ({ roles, permitirSinAutenticar, esperarRol = true, or 
     isFetching,
     valido:
       or ||
-      ((!roles && haySesion && !permitirSinAutenticar)
+      ((!esperarRol && !roles && haySesion && !permitirSinAutenticar)
+      || (!roles && rol && !permitirSinAutenticar)
       || (roles && roles.includes(rol))
       || (permitirSinAutenticar && !esperarRol && !rol)
       || (permitirSinAutenticar && !isFetching && !rol))

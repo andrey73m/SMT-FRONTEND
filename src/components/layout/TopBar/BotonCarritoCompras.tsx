@@ -6,6 +6,7 @@ import { useDataProductosCarritoCompras, useProductosCarritoCompras } from "@/ho
 import { useAppDispatch } from "@/store";
 import { setCarritoCompras } from "@/store/features/TopBar";
 import { useEffect } from "react";
+import PuntoIndicador from "../PuntoIndicador";
 
 interface BotonCarritoComprasProps {
   
@@ -28,9 +29,9 @@ const BotonCarritoCompras = () => {
       <BotonTopBar onClick ={handleOpen}>
         <IconoCarritoCompras/>
         {data &&
-          <span className=" text-xs font-bold w-4 h-4 text-center bg-fuchsia-600 rounded-full absolute right-1 bottom-1 ">
+          <PuntoIndicador className="absolute right-1 bottom-1">
             <p>{data.length}</p>
-          </span>
+          </PuntoIndicador>
         }
       </BotonTopBar>
     );

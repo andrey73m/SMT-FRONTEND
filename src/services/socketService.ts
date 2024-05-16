@@ -5,6 +5,7 @@ import tokenService from "./tokenService";
 
 interface ServerEvents{
   notificacion: (notificacion: any) => void;
+  "cambio-en-online": () => void;
 }
 
 export const socketService: Socket<ServerEvents, any> =  io(`${env.BACKEND_ROOT}`,{

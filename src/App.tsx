@@ -18,6 +18,8 @@ import PaginaProductos from "./components/pages/Productos"
 
 import PaginaTickets from "./components/pages/Tickets"
 import PaginaDetallesProducto from "./components/pages/DetallesProducto"
+import PaginConversacion from "./components/pages/Conversacion"
+import PaginaConversaciones from "./components/pages/Conversaciones"
 const App = () => {
   const dispatch = useAppDispatch()
   const queryClient = useQueryClient()
@@ -70,6 +72,20 @@ const App = () => {
             }>
             </Route>
             <Route path="direcciones" element={<FormularioDireccion />} />
+            <Route path="chats" element={
+              <Guardian>
+                <TituloPagina titulo="Conversaciones">
+                  <PaginaConversaciones/>
+                </TituloPagina>
+              </Guardian>
+            }>
+              <Route path=":idchat" element={
+                <TituloPagina titulo="Conversacion: ">
+                  <PaginConversacion />
+                </TituloPagina>
+              } />
+            </Route>
+            
             <Route path="crear-servicio" element={<FormularioServicio/>}/>
             <Route path="catalogo" element={<FormularioComponente />} />
             <Route path="quienes-somos" element={<AboutUs/>} />

@@ -3,6 +3,10 @@ import { VistaRol } from "@/components/wrappers";
 import { DataTicket } from "@/models";
 import {  useNavigate } from "react-router-dom";
 import BotonAnterior from "@/components/layout/BotonAnterior"
+import BotonChat from "@/components/layout/BotonChat";
+import PuntoIndicador from "@/components/layout/PuntoIndicador";
+import cn from "@/cn";
+import { useOnline, useValidarOnline } from "@/hooks/online";
 
 interface CabeceraTicketProps {
   ticket: DataTicket;
@@ -11,13 +15,18 @@ interface CabeceraTicketProps {
 
 const CabeceraTicket = ({ ticket,abierto }: CabeceraTicketProps) => {
   const navigate = useNavigate()
-  
+  const { isOnline: clienteOnline } = useValidarOnline(ticket.usuario?.idusuario)
+  const { isOnline: empleadoOnline } = useValidarOnline(ticket.usuario?.idusuario)
+
   return (
-    <>
-      <div className="flex gap-x-3 items-center py-2">
+    <div className="flex justify-between w-full items-center">
+      <div className="flex  gap-x-3 items-center py-2">
         {
           abierto &&
-          <BotonAnterior className="transition-colors sticky top-0 left-0" defaultPath="/tickets"/>
+          <>
+            <BotonAnterior className="transition-colors sticky top-0 left-0" defaultPath="/tickets"/>
+            
+          </>
         }
       
         <div className="pl-3 pt-2">
@@ -28,7 +37,13 @@ const CabeceraTicket = ({ ticket,abierto }: CabeceraTicketProps) => {
                 ticket.usuario ?
 
                   <TextoClickable onClick={() => navigate({ pathname: "/tickets", search: `idusuario=${ticket.usuario?.idusuario}` })}>
-                    {ticket.usuario.nombres} {ticket.usuario.apellidos}
+                    <div className="flex items-center gap-x-2">
+                      <PuntoIndicador className={cn("bg-green-300", {
+                        "bg-gray-200": !clienteOnline
+                      })} />
+                      {ticket.usuario.nombres} {ticket.usuario.apellidos}
+
+                    </div>
                   </TextoClickable>
                   :
                   <TextoClickable onClick={() => navigate({ pathname: "/tickets", search:`email=${ticket.email}` })}>
@@ -50,7 +65,11 @@ const CabeceraTicket = ({ ticket,abierto }: CabeceraTicketProps) => {
           </div>
         </div>
       </div>
-    </>
+      <div className="grow flex justify-end px-5">
+
+        <BotonChat idchat={"prueba"} className="transition-colors sticky top-0 left-0" />
+      </div>
+    </div>
   );
 }
 export default CabeceraTicket;

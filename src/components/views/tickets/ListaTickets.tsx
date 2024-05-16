@@ -11,7 +11,7 @@ interface ListaTicketsProps {
 }
  
 const ListaTickets = ({ params, idticket }: ListaTicketsProps) => {
-  const { data: tickets, isFetching, isSuccess, ...ticketQuery } = useQuery<DataTicket[]>({
+  const { data: tickets, isLoading, isSuccess, ...ticketQuery } = useQuery<DataTicket[]>({
     queryKey: ["tickets"],
     queryFn: async () => {
       if (idticket) return [await ticketService.getClientTicket(idticket)]
@@ -21,7 +21,7 @@ const ListaTickets = ({ params, idticket }: ListaTicketsProps) => {
     refetchOnWindowFocus: false
   })
 
-  if (isFetching) return <SpinnerPagina/>
+  if (isLoading) return <SpinnerPagina/>
   return (
     <div className="flex flex-col gap-y-4 pt-2 px-5 border-gray-200">
       {

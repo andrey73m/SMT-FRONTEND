@@ -5,22 +5,43 @@ import { CamposTicket } from "./validators";
 import ticketService from "@/services/ticketService";
 import useSesion from "@/hooks/sesion";
 import { BotonPrimario } from "../UI/Botones";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { notificarError, notificarExito } from "@/utils";
+import { useAppDispatch } from "@/store";
 
 const FormularioTicket = () => {
 
   const { info, haySesion } = useSesion()
-  const metodos = useForm<CamposTicket>()
-  const onSubmit = async (data: CamposTicket) => {
-    if (info.email && info.email.length > 0){
-      // console.log("")
-      data.email = info.email;
-      const res = await ticketService.createTicket(data);
-      console.log("Creado")
-      return
+  const queryClient = useQueryClient();
+  const metodos = useForm<CamposTicket>({
+    defaultValues:{
+      asunto: "",
+      contenido: ""
     }
-    
-    const res = await ticketService.createTicketEmail(data);
-    console.log("Creado")
+  })
+  const dispatch = useAppDispatch()
+  const mutacionSubmit = useMutation({
+    mutationFn: ticketService.createTicket,
+    onSuccess: (e) => {
+      console.log(e)
+      if (haySesion)
+        notificarExito("Ticket creado, pronto te atenderemos a")
+      else{
+        notificarExito("Ticket creado, revisa tu correo para mas detalles")
+        metodos.setValue("email","")
+      }
+      metodos.reset()
+      queryClient.invalidateQueries({ queryKey:["tickets"] })
+    },
+    onError: (e) => {
+      console.log(e)
+      notificarError(e.response.data.error)
+    }
+  })
+
+  const onSubmit = async (data: CamposTicket) => {
+    console.log(data)
+    mutacionSubmit.mutate(data)
   }
 
   return (

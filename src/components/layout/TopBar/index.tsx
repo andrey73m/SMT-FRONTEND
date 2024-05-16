@@ -14,21 +14,30 @@ import cn from "@/cn";
 import RedirectionURILink from "@/components/wrappers/RedirectionURILink";
 import BotonCarritoCompras from "./BotonCarritoCompras";
 import { VistaRol } from "@/components/wrappers";
-import { ToastContainer } from "react-toastify";
 import ProductosCarrito from "@/components/views/carritoCompras/ProductosCarrito";
-
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import { useMutacionOnline } from "@/hooks/online";
+import { socketService } from "@/services/socketService";
 const TopBar = () => {
 
   const { haySesion } = useSesion()
   const dispatch = useAppDispatch()
   const { visible } = useAppSelector(state => state.topBar)
+  const { invalidarOnline } = useMutacionOnline()
   useEffect(() =>
-    () => {dispatch(resetTobBar())},[])
+    () => {dispatch(resetTobBar())}
+  ,[])
+  useEffect(() => {
+    socketService.on("cambio-en-online",invalidarOnline)
+    
+    return () => {}
+  }, [])
   return (
     <>
+      
       <div className="mt-topbar">
         <Outlet />
-        <ToastContainer className="absolute top-topbar left-1/2" />
       </div>
       <div className={cn("flex transition-transform fixed top-0 w-full h-topbar bg-violet-950 text-white z-40",{
         "top-topbar": !visible
@@ -66,9 +75,12 @@ const TopBar = () => {
           }
         </div>
       </div>
+      <VistaRol roles={["cliente"]}>
+        <ProductosCarrito/>
 
-      <ProductosCarrito/>
+      </VistaRol>
       <MenuFlotante />
+      <ToastContainer autoClose={5000} />
     </>
   )
 }

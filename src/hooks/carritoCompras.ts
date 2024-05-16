@@ -2,7 +2,9 @@ import { DataProductoCarrito } from "@/models"
 import { DataProducto } from "@/models/DataProducto"
 import tiendaService from "@/services/tiendaService"
 import { useAppSelector } from "@/store"
+import { notificarError } from "@/utils"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { AxiosError } from "axios"
 import { useEffect, useState } from "react"
 
 export const useEstadoCarritoCompras = () => {
@@ -13,6 +15,7 @@ export const useInfoProductos = () => {
   const queryProductos =  useQuery<DataProducto[]>({
     queryKey:["info-productos-carrito"],
     queryFn: tiendaService.obtenerInfoProductosCarrito,
+    refetchOnWindowFocus:false
   })
   return queryProductos
 }
@@ -34,7 +37,8 @@ export const useMutacionesCarrito = () => {
 
     },
     onError: (e) => {
-
+      const error = e as AxiosError;
+      notificarError(error.response?.data.error)
     }
   })
   const mutacionQuitar = useMutation({

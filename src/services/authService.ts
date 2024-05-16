@@ -40,5 +40,11 @@ export default {
     const res = await axios.get(`${env.BACKEND_ROOT}/auth/validar-sesion`,{ headers: auth })
     return res.data;
 
+  },
+  obtenerOnline: async() => {
+    const auth = tokenService.getAuthHeader()
+    const res = await axios.get(`${env.BACKEND_ROOT}/auth/online`,{ headers: auth })
+    return res.data;
+
   }
 }
