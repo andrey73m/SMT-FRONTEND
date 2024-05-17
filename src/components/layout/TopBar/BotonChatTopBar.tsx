@@ -27,7 +27,7 @@ const BotonChatTopBar = () => {
 
   return(
     <>
-      <BotonTopBar onClick={handleAccept}>
+      <BotonTopBar className="w-12" onClick={handleAccept}>
         <IconoChat/>
         {nuevos &&
           <PuntoIndicador className="absolute right-1 bottom-1" />
