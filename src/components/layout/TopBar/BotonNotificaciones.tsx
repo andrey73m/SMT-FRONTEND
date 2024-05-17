@@ -37,7 +37,7 @@ const BotonNotificaciones = () => {
   }, [])
   return (
     <>
-      <BotonTopBar onClick={clickHandler} >
+      <BotonTopBar className="w-12" onClick={clickHandler} >
         <IconoNotificacion nuevas={!vistas} className="group-hover:text-cyan-200 transition-colors" />
         {hayPendientes &&
           <PuntoIndicador className="absolute right-1 bottom-1"/>

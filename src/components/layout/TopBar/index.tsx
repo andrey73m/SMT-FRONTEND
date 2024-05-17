@@ -66,7 +66,7 @@ const TopBar = () => {
       })}>
         <BotonMenu/>
         <LogoTopBar/>
-        <div className="flex h-full grow justify-end pr-1">
+        <div className="flex h-full gap-x-3 grow justify-end pr-1">
           {!haySesion &&
             <>
               <BotonTopBar className="px-2">

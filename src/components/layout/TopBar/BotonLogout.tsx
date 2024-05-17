@@ -37,7 +37,7 @@ const BotonLogout = () => {
   return (
     <>
       <DialogoConfirmar ejecutarAccion={logoutHandler} titulo="¿Estás seguro cerrar sesión?" ref= {referenciaConfirmacion}/>
-      <BotonTopBar onClick={() => referenciaConfirmacion.current?.setMostrarConfirmacion(true)} >
+      <BotonTopBar className="w-12" onClick={() => referenciaConfirmacion.current?.setMostrarConfirmacion(true)} >
       
 
         <LogOut className="hover:text-rose-600 transition-colors" ping={ping} />

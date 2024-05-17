@@ -54,9 +54,9 @@ const FormularioDireccion = ({ modoActualizar, direccion, afterSubmit }: Formula
   }
 
   const onSubmit = async (data: CamposDireccion) => {
+    if(!modoActualizar)
+      return mutacionCrearDireccion.mutate(data);
     if(direccion){
-      if(!modoActualizar)
-        return mutacionCrearDireccion.mutate(data);
       mutacionActualizarDireccion.mutate({ id: direccion.iddireccion, data })
     }
   }
