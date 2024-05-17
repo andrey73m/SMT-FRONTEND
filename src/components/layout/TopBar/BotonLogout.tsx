@@ -4,6 +4,7 @@ import BotonTopBar from "./Boton";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { cerrarSesion } from "@/store/features/sesion";
 import { useQueryClient } from "@tanstack/react-query";
+import DialogoConfirmar, { tipoReferenciaConfirmar } from "@/components/UI/DialogoConfirmar";
  
 const BotonLogout = () => {
   const safeTimer = useRef(0)
@@ -31,10 +32,17 @@ const BotonLogout = () => {
     }
   }
   const [ping, setPing] = useState(false)
+  const referenciaConfirmacion = useRef<tipoReferenciaConfirmar>()
+
   return (
-    <BotonTopBar onClick={logoutHandler} >
-      <LogOut className="hover:text-rose-600 transition-colors" ping={ping} />
-    </BotonTopBar>
+    <>
+      <DialogoConfirmar ejecutarAccion={logoutHandler} titulo="¿Estás seguro cerrar sesión?" ref= {referenciaConfirmacion}/>
+      <BotonTopBar onClick={() => referenciaConfirmacion.current?.setMostrarConfirmacion(true)} >
+      
+
+        <LogOut className="hover:text-rose-600 transition-colors" ping={ping} />
+      </BotonTopBar>
+    </>
   );
 }
  

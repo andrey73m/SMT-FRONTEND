@@ -11,6 +11,7 @@ import { MouseEventHandler, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDataProductosCarritoCompras } from "@/hooks/carritoCompras";
 import IconoSimboloX from "@/components/icons/SimboloX";
+import DialogoConfirmar, { tipoReferenciaConfirmar } from "@/components/UI/DialogoConfirmar";
 
 interface InfoProductosCarritoProps{
   producto: DataProducto
@@ -34,10 +35,16 @@ const InfoProductosCarrito = ({ producto }: InfoProductosCarritoProps) => {
   const handleDelete = () => {
     mutacionQuitar.mutate(producto.idproducto)
   }
+  const referenciaConfirmacion = useRef<tipoReferenciaConfirmar>()
+
   return productoEnCarrito && (
+
     <div  className="border-b-2 py-3 hover:bg-slate-200 cursor-pointer">
+      <DialogoConfirmar ejecutarAccion={handleDelete} titulo="¿Estás seguro de eliminar este producto?" ref= {referenciaConfirmacion}/>
+
       <div className="flex justify-end px-2">
-        <span className="rounded-full cursor-pointer text-2xl hover:font-bold h-6 hover:text-red-700 transition-all" onClick={handleDelete}>
+        <span className="rounded-full cursor-pointer text-2xl hover:font-bold h-6 hover:text-red-700 transition-all"
+          onClick={() => referenciaConfirmacion.current?.setMostrarConfirmacion(true)}>
           <IconoSimboloX/>
         </span>
       </div>

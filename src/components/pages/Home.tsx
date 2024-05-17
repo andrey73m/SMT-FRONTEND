@@ -2,8 +2,8 @@
 import Servicios from "@/components/views/servicios/Servicios";
 import { VistaRol } from "@/components/wrappers"
 import { ImagenTitulo } from "@/components/layout/FormatoImagenes";
-import AlternarFormularioTicket from "@/components/layout/AlternarFormularioTicket";
-
+import AlternarFormulario from "@/components/layout/AlternarFormularioTicket";
+import FormularioTicket from "../formularios/ticket";
 
 
 const Home = () => {
@@ -14,7 +14,10 @@ const Home = () => {
       <ImagenTitulo urlImagen="https://th.bing.com/th/id/R.de8ec55fbc33031f48e013014052a5ea?rik=jlC%2butp28KZnlw&pid=ImgRaw&r=0" titulo="Nuestros servicios"/>
       {/*TODO TARJETAS DE INFORMACION GENERICA COMO LAS CARACTERISTICAS DEL SERVICIO*/}
       <VistaRol roles={["cliente"]} permitirSinAutenticar>
-        <AlternarFormularioTicket/>
+        <AlternarFormulario texto="Si tienes problemas, ¡Mándanos un ticket!">
+          <FormularioTicket/>
+        </AlternarFormulario>
+
       </VistaRol>
       <div className="flex h-full flex-col py-6 px-6 md:px-10 gap-y-5">
         <Servicios />

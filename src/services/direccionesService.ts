@@ -50,6 +50,12 @@ export default {
     const res = await axios.get(`${env.BACKEND_ROOT}/domicilio/direcciones/administrar/${idusuario}`, { headers: auth })
     return res.data;
   },
+  hacerDireccionPredeterminada: async(idireccion:string) => {
+    const auth = tokenService.getAuthHeader()
+    const res = await axios.get(`${env.BACKEND_ROOT}/domicilio/direcciones/hacer-predeterminada/${idireccion}`, { headers: auth })
+    return res.data;
+  },
+
 
   actualizarDireccionAdmin: async (idusuario: string, iddireccion:string) => {
     const auth = tokenService.getAuthHeader()

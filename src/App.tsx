@@ -72,9 +72,17 @@ const App = () => {
               </Guardian>
             }>
             </Route>
-            <Route  path="direcciones" element={<PaginaDirecciones/>} />
-            <Route path="direccion" element={<FormularioDireccion />} />
-            <Route path="direcciones" element={<FormularioDireccion />} />
+
+
+            <Route  path="direcciones" element={
+              <Guardian roles={["admin", "cliente"]}>
+                <TituloPagina titulo="Direcciones">
+                  <PaginaDirecciones/>
+                </TituloPagina>
+              </Guardian>
+            }>
+            </Route>
+
             <Route path="chats" element={
               <Guardian>
                 <TituloPagina titulo="Conversaciones">

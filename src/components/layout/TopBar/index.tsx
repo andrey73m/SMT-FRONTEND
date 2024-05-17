@@ -21,6 +21,8 @@ import { useMutacionOnline } from "@/hooks/online";
 import { socketService } from "@/services/socketService";
 import { DataMensajeRecibido } from "@/models/Conversacion";
 import { useQueryClient } from "@tanstack/react-query";
+import BotonChatTopBar from "./BotonChatTopBar";
+import { setSignoChat } from "@/store/features/TopBar";
 const TopBar = () => {
 
   const { haySesion } = useSesion()
@@ -37,10 +39,16 @@ const TopBar = () => {
         if (!mensajes) return [mensaje]
         return mensajes.concat(mensaje)
       })
+      dispatch(setSignoChat(true))
+    }
+    const invalidarChats = () => {
+      console.log("NUEVO CHAT")
+      queryClient.invalidateQueries({ queryKey: ["conversaciones"] })
     }
 
     socketService.on("chat:mensaje-nuevo", onMessage)
     socketService.on("cambio-en-online",invalidarOnline)
+    socketService.on("nuevo-chat", invalidarChats)
     
     return () => {
       socketService.removeListener("chat:mensaje-nuevo")
@@ -79,7 +87,9 @@ const TopBar = () => {
               <div className="flex h-full px-2 gap-x-2 sm:relative">
                 <VistaRol roles={["cliente"]}>
                   <BotonCarritoCompras/>
+                  
                 </VistaRol>
+                <BotonChatTopBar />
                 <BotonNotificaciones />
                 
                 <InfoUsuario/>

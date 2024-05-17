@@ -7,7 +7,11 @@ import BotonChat from "@/components/layout/BotonChat";
 import PuntoIndicador from "@/components/layout/PuntoIndicador";
 import cn from "@/cn";
 import { useOnline, useValidarOnline } from "@/hooks/online";
-
+import DialogoConfirmar from "@/components/UI/DialogoConfirmar";
+import { useQuery } from "@tanstack/react-query";
+import conversacionService from "@/services/conversacionService";
+import { DataConversacion } from "@/models/Conversacion";
+import { useSesion } from "@/hooks";
 interface CabeceraTicketProps {
   ticket: DataTicket;
   abierto?: boolean;
@@ -15,9 +19,14 @@ interface CabeceraTicketProps {
 
 const CabeceraTicket = ({ ticket,abierto }: CabeceraTicketProps) => {
   const navigate = useNavigate()
+  const { info } = useSesion()
   const { isOnline: clienteOnline } = useValidarOnline(ticket.usuario?.idusuario)
   const { isOnline: empleadoOnline } = useValidarOnline(ticket.usuario?.idusuario)
-
+  const { data:hayConversacion } = useQuery<DataConversacion>({
+    queryKey: ["conversacion", ticket.idticket],
+    queryFn: () => conversacionService.obtenerConversacionUsuario(ticket.idticket),
+    refetchOnWindowFocus: false
+  })
   return (
     <div className="flex justify-between w-full items-center">
       <div className="flex  gap-x-3 items-center py-2">
@@ -66,8 +75,12 @@ const CabeceraTicket = ({ ticket,abierto }: CabeceraTicketProps) => {
         </div>
       </div>
       <div className="grow flex justify-end px-5">
+        {
+          (!!hayConversacion || ticket.empleado_asignado === info.idusuario) &&
+          <BotonChat idchat={ticket.idticket} className="transition-colors sticky top-0 left-0" />
+        }
 
-        <BotonChat idchat={ticket.idticket} className="transition-colors sticky top-0 left-0" />
+        
       </div>
     </div>
   );

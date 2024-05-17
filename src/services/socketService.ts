@@ -8,15 +8,20 @@ interface ServerEvents{
   notificacion: (notificacion: any) => void;
   "cambio-en-online": () => void;
   "chat:mensaje-nuevo": (mensaje: DataMensajeRecibido) => void;
+  "nuevo-chat": () => void
 }
 interface ClientEvents {
-  "chat:enviar-mensaje": (mensaje: DataMensajeEnviado, estado: (mensaje: DataMensajeRecibido)=>void) => void
+  "chat:enviar-mensaje": (mensaje: DataMensajeEnviado, estado: (mensaje: DataMensajeRecibido)=>void) => void;
+  
 }
 
 export const socketService: Socket<ServerEvents, ClientEvents> =  io(`${env.BACKEND_ROOT}`,{
   extraHeaders:{},
   auth: (cb) => cb({ token: tokenService.getToken() }),
-  autoConnect: false
+  autoConnect: false,
+  reconnection: true,
+  reconnectionAttempts: 10,
+  reconnectionDelay: 5000
 })
 
 socketService.on("connect", () => {

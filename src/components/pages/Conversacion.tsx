@@ -14,13 +14,16 @@ import cn from "@/cn";
 import { useSesion } from "@/hooks";
 import { formatearHora } from "@/utils";
 import { VistaRol } from "../wrappers";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface PaginConversacionProps {
   
 }
 
 const AlwaysScrollToBottom = () => {
-  const elementRef = useRef();
+  const elementRef = useRef(null);
   useEffect(() => elementRef.current.scrollIntoView());
   return <div ref={elementRef} />;
 };
@@ -50,12 +53,30 @@ const Mensaje = ({ mensaje }: MensajeProps) => {
 }
 const PaginaConversacion = () => {
   const { idticket } = useParams();
-  const { data: ticket, isLoading, isSuccess } = useQuery<DataTicket>({
+  const navigate = useNavigate()
+  const queryClient = useQueryClient();
+  const { data: ticket, isFetching, isLoading, isSuccess, isError, error } = useQuery<DataTicket>({
     queryKey: ["ticket", "ticket-conversacion"],
     queryFn: () => ticketService.getTicket(idticket),
     refetchOnWindowFocus: false,
     retry: 0
   })
+  useEffect(() => {
+
+    if (isError) {
+      if (axios.isAxiosError(error)) {
+        switch (error.response?.status) {
+        case 404:
+          navigate("/chats")
+        }
+      }
+    }
+  }, [isError])
+  useEffect(() => {
+    return () => {
+      queryClient.invalidateQueries({ queryKey: ["mensajes-conversacion"] })
+    }
+  },[])
 
   const { data: mensajes, isLoading: mensajesIsLoading, isSuccess: mensajesIsSuccess } = useQuery<DataMensajeRecibido[]>({
     queryKey: ["mensajes-conversacion"],
@@ -66,22 +87,29 @@ const PaginaConversacion = () => {
   const refDisplay = useRef<HTMLDivElement>(null)
 
   const [contenido, setContenido] = useState("")
-  const enviarMensaje: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    e.preventDefault()
-
-    if (idticket && contenido.length > 0){
+  const enviar = () => {
+    if (idticket && contenido.length > 0) {
       socketService.emit("chat:enviar-mensaje", {
         idticket,
         contenido,
         fecha_envio: new Date(),
       }, (mensaje) => {
-        console.log("mensaje enviado", mensaje)
+        queryClient.setQueryData<DataMensajeRecibido[]>(["mensajes-conversacion"], (mensajes) => {
+          if (!mensajes) return [mensaje]
+          return mensajes.concat(mensaje)
+        })
       })
+      console.log("reset contenido")
       setContenido("")
     }
   }
+  const enviarMensaje: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault()
+    enviar()
+    
+  }
   return (
-    <div className="flex flex-col w-full h-full justify-around border-l-2">
+    <div className="flex flex-col w-full h-full justify-around border-l-2 bg-white">
       {
         isLoading &&
         <SpinnerPagina/>
@@ -116,6 +144,13 @@ const PaginaConversacion = () => {
           <div className="flex min-h-16 max-h-32 w-full pb-2 px-4 items-end">
             <form className="h-full flex gap-x-2 w-full">
               <textarea
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.preventDefault()
+                    enviar()
+                    // Perform your action here
+                  }
+                }}
                 value={contenido}
                 onChange={(e) => setContenido(e.target.value)}
                 className="grow w-full rounded-xl border-2 transition-all duration-500 bg-white px-4 pt-2 resize-none align-baseline focus:outline-none focus:border-violet-700"

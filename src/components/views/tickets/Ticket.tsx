@@ -17,6 +17,8 @@ import AlternarFormularioGestionarTicket from "@/components/layout/AlternarFormu
 import { EstadosTicket } from "@/models/DataTicket";
 import { AxiosError } from "axios";
 import { notificarError } from "@/utils";
+import DialogoConfirmar, { tipoReferenciaConfirmar } from "@/components/UI/DialogoConfirmar";
+import { useRef } from "react";
 
 interface TicketProps{
   ticket: DataTicket
@@ -77,6 +79,8 @@ const Ticket = ({ ticket, idticket }: TicketProps) => {
     if (ticket.idticket)
       reopenMutation.mutate()
   }
+  const referenciaConfirmacion = useRef<tipoReferenciaConfirmar>()
+
   const navigate = useNavigate()
   //TODO:OPCIONAL > USAR FRESNEL PARA MANEJO DE MEDIAQUERY
   return(
@@ -94,6 +98,7 @@ const Ticket = ({ ticket, idticket }: TicketProps) => {
               {
                 ticket.estado !== EstadosTicket.CERRADO ?
                   <>
+                    <DialogoConfirmar ejecutarAccion={handleDiscard} titulo="¿Estás seguro de descartar este ticket?" ref= {referenciaConfirmacion}/>
                     <VistaRol roles={["admin", "empleado"]}>
           
                       <div className="flex flex-col sm:flex-row gap-2 my-2 transition-all">
@@ -109,7 +114,7 @@ const Ticket = ({ ticket, idticket }: TicketProps) => {
                           }
                           <div className="grow">
 
-                            <BotonNegativo onClick={handleDiscard}>Descartar</BotonNegativo>
+                            <BotonNegativo onClick={() => referenciaConfirmacion.current?.setMostrarConfirmacion(true)}>Descartar</BotonNegativo>
                           </div>
                         </>
                       </div>

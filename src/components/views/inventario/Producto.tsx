@@ -13,6 +13,7 @@ import CampoContador from "@/components/UI/CampoContador"
 import { useDataProductosFiltrado, useMutacionesCarrito } from "@/hooks/carritoCompras"
 import { Media } from "@/MediaConfig"
 import { useSesion } from "@/hooks"
+import DialogoConfirmar, { tipoReferenciaConfirmar } from "@/components/UI/DialogoConfirmar"
 
 interface ProductoProps {
   idproducto: string
@@ -40,6 +41,15 @@ const Producto = ({ idproducto }: ProductoProps) => {
     if (cantidad)
       mutacionAgregarACarrito.mutate({ idproducto, cantidad })
   }
+
+  const handleDelete = () => {
+    if(producto)
+      mutacionQuitar.mutate(producto.idproducto)
+  }
+
+  const referenciaConfirmacion = useRef<tipoReferenciaConfirmar>()
+
+
   useEffect(() => {
     if (producto){
       setTitulo(producto.nombre, true)
@@ -51,6 +61,8 @@ const Producto = ({ idproducto }: ProductoProps) => {
       {
         isSuccess &&
         <div className=" w-full h-full">
+          <DialogoConfirmar ejecutarAccion={handleDelete} titulo="¿Estás seguro de eliminar este producto?" ref= {referenciaConfirmacion}/>
+
           <div className="h-auto p-2 sticky top-topbar bg-white z-40 shadow-sm">
 
             <BotonAterior className="w-8 z-50" defaultPath="/productos"/>
@@ -89,7 +101,7 @@ const Producto = ({ idproducto }: ProductoProps) => {
                     <CampoContador  initial={1} ref={refCantidad} label="Cantidad" min={1} max={producto.disponibilidad}/>
                     {
                       productoEnCarrito &&
-                        <BotonNegativo onClick={() => mutacionQuitar.mutate(producto.idproducto)} className="h-12">Eliminar del carrito</BotonNegativo>
+                        <BotonNegativo onClick={() => referenciaConfirmacion.current?.setMostrarConfirmacion(true)} className="h-12">Eliminar del carrito</BotonNegativo>
                     }
                   </div>
 
