@@ -87,6 +87,7 @@ const FormularioRegistrarse = () => {
       <CampoTexto {...register("confirmarClave")} placeholder=" Confirmar Contraseña" type="password"/>
 
       {errors.fecha_nac && <ErrorFormulario>{errors.fecha_nac.message}</ErrorFormulario>}
+      <label>Fecha de nacimiento</label>
       <CampoFecha {...register("fecha_nac")} placeholder="Fecha de nacimiento"/>
 
       <BotonPrimario type="submit" >Registrarse</BotonPrimario>

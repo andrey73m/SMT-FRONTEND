@@ -23,11 +23,13 @@ import { DataMensajeRecibido } from "@/models/Conversacion";
 import { useQueryClient } from "@tanstack/react-query";
 import BotonChatTopBar from "./BotonChatTopBar";
 import { setSignoChat } from "@/store/features/TopBar";
+import { Media } from "@/MediaConfig";
 const TopBar = () => {
 
   const { haySesion } = useSesion()
   const dispatch = useAppDispatch()
   const { visible } = useAppSelector(state => state.topBar)
+  const { visible: botonesSalir } = useAppSelector(state => state.topBar.botonesPerfil)
   const { invalidarOnline } = useMutacionOnline()
   const queryClient = useQueryClient();
   useEffect(() =>
@@ -85,14 +87,31 @@ const TopBar = () => {
             haySesion &&
             <>
               <div className="flex h-full px-2 gap-x-2 sm:relative">
-                <VistaRol roles={["cliente"]}>
-                  <BotonCarritoCompras/>
+                <Media greaterThan="md">
+                  <VistaRol roles={["cliente"]}>
+                    <BotonCarritoCompras/>
                   
-                </VistaRol>
-                <BotonChatTopBar />
-                <BotonNotificaciones />
+                  </VistaRol>
+
+                  <BotonChatTopBar />
+                  <BotonNotificaciones />
                 
-                <InfoUsuario/>
+                  <InfoUsuario/>
+                </Media>
+                <Media lessThan="md">
+                  {botonesSalir &&
+                  <>
+                    <VistaRol roles={["cliente"]}>
+                      <BotonCarritoCompras/>
+                  
+                    </VistaRol>
+
+                    <BotonChatTopBar />
+                    <BotonNotificaciones />
+                
+                    <InfoUsuario/>
+                  </> }
+                </Media>
 
               </div>
             </>
