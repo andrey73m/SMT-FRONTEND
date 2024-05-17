@@ -6,7 +6,7 @@ interface SpinnerPaginaProps extends HTMLAttributes<HTMLDivElement>{}
 
 const SpinnerPagina = ({ className }:SpinnerPaginaProps) => {
   return (
-    <div className={cn("flex h-16 justify-center", className)}>
+    <div className={cn("flex h-16 justify-center py-2", className)}>
       <Spinner className="h-full" />
     </div>
   );
