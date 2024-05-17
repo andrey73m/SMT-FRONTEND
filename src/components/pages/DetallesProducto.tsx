@@ -1,8 +1,5 @@
 import { Navigate, useParams } from "react-router-dom";
 import Producto from "../views/inventario/Producto";
-interface PaginaDetallesProductoProps {
-  
-}
  
 const PaginaDetallesProducto = () => {
   const { idproducto } = useParams()

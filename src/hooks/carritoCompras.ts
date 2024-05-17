@@ -4,7 +4,6 @@ import tiendaService from "@/services/tiendaService"
 import { useAppSelector } from "@/store"
 import { notificarError } from "@/utils"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { AxiosError } from "axios"
 import { useEffect, useState } from "react"
 
 export const useEstadoCarritoCompras = () => {
@@ -32,12 +31,12 @@ export const useMutacionesCarrito = () => {
   const { setDataCarrito } = useDataProductosCarritoCompras()
   const mutacionAgregarACarrito = useMutation({
     mutationFn: tiendaService.agregarACarrito,
-    onSuccess: (actualizado: DataProductoCarrito) => {
+    onSuccess: () => {
       setDataCarrito()
 
     },
     onError: (e) => {
-      const error = e as AxiosError;
+      const error = e as any;
       notificarError(error.response?.data.error)
     }
   })

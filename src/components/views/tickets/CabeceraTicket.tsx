@@ -6,8 +6,7 @@ import BotonAnterior from "@/components/layout/BotonAnterior"
 import BotonChat from "@/components/layout/BotonChat";
 import PuntoIndicador from "@/components/layout/PuntoIndicador";
 import cn from "@/cn";
-import { useOnline, useValidarOnline } from "@/hooks/online";
-import DialogoConfirmar from "@/components/UI/DialogoConfirmar";
+import { useValidarOnline } from "@/hooks/online";
 import { useQuery } from "@tanstack/react-query";
 import conversacionService from "@/services/conversacionService";
 import { DataConversacion } from "@/models/Conversacion";
@@ -21,7 +20,7 @@ const CabeceraTicket = ({ ticket,abierto }: CabeceraTicketProps) => {
   const navigate = useNavigate()
   const { info } = useSesion()
   const { isOnline: clienteOnline } = useValidarOnline(ticket.usuario?.idusuario)
-  const { isOnline: empleadoOnline } = useValidarOnline(ticket.usuario?.idusuario)
+  // const { isOnline: empleadoOnline } = useValidarOnline(ticket.usuario?.idusuario)
   const { data:hayConversacion } = useQuery<DataConversacion>({
     queryKey: ["conversacion", ticket.idticket],
     queryFn: () => conversacionService.obtenerConversacionUsuario(ticket.idticket),

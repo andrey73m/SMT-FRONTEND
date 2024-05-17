@@ -1,4 +1,4 @@
-import { Dialog, DialogHeader, DialogBody, DialogFooter } from "@material-tailwind/react";
+import { Dialog, DialogBody } from "@material-tailwind/react";
 import IconoSimboloX from "../icons/SimboloX";
 import { forwardRef, useImperativeHandle, useState, Dispatch, SetStateAction } from "react";
 
@@ -17,19 +17,21 @@ const DialogoMostrar = forwardRef<tipoReferencia, React.PropsWithChildren>(({ ..
   useImperativeHandle(ref, () => ({
     setMostrarDialogo
   }))
+  const MyDialog = Dialog as any
+  const MyDialogBody = DialogBody as any
   
   return(
     <>
-      <Dialog open={mostrarDialogo} handler={handleOpen}>
-        <DialogBody>
+      <MyDialog open={mostrarDialogo} handler={handleOpen}>
+        <MyDialogBody>
           <div className="relative">
             <div className="flex justify-end absolute w-full z-50 h-6">
               <IconoSimboloX  onClick={handleOpen} className="cursor-pointer hover:text-red-700" />
             </div>
             {props.children}
           </div>
-        </DialogBody>
-      </Dialog>
+        </MyDialogBody>
+      </MyDialog>
     </>
   )
 

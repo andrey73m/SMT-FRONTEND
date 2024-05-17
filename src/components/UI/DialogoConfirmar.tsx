@@ -1,5 +1,5 @@
 import { SetStateAction, forwardRef, useImperativeHandle, useState, Dispatch } from "react";
-import { Dialog, DialogHeader, DialogBody, DialogFooter, } from "@material-tailwind/react";
+import { Dialog, DialogHeader, DialogBody } from "@material-tailwind/react";
 import { BotonNegativo, BotonPositivo } from "./Botones";
 
 
@@ -11,7 +11,7 @@ interface DialogoProps{
   ejecutarAccion: ()=>void
 }
 
-const DialogoConfirmar = forwardRef<tipoReferenciaConfirmar, DialogoProps>(({ titulo, ejecutarAccion, ...props },ref) => {
+const DialogoConfirmar = forwardRef<tipoReferenciaConfirmar, DialogoProps>(({ titulo, ejecutarAccion },ref) => {
 
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false)
 
@@ -25,18 +25,21 @@ const DialogoConfirmar = forwardRef<tipoReferenciaConfirmar, DialogoProps>(({ ti
     ejecutarAccion()
     handleOpen()
   }
+  const MyDialog = Dialog as any
+  const MyDialogHeader = DialogHeader as any
+  const MyDialogBody = DialogBody as any
 
   return(
     <>
-      <Dialog open={mostrarConfirmacion} handler={handleOpen}>
-        <DialogHeader className="flex justify-center">{titulo}</DialogHeader>
-        <DialogBody>
+      <MyDialog open={mostrarConfirmacion} handler={handleOpen}>
+        <MyDialogHeader className="flex justify-center">{titulo}</MyDialogHeader>
+        <MyDialogBody>
           <div className="flex w-full">
             <BotonPositivo onClick={handleClick} className="m-2">Confirmar</BotonPositivo>
             <BotonNegativo className="m-2" onClick={() => setMostrarConfirmacion(false)}>Descartar</BotonNegativo>
           </div>
-        </DialogBody>
-      </Dialog>
+        </MyDialogBody>
+      </MyDialog>
     </>
   )
 

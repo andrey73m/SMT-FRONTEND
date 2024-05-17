@@ -1,15 +1,11 @@
 import cn from "@/cn";
-import CampoContador from "@/components/UI/CampoContador";
 import {  useDataProductosFiltrado, useEstadoCarritoCompras, useInfoProductos, useMutacionesCarrito } from "@/hooks/carritoCompras";
 import { DataProducto } from "@/models/DataProducto";
-import tiendaService from "@/services/tiendaService";
 import { useAppDispatch } from "@/store";
 import { setCarritoCompras } from "@/store/features/TopBar";
 import { formatoPrecio } from "@/utils";
-import { useMutation } from "@tanstack/react-query";
 import { MouseEventHandler, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDataProductosCarritoCompras } from "@/hooks/carritoCompras";
 import IconoSimboloX from "@/components/icons/SimboloX";
 import DialogoConfirmar, { tipoReferenciaConfirmar } from "@/components/UI/DialogoConfirmar";
 
@@ -17,9 +13,6 @@ interface InfoProductosCarritoProps{
   producto: DataProducto
 }
 
-interface ProductosCarritoProps {
-  
-}
  
 const InfoProductosCarrito = ({ producto }: InfoProductosCarritoProps) => {
   const productoEnCarrito = useDataProductosFiltrado(producto.idproducto)
@@ -28,14 +21,14 @@ const InfoProductosCarrito = ({ producto }: InfoProductosCarritoProps) => {
   const { mutacionQuitar } = useMutacionesCarrito()
   
 
-  const handleNavigate: MouseEventHandler<HTMLDivElement> = (e) => {
+  const handleNavigate: MouseEventHandler<HTMLDivElement> = () => {
     navigate(`/productos/${producto.idproducto}`)
     dispatch(setCarritoCompras(false))
   }
   const handleDelete = () => {
     mutacionQuitar.mutate(producto.idproducto)
   }
-  const referenciaConfirmacion = useRef<tipoReferenciaConfirmar>()
+  const referenciaConfirmacion = useRef<tipoReferenciaConfirmar>(null)
 
   return productoEnCarrito && (
 

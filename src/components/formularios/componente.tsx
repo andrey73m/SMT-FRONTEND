@@ -5,7 +5,7 @@ import ErrorFormulario from "./Error"
 import { BotonPrimario } from "../UI/Botones";
 
 const FormularioComponente = () => {
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<CamposComponente>(
+  const { register, handleSubmit, formState: { errors } } = useForm<CamposComponente>(
     {
       defaultValues: {
         categoria: "",

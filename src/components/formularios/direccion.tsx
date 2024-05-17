@@ -6,7 +6,6 @@ import QuerySelect from "./QuerySelect";
 import { BotonPositivo, BotonPrimario, BotonSecundario } from "../UI/Botones";
 import direccionesService from "@/services/direccionesService";
 import { useCallback, useRef } from "react";
-import { useQueryClient } from "@tanstack/react-query";
 import DataDireccion from "@/models/DataDireccion";
 import { useMutacionCrearDireccion, useMutacionActualizarDireccion, useMutacionActualizarPredeterminada } from "@/hooks/direcciones";
 import DialogoConfirmar, { tipoReferenciaConfirmar } from "../UI/DialogoConfirmar";
@@ -18,7 +17,6 @@ interface FormularioDireccionProps{
 }
 
 const FormularioDireccion = ({ modoActualizar, direccion, afterSubmit }: FormularioDireccionProps) => {
-  const queryClient = useQueryClient()
 
   const metodos = useForm<CamposDireccion>(
     {
@@ -48,18 +46,22 @@ const FormularioDireccion = ({ modoActualizar, direccion, afterSubmit }: Formula
   })
 
   const handlePredeterminada = async() => {
-    mutacionActualizarPredeterminada.mutate(direccion.iddireccion)
-    if (afterSubmit) afterSubmit()
+    if(direccion){
+      mutacionActualizarPredeterminada.mutate(direccion.iddireccion)
+      if (afterSubmit) afterSubmit()
+    }
 
   }
 
   const onSubmit = async (data: CamposDireccion) => {
-    if(!modoActualizar)
-      return mutacionCrearDireccion.mutate(data);
-    mutacionActualizarDireccion.mutate({ id: direccion.iddireccion, data })
+    if(direccion){
+      if(!modoActualizar)
+        return mutacionCrearDireccion.mutate(data);
+      mutacionActualizarDireccion.mutate({ id: direccion.iddireccion, data })
+    }
   }
 
-  const referenciaConfirmacion = useRef<tipoReferenciaConfirmar>()
+  const referenciaConfirmacion = useRef<tipoReferenciaConfirmar>(null)
 
 
   const queryMunicipios = useCallback(() => {

@@ -3,7 +3,6 @@ import cn from "@/cn";
 import FormularioGestionarTicket from "../formularios/gestionar_ticket";
 import { BotonPositivo } from "../UI/Botones";
 import { DataTicket } from "@/models";
-import Boton from "../UI/Botones/Boton";
 
 
 interface AlternarProps{

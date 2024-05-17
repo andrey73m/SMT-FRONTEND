@@ -13,7 +13,7 @@ import QueyrParamsLink from "../wrappers/QueryParamsLink";
 import { useRedireccionParam } from "@/hooks/parametroRedireccion";
 
 const FormularioLogin = () => {
-  const { register, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<CamposLogin>(
+  const { register, handleSubmit, setError, formState: { errors } } = useForm<CamposLogin>(
     {
       defaultValues: {
         email: "",
@@ -43,7 +43,7 @@ const FormularioLogin = () => {
         return navigate(`/verificacion/${id}`)
       }
 
-      return navigate(redireccion, false)
+      return navigate(redireccion as any, false)
     }
     
   }

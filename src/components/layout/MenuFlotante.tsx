@@ -38,7 +38,7 @@ const MenuFlotante = () => {
         "-left-96": !abierto
       })}>
         <div className="h-topbar flex w-full bg-purple-900 justify-center">
-          <LogoPrincipal/>
+          <LogoPrincipal />
         </div>
         
         <div className="flex flex-col text-center">

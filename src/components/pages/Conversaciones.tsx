@@ -2,21 +2,18 @@ import { Outlet } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import conversacionService from "@/services/conversacionService";
-import { DataConversacion } from "@/models/Conversacion";
+import { DataConversacionTicket } from "@/models/Conversacion";
 import cn from "@/cn";
 import { useNavigate } from "react-router-dom";
 import LogoPrincipal from "../icons/LogoPrincipal";
 import { useParams } from "react-router-dom";
 
-interface PaginaConversacionesProps {
-  
-}
  
 const PaginaConversaciones = () => {
-  const [abierto, setAbierto] = useState(true)
+  const [abierto] = useState(true)
   const { idticket } = useParams();
   const navigate = useNavigate()
-  const { data: conversaciones, isLoading, isSuccess } = useQuery<DataConversacion[]>({
+  const { data: conversaciones } = useQuery<DataConversacionTicket[]>({
     queryKey: ["conversaciones"],
     queryFn: conversacionService.obtenerConversacionesUsuario,
     refetchOnWindowFocus: false,

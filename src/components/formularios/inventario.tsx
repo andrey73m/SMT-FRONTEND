@@ -21,7 +21,7 @@ const FormularioInventario = () => {
       resolver: inventarioResolver
     }
   )
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = metodos
+  const { register, handleSubmit, formState: { errors } } = metodos
 
   const onSubmit = async(data: CamposInventario) => {
     

@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form"
 import ErrorFormulario from "./Error"
 import { CamposCodigoVerificacion, codigoVerificacionResolver } from "./validators"
 import CampoTexto from "../UI/CampoTexto"
-import { useParams, useNavigate, useSearchParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import authService from "@/services/authService"
 import FormularioAuth from "../UI/FormularioAuth"
 import Enlace from "../UI/Enlace"
@@ -13,7 +13,7 @@ import { useRedireccionParam } from "@/hooks/parametroRedireccion"
 
 const FormularioCodigoVerificacion = () => {
 
-  const { register, handleSubmit, setError, reset, formState: { errors, isSubmitting } } = useForm<CamposCodigoVerificacion>({
+  const { register, handleSubmit, setError, formState: { errors } } = useForm<CamposCodigoVerificacion>({
     defaultValues: {
       codigo: ""
     },
@@ -41,8 +41,7 @@ const FormularioCodigoVerificacion = () => {
         const id = res.payload.verificationId
         return navigate(`/verificacion/${id}`)
       }
-
-      return navigate(redireccion)
+      return navigate(redireccion as any)
     }
   }
 

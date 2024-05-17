@@ -11,7 +11,7 @@ const BotonAterior = ({ className, defaultPath, ...props }:BotonAteriorProps) =>
   const redireccion = useRedireccionParam(defaultPath)
   const navigate = useNavigate()
   const cerrar = () => {
-    navigate(redireccion)
+    navigate(redireccion as any)
   }
   return (
 

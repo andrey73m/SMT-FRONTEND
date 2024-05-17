@@ -14,7 +14,7 @@ import useNavigateParams from "@/hooks/navigateParams"
 
 const FormularioRegistrarse = () => {
 
-  const { register, handleSubmit, setError, reset, formState: { errors, isSubmitting } } = useForm<CamposRegistro>(
+  const { register, handleSubmit, setError, formState: { errors } } = useForm<CamposRegistro>(
     {
       defaultValues: {
         nombres: "",

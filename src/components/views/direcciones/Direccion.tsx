@@ -13,8 +13,8 @@ interface DireccionesProps {
 
 const Direccion = ({ direccion, }: DireccionesProps) => {
   
-  const referenciaDialogo = useRef<tipoReferencia>()
-  const referenciaConfirmacion = useRef<tipoReferenciaConfirmar>()
+  const referenciaDialogo = useRef<tipoReferencia>(null)
+  const referenciaConfirmacion = useRef<tipoReferenciaConfirmar>(null)
 
   const mutacionEliminarDireccion = useMutacionEliminarDireccion();
 

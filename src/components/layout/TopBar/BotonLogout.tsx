@@ -32,7 +32,7 @@ const BotonLogout = () => {
     }
   }
   const [ping, setPing] = useState(false)
-  const referenciaConfirmacion = useRef<tipoReferenciaConfirmar>()
+  const referenciaConfirmacion = useRef<tipoReferenciaConfirmar>(null)
 
   return (
     <>

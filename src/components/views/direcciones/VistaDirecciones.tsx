@@ -3,7 +3,6 @@ import { SpinnerPagina } from "@/components/UI";
 import DataDireccion from "@/models/DataDireccion";
 import { useQuery } from "@tanstack/react-query";
 import Direccion from "./Direccion";
-import { useNavigate } from "react-router-dom";
 import AlternarFormulario from "@/components/layout/AlternarFormularioTicket";
 import FormularioDireccion from "@/components/formularios/direccion";
 import { VistaRol } from "@/components/wrappers";

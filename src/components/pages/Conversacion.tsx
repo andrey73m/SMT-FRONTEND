@@ -18,13 +18,10 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 
-interface PaginConversacionProps {
-  
-}
 
 const AlwaysScrollToBottom = () => {
-  const elementRef = useRef(null);
-  useEffect(() => elementRef.current.scrollIntoView());
+  const elementRef = useRef<HTMLDivElement>(null);
+  useEffect(() => elementRef.current?.scrollIntoView());
   return <div ref={elementRef} />;
 };
 
@@ -55,7 +52,7 @@ const PaginaConversacion = () => {
   const { idticket } = useParams();
   const navigate = useNavigate()
   const queryClient = useQueryClient();
-  const { data: ticket, isFetching, isLoading, isSuccess, isError, error } = useQuery<DataTicket>({
+  const { data: ticket, isLoading, isSuccess, isError, error } = useQuery<DataTicket>({
     queryKey: ["ticket", "ticket-conversacion"],
     queryFn: () => ticketService.getTicket(idticket),
     refetchOnWindowFocus: false,
@@ -78,14 +75,13 @@ const PaginaConversacion = () => {
     }
   },[])
 
-  const { data: mensajes, isLoading: mensajesIsLoading, isSuccess: mensajesIsSuccess } = useQuery<DataMensajeRecibido[]>({
+  const { data: mensajes, isSuccess: mensajesIsSuccess } = useQuery<DataMensajeRecibido[]>({
     queryKey: ["mensajes-conversacion"],
     queryFn: () => conversacionService.cargarMensajesConversacion(idticket),
     refetchOnWindowFocus: true,
     retry: 0
   })
-  const refDisplay = useRef<HTMLDivElement>(null)
-
+  
   const [contenido, setContenido] = useState("")
   const enviar = () => {
     if (idticket && contenido.length > 0) {

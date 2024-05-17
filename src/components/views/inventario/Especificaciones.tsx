@@ -10,7 +10,7 @@ interface EspecificacionesProps {
 }
 
 const Especificaciones = ({ idcomponente }: EspecificacionesProps) => {
-  const { data: especificaciones, isFetching, isSuccess, ...especificacionesQuery } = useQuery<DataEspecificacionesProducto[]>({
+  const { data: especificaciones, isFetching, isSuccess } = useQuery<DataEspecificacionesProducto[]>({
     queryKey: ["especificaciones-producto"],
     queryFn: async () => inventarioService.obtenerEspecificacionesProducto(idcomponente),
     retry: 0,

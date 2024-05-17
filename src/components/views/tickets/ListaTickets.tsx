@@ -11,7 +11,7 @@ interface ListaTicketsProps {
 }
  
 const ListaTickets = ({ params, idticket }: ListaTicketsProps) => {
-  const { data: tickets, isLoading, isSuccess, ...ticketQuery } = useQuery<DataTicket[]>({
+  const { data: tickets, isLoading, isSuccess } = useQuery<DataTicket[]>({
     queryKey: ["tickets"],
     queryFn: async () => {
       if (idticket) return [await ticketService.getTicket(idticket)]

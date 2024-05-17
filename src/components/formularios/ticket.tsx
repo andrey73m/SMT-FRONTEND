@@ -10,7 +10,7 @@ import { notificarError, notificarExito } from "@/utils";
 
 const FormularioTicket = () => {
 
-  const { info, haySesion } = useSesion()
+  const { haySesion } = useSesion()
   const queryClient = useQueryClient();
   const metodos = useForm<CamposTicket>({
     defaultValues:{
@@ -33,8 +33,8 @@ const FormularioTicket = () => {
 
     },
     onError: (e) => {
-      console.log(e)
-      notificarError(e.response.data.error)
+      const error = e as any
+      notificarError(error.response.data.error)
     }
   })
 

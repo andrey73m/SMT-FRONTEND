@@ -3,7 +3,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import DataDireccion from "@/models/DataDireccion";
 import direccionesService from "@/services/direccionesService";
 import { notificarError, notificarExito } from "@/utils";
-import { AxiosError } from "axios";
 
 export const useMutacionCrearDireccion = (callback: ()=>void) => {
   const queryClient = useQueryClient()
@@ -15,7 +14,7 @@ export const useMutacionCrearDireccion = (callback: ()=>void) => {
       queryClient.setQueryData(["direcciones"], (data: DataDireccion[]) => data?.concat(direccion))
     },
     onError: (error) => {
-      const e = error as AxiosError<{error: string}>
+      const e = error as any
       notificarError(e.response?.data.error);
     }
   })
@@ -31,7 +30,7 @@ export const useMutacionActualizarDireccion = (callback: ()=>void) => {
       queryClient.setQueryData(["direcciones"], (data: DataDireccion[]) => data?.map(direccion => direccion.iddireccion === updated.iddireccion ? updated : direccion))
     },
     onError: (error) => {
-      const e = error as AxiosError<{error: string}>
+      const e = error as any
       notificarError(e.response?.data.error);
     }
   })
@@ -51,7 +50,7 @@ export const useMutacionActualizarPredeterminada = (callback: ()=>void) => {
       }))
     },
     onError: (error) => {
-      const e = error as AxiosError<{error: string}>
+      const e = error as any
       notificarError(e.response?.data.error);
     }
   })
@@ -69,7 +68,7 @@ export const useMutacionEliminarDireccion = () => {
       )
     },
     onError: (error) => {
-      const e = error as AxiosError<{error: string}>
+      const e = error as any
       notificarError(e.response?.data.error);
     }
   })

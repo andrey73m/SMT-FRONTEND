@@ -55,7 +55,8 @@ const Ticket = ({ ticket, idticket }: TicketProps) => {
       const data = queryClient.getQueryData<DataTicket[]>(["tickets"])
       queryClient.setQueryData(["tickets"], data?.map(ticket => ticket.idticket === updated.idticket ? updated : ticket))
     },
-    onError: (error) => {
+    onError: () => {
+      notificarError("No se pudo descartar el ticket")
     }
   })
   const reopenMutation = useMutation<DataTicket>({
@@ -64,7 +65,8 @@ const Ticket = ({ ticket, idticket }: TicketProps) => {
       const data = queryClient.getQueryData<DataTicket[]>(["tickets"])
       queryClient.setQueryData(["tickets"], data?.map(ticket => ticket.idticket === updated.idticket ? updated : ticket))
     },
-    onError: (error) => {
+    onError: () => {
+      notificarError("No se pudo reabrir el ticket")
     }
   })
   const handleAccept = async () => {
@@ -79,7 +81,7 @@ const Ticket = ({ ticket, idticket }: TicketProps) => {
     if (ticket.idticket)
       reopenMutation.mutate()
   }
-  const referenciaConfirmacion = useRef<tipoReferenciaConfirmar>()
+  const referenciaConfirmacion = useRef<tipoReferenciaConfirmar>(null)
 
   const navigate = useNavigate()
   //TODO:OPCIONAL > USAR FRESNEL PARA MANEJO DE MEDIAQUERY

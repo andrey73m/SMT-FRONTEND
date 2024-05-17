@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import servicioService from "@/services/servicioService";
 
 const FormularioServicio = () => {
-  const { register, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<CamposServicio>(
+  const { register, handleSubmit, formState: { errors } } = useForm<CamposServicio>(
     {
       defaultValues: {
         tipo_servicio: "",

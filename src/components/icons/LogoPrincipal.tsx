@@ -1,4 +1,4 @@
-const LogoPrincipal = ({ fill = "#ffffff" }: {fill:string}) => {
+const LogoPrincipal = ({ fill = "#ffffff" }: {fill?:string}) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" version="1.0"  viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet" className="h-full" fill={fill}>
 

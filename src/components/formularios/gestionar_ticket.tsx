@@ -8,7 +8,6 @@ import ticketService from "@/services/ticketService";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { DataTicket } from "@/models";
 import SelectLabel from "./SelectLabel";
-import { useEffect } from "react";
 import { CapitalizeString } from "@/utils";
 
 
@@ -22,7 +21,7 @@ const FormularioGestionarTicket = ({ ticket, primera }: FormularioGestionarTicke
       resolver: gestionTicketResolver
     }
   )
-  const { register, reset, handleSubmit, getValues, watch, formState: { errors } } = metodos
+  const { register, handleSubmit, formState: { errors } } = metodos
   
   const queryClient = useQueryClient()
   const gestionMutation = useMutation({

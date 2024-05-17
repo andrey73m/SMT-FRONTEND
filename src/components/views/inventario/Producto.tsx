@@ -24,7 +24,7 @@ const Producto = ({ idproducto }: ProductoProps) => {
   const { haySesion } = useSesion()
   const { mutacionAgregarACarrito, mutacionQuitar } = useMutacionesCarrito()
   const productoEnCarrito = useDataProductosFiltrado(idproducto);
-  const { data: producto, isFetching, isSuccess, ...productoQuery } = useQuery<DataProducto>({
+  const { data: producto, isFetching, isSuccess } = useQuery<DataProducto>({
     queryKey: ["producto"],
     queryFn: async () => {
       console.log("BUSCANDO EL PRODUCTO")
@@ -47,7 +47,7 @@ const Producto = ({ idproducto }: ProductoProps) => {
       mutacionQuitar.mutate(producto.idproducto)
   }
 
-  const referenciaConfirmacion = useRef<tipoReferenciaConfirmar>()
+  const referenciaConfirmacion = useRef<tipoReferenciaConfirmar>(null)
 
 
   useEffect(() => {
