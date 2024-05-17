@@ -5,18 +5,20 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {}
 
 const CampoFecha = forwardRef<HTMLInputElement, Props>((props:Props, fecha) => {
 
-  const [type, setType] = useState("");
+  const [type, /*setType*/] = useState("date");
 
-  const onFocusFecha = () => {
-    setType("date")
-  }
+  // const onFocusFecha = () => {
+  //   setType("date")
+  // }
 
-  const onBlurFecha = () => {
-    setType("text")
-  }
+  // const onBlurFecha = () => {
+  //   setType("text")
+  // }
 
   return (
-    <CampoTexto  {...props} ref={fecha} onFocus={onFocusFecha} onBlur={onBlurFecha} type={type}/>
+    <CampoTexto  {...props} ref={fecha}
+    //  onFocus={onFocusFecha} onSelect={} onBlur={onBlurFecha}
+      type={type}/>
   )
 })
 
