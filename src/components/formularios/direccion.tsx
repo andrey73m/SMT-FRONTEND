@@ -96,7 +96,8 @@ const FormularioDireccion = ({ modoActualizar, direccion, afterSubmit }: Formula
               <BotonPrimario type="submit" >Guardar dirección</BotonPrimario>}
           </form>
         </FormProvider>
-        <BotonSecundario  onClick={() => referenciaConfirmacion.current?.setMostrarConfirmacion(true)} className="m-2">Asignar dirección como predeterminada</BotonSecundario>
+        {modoActualizar && <BotonSecundario  onClick={() => referenciaConfirmacion.current?.setMostrarConfirmacion(true)} className="m-2 px-4">Asignar dirección como predeterminada</BotonSecundario>
+        }
       </div>
     </>
   )
