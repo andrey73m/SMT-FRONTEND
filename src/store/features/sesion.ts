@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { socketService } from "@/services/socketService";
-import { CamposLogin, CamposCodigoVerificacion } from "@/components/formularios/validators";
+import { CamposLogin, CamposCodigoVerificacion, CamposRegistro } from "@/components/formularios/validators";
 import authService from "@/services/authService";
 import tokenService from "@/services/tokenService";
 import { manageAxiosThunk } from "../utils";
@@ -13,8 +13,9 @@ interface InfoSesion{
   nombreUsuario: string
 }
 interface EstadoSesion {
-  info: InfoSesion,
-  haySesion: boolean
+  info: InfoSesion;
+  haySesion: boolean;
+  cargando: boolean
 }
 
 const estadoInicial: EstadoSesion = {
@@ -25,7 +26,8 @@ const estadoInicial: EstadoSesion = {
     email: "",
     nombreUsuario: ""
   },
-  haySesion: false
+  haySesion: false,
+  cargando: false
 }
 
 const inicializarInfoSesion = (state: EstadoSesion, token: string) => {
@@ -51,35 +53,64 @@ export const sliceSesion = createSlice({
       tokenService.removeToken();
       socketService.disconnect();
       return estadoInicial;
+    },
+    detenerCarga: (state) => {
+      state.cargando = false;
     }
   },
   extraReducers: (builder) => {
+    builder.addCase(login.pending, (state) => {
+      state.cargando = true;
+    })
+    builder.addCase(login.rejected, (state) => {
+      state.cargando = false;
+    })
+    builder.addCase(verificar.pending, (state) => {
+      state.cargando = true;
+    })
+    builder.addCase(verificar.rejected, (state) => {
+      state.cargando = false;
+    })
+    builder.addCase(verificar.fulfilled, (state) => {
+      state.cargando = false;
+    })
+    builder.addCase(registro.pending, (state) => {
+      state.cargando = true;
+    })
+
     builder.addCase(login.fulfilled, (state, action: PayloadAction<{token: string}>) => {
       if (action.payload.token) sliceSesion.caseReducers.iniciarSesion(state, action)
+      state.cargando = false;
     })
     builder.addCase(cargarSesion.rejected, (state) => {
       tokenService.removeToken();
       socketService.disconnect();
       state.haySesion = false;
+      state.cargando = false;
       state.info = estadoInicial.info;
     })
     builder.addCase(cargarSesion.fulfilled, (state) => {
       const token = tokenService.getToken()
+      state.cargando = false;
       inicializarInfoSesion(state, token)
     })
   }
 
 })
 
-export const { iniciarSesion, cerrarSesion } = sliceSesion.actions
+export const { iniciarSesion, cerrarSesion, detenerCarga } = sliceSesion.actions
 
 
 
 export const login = createAsyncThunk("sesion/login",async (credenciales: CamposLogin, ThunkAPI) => {
   return await manageAxiosThunk(() => authService.login(credenciales),ThunkAPI);
 })
-export const verificar = createAsyncThunk("sesion/login",async ({ codigo, idcodigo }: {codigo: CamposCodigoVerificacion, idcodigo: string}, ThunkAPI) => {
+export const verificar = createAsyncThunk("sesion/verificar",async ({ codigo, idcodigo }: {codigo: CamposCodigoVerificacion, idcodigo: string}, ThunkAPI) => {
   return await manageAxiosThunk(() => authService.verificarCodigo(codigo, idcodigo),ThunkAPI);
+})
+
+export const registro = createAsyncThunk("sesion/registro",async (data: CamposRegistro, ThunkAPI) => {
+  return await manageAxiosThunk(() => authService.registrar(data),ThunkAPI);
 })
 
 export const cargarSesion = createAsyncThunk("sesion/validar-token",async (_, ThunkAPI) => {
