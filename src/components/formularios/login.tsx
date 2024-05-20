@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form"
-import { CampoTexto } from "../UI"
+import { CampoTexto, SpinnerPagina } from "../UI"
 import { loginResolver, CamposLogin } from "./validators";
 import ErrorFormulario from "./Error"
 import FormularioAuth from "../UI/FormularioAuth";
 import Enlace from "../UI/Enlace";
 import { login } from "@/store/features/sesion";
-import { useAppDispatch } from "@/store";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { ThunkResponse } from "@/store/utils";
 import { BotonPrimario } from "../UI/Botones";
 import useNavigateParams from "@/hooks/navigateParams";
@@ -23,8 +23,9 @@ const FormularioLogin = () => {
     }
   )
   const navigate = useNavigateParams();
-  const redireccion = useRedireccionParam()
+  const redireccion = useRedireccionParam("/")
   const dispatch = useAppDispatch();
+  const { cargando } = useAppSelector(state => state.sesion)
   const onSubmit = async(data: CamposLogin) => {
     
     console.log(data)
@@ -50,12 +51,13 @@ const FormularioLogin = () => {
 
   return (
     <FormularioAuth titulo="Iniciar sesión" onSubmit={handleSubmit(onSubmit)}>
+      {cargando && <SpinnerPagina />}
       {errors.root && <ErrorFormulario>{errors.root.message}</ErrorFormulario>}
       {errors.email && <ErrorFormulario>{errors.email.message}</ErrorFormulario>}
       <CampoTexto  {...register("email")} placeholder="Correo" type="email"/>
       {errors.clave && <ErrorFormulario>{errors.clave.message}</ErrorFormulario>}
       <CampoTexto {...register("clave")} placeholder="Contraseña" type="password"/>
-      <BotonPrimario type="submit" >Iniciar sesión</BotonPrimario>
+      <BotonPrimario type="submit" disabled={cargando}>Iniciar sesión</BotonPrimario>
       <p>¿No tienes cuenta?</p>
       <QueyrParamsLink to="/registro">
         <Enlace>Registrate aquí</Enlace>

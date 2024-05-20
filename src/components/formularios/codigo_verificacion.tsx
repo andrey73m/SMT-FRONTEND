@@ -8,8 +8,9 @@ import FormularioAuth from "../UI/FormularioAuth"
 import Enlace from "../UI/Enlace"
 import { verificar } from "@/store/features/sesion"
 import { BotonPrimario } from "../UI/Botones"
-import { useAppDispatch } from "@/store"
+import { useAppDispatch, useAppSelector } from "@/store"
 import { useRedireccionParam } from "@/hooks/parametroRedireccion"
+import { SpinnerPagina } from "../UI"
 
 const FormularioCodigoVerificacion = () => {
 
@@ -19,9 +20,9 @@ const FormularioCodigoVerificacion = () => {
     },
     resolver: codigoVerificacionResolver
   })
-
+  const { cargando } = useAppSelector(state => state.sesion)
   const { idcodigo } = useParams()
-  const redireccion = useRedireccionParam()
+  const redireccion = useRedireccionParam("/")
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const onSubmit = async (data: CamposCodigoVerificacion) => {
@@ -53,9 +54,11 @@ const FormularioCodigoVerificacion = () => {
 
   return (
     <FormularioAuth titulo="Codigo verificación" onSubmit={handleSubmit(onSubmit)} className="rounded-lg bg-indigo-950 flex flex-col items-center justify-normal p-5">
+      {cargando && <SpinnerPagina />}
+      {errors.root && <ErrorFormulario>{errors.root.message}</ErrorFormulario>}
       {errors.codigo && <ErrorFormulario>{errors.codigo.message}</ErrorFormulario>}
       <CampoTexto  {...register("codigo")} placeholder="Codigo de verificacion" type="text" />
-      <BotonPrimario type="submit" >Enviar codigo</BotonPrimario>
+      <BotonPrimario type="submit" disabled={cargando}>Enviar codigo</BotonPrimario>
       <Enlace onClick={reenvio} disabled={true} >Reenviar codigo</Enlace>
     </FormularioAuth>
   )
