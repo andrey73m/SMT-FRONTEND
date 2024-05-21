@@ -37,11 +37,7 @@ const FormularioCodigoVerificacion = () => {
       }
       return setError("root", { message: "Error con el servidor" })
     }
-    if (res.payload) {
-      if (res.payload.verificationId) {
-        const id = res.payload.verificationId
-        return navigate(`/verificacion/${id}`)
-      }
+    if (res.payload.token) {
       return navigate(redireccion as any)
     }
   }

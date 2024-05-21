@@ -20,7 +20,7 @@ const BotonCarritoCompras = () => {
   },[])
   if (isSuccess)
     return (
-      <BotonTopBar className="w-full" onClick ={handleOpen}>
+      <BotonTopBar className="w-12" onClick ={handleOpen}>
         <IconoCarritoCompras/>
         {data &&
           <PuntoIndicador className="absolute right-1 bottom-1">

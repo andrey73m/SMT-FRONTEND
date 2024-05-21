@@ -8,7 +8,11 @@ import { BotonPrimario } from "../UI/Botones";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { notificarError, notificarExito } from "@/utils";
 
-const FormularioTicket = () => {
+interface FormularioTicketProps{
+  afterSubmit?: () => void
+}
+
+const FormularioTicket = ({ afterSubmit }: FormularioTicketProps) => {
 
   const { haySesion } = useSesion()
   const queryClient = useQueryClient();
@@ -28,6 +32,7 @@ const FormularioTicket = () => {
         notificarExito("Ticket creado, revisa tu correo para mas detalles")
         if (haySesion) metodos.setValue("email","")
       }
+      if (afterSubmit) afterSubmit()
       metodos.reset()
       queryClient.invalidateQueries({ queryKey:["tickets"] })
 

@@ -20,9 +20,9 @@ export default {
     return res.data;
   },
   
-  obtenerDireccion: async () => {
+  obtenerDireccion: async (idusuario?: string) => {
     const auth = tokenService.getAuthHeader()
-    const res = await axios.get(`${env.BACKEND_ROOT}/domicilio/direcciones`, { headers: auth })
+    const res = await axios.get(`${env.BACKEND_ROOT}/domicilio/direcciones/administrar/${idusuario}`, { headers: auth })
     return res.data;
   },
 
@@ -42,12 +42,6 @@ export default {
   crearDireccionAdmin: async(data: CamposDireccion, idusuario:string) => {
     const auth = tokenService.getAuthHeader()
     const res = await axios.post(`${env.BACKEND_ROOT}/domicilio/direcciones/administrar/${idusuario}`, data, { headers: auth })
-    return res.data;
-  },
-
-  obtenerDireccionAdmin: async(idusuario:string) => {
-    const auth = tokenService.getAuthHeader()
-    const res = await axios.get(`${env.BACKEND_ROOT}/domicilio/direcciones/administrar/${idusuario}`, { headers: auth })
     return res.data;
   },
   hacerDireccionPredeterminada: async(idireccion:string) => {

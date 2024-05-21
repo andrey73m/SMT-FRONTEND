@@ -15,9 +15,9 @@ import { useSesion } from "@/hooks";
 import { formatearHora } from "@/utils";
 import { VistaRol } from "../wrappers";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
-
+import IconoFlecha from "@/components/icons/Flecha"
 
 const AlwaysScrollToBottom = () => {
   const elementRef = useRef<HTMLDivElement>(null);
@@ -105,7 +105,7 @@ const PaginaConversacion = () => {
     
   }
   return (
-    <div className="flex flex-col w-full h-full justify-around border-l-2 bg-white">
+    <div className="flex flex-col w-full h-full justify-around bg-white ">
       {
         isLoading &&
         <SpinnerPagina/>
@@ -114,16 +114,24 @@ const PaginaConversacion = () => {
         isSuccess && ticket &&
         <>
           {/*CABECERA DEL CHAT*/}
-          <div className=" w-full bg-violet-700 text-white shadow-sm p-2 pl-10">
-            <h3 className="font-bold text-xl">{ticket.asunto}</h3>
+          <div className="flex items-center w-full bg-violet-700 px-2">
+            <div className="w-8 h-8 p-1 text-white hover:text-violet-200 rounded-full bg-violet-600 hover:bg-violet-700 sm:hidden">
+              <Link to="/chats">
+                <IconoFlecha />
+              </Link>
+            </div>
+            <div className=" grow  text-white  text-center sm:text-left shadow-sm py-2 sm:pl-4">
+            
+              <h3 className="font-bold text-xl ">{ticket.asunto}</h3>
 
-            <VistaRol roles={["empleado", "admin"]}>
-              {
-                ticket.usuario &&
+              <VistaRol roles={["empleado", "admin"]}>
+                {
+                  ticket.usuario &&
                 <p className="text-violet-100">{ticket.usuario.nombres} {ticket.usuario?.apellidos}</p>
-
-              }
-            </VistaRol>
+                
+                }
+              </VistaRol>
+            </div>
           </div>
           {/*CUERPO DEL CHAT*/}
           <div className="grow overflow-y-auto w-full flex flex-col gap-y-5  p-1 px-3">

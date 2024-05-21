@@ -27,9 +27,10 @@ const TopBar = () => {
 
   const { haySesion } = useSesion()
   const dispatch = useAppDispatch()
-  const { visible } = useAppSelector(state => state.topBar)
+  const { visible, botonesPerfil } = useAppSelector(state => state.topBar)
   const { invalidarOnline } = useMutacionOnline()
   const queryClient = useQueryClient();
+
   useEffect(() =>
     () => {dispatch(resetTobBar())}
   ,[])
@@ -85,12 +86,18 @@ const TopBar = () => {
             haySesion &&
             <>
               <div className="flex h-full px-2 gap-x-2 sm:relative">
-                <VistaRol roles={["cliente"]}>
-                  <BotonCarritoCompras/>
+                <div className={cn("h-full flex gap-x-2",{
+                  "hidden sm:flex": botonesPerfil.visible
+                })}>
+
+
+                  <VistaRol roles={["cliente"]}>
+                    <BotonCarritoCompras/>
                   
-                </VistaRol>
-                <BotonChatTopBar />
-                <BotonNotificaciones />
+                  </VistaRol>
+                  <BotonChatTopBar />
+                  <BotonNotificaciones />
+                </div>
                 
                 <InfoUsuario/>
 

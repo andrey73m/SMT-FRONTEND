@@ -1,23 +1,31 @@
 import { useState } from "react";
 import cn from "@/cn";
 
-interface AlternarFormularioProps extends React.PropsWithChildren{
+export interface AlternarFormularioProps{
   texto: string;
   className?: string
+  claseMostrar?: string;
+  Formulario: React.FC<{
+    afterSubmit?: () => void
+  }>
 }
 
-const AlternarFormulario = ({ texto, children, className }: AlternarFormularioProps) => {
+const AlternarFormulario = ({ texto, className, claseMostrar, Formulario }: AlternarFormularioProps) => {
   const [mostrarFormulario, setMostrarFormulario] = useState(false)
+  
+  let clasesMostrar = {
+    " md:pt-0 h-dvh md:h-auto": mostrarFormulario,
+    "sticky top-topbar": !mostrarFormulario
+  }
+
+  if (claseMostrar)
+    clasesMostrar = { ...clasesMostrar, [claseMostrar]: mostrarFormulario, }
   
   return (
     
     < div
       
-      className = {cn("flex  flex-col w-full top-0  transition-all bg-white", {
-        "fixed pt-topbar md:pt-0 md:sticky h-dvh md:h-auto  md:top-topbar": mostrarFormulario,
-        "sticky top-topbar": !mostrarFormulario,
-        "z-50": mostrarFormulario
-      }, className)}>
+      className = {cn("flex  flex-col w-full top-0  transition-all bg-white", clasesMostrar, className)}>
 
       <div onClick={() => setMostrarFormulario(!mostrarFormulario)}
         className={cn("text-center  p-4 font-bold cursor-pointer select-none",{
@@ -27,7 +35,7 @@ const AlternarFormulario = ({ texto, children, className }: AlternarFormularioPr
 
 
       <div className={cn("bg-white overflow-y-auto grow", { "opacity-0 hidden": !mostrarFormulario, "opacity-100": mostrarFormulario })}>
-        {children}
+        <Formulario afterSubmit={() => setMostrarFormulario(false)} />
       </div>
     </div >
   );

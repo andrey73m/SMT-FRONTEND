@@ -26,7 +26,7 @@ const DialogoMostrar = forwardRef<tipoReferencia, React.PropsWithChildren>(({ ..
         <MyDialogBody>
           <div className="relative">
             <div className="flex justify-end absolute w-full z-50 h-6">
-              <IconoSimboloX  onClick={handleOpen} className="cursor-pointer hover:text-red-700" />
+              <IconoSimboloX  onClick={handleOpen} className="cursor-pointer hover:text-red-700 w-6" />
             </div>
             {props.children}
           </div>

@@ -23,24 +23,27 @@ const PaginaConversaciones = () => {
   return (
     <div className="sm:flex min-h-0 h-[calc(100vh-3rem)] w-full">
       <div className={cn("transicion-all sm:w-72 lg:w-96 h-full overflow-y-auto border-r-2 bg-slate-100",{
-        "absolute -left-full": !abierto
+        "absolute -left-full": !abierto,
+        "hidden sm:block": !!idticket
       })}>
-        <h4 className="text-2xl font-bold p-2 text-center bg-white shadow-sm">Tus Chats</h4>
+        <h4 className="text-2xl font-bold p-2 text-center bg-white shadow-lg z-50">Tus Chats</h4>
         {
           conversaciones && conversaciones.length > 0 ?
             conversaciones.map(c =>
-              <div key={c.idconversacion} onClick={() => {navigate(`/chats/${c.idticket}`)}} className="flex w-full bg-white hover:bg-slate-200 p-6 border-b-2">
+              <div key={c.idconversacion} onClick={() => {navigate(`/chats/${c.idticket}`)}} className="flex w-full bg-white hover:bg-slate-200 p-6 border-b-2 z-0">
                 <h5 className="font-bold">{c.asunto}</h5>
               </div>)
             :
             <p className="text-gray-200 text-center p-2">No tienes chats</p>
         }
       </div>
-      <div className="sm:grow h-full relative">
+      <div className={cn("sm:grow sm:block h-full relative",{
+        "hidden": !idticket
+      })}>
         {
 
         }
-        <div className="absolute flex justify-center items-center w-full h-full -z-40">
+        <div className={cn("absolute justify-center items-center w-full h-full -z-40 ")}>
           <div className="h-96">
 
             <LogoPrincipal fill="#eeeeee"/>

@@ -36,7 +36,7 @@ const InfoProductosCarrito = ({ producto }: InfoProductosCarritoProps) => {
       <DialogoConfirmar ejecutarAccion={handleDelete} titulo="¿Estás seguro de eliminar este producto?" ref= {referenciaConfirmacion}/>
 
       <div className="flex justify-end px-2">
-        <span className="rounded-full cursor-pointer text-2xl hover:font-bold h-6 hover:text-red-700 transition-all"
+        <span className="rounded-full cursor-pointer text-2xl hover:font-bold h-6 w-6 hover:text-red-700 transition-all"
           onClick={() => referenciaConfirmacion.current?.setMostrarConfirmacion(true)}>
           <IconoSimboloX/>
         </span>

@@ -55,7 +55,7 @@ const InfoUsuario = () => {
 
         </div>
         <div className="flex p-0.5 h-full mx-0.5 sm:mx-1 " onTouchMove={onSwipe} onTouchEnd={onTouch}>
-          <IconoUsuario />
+          <IconoUsuario className="w-12"/>
           <ElementoFlotante className={cn("right-0 top-full bg-black/35 p-3 rounded-lg w-40 text-sm", { "opacity-100": toque, "opacity-0 hidden": !toque })}>Desliza a la izquierda para ver las opciones</ElementoFlotante>
         </div>
       

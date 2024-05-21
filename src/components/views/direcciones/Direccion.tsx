@@ -27,7 +27,7 @@ const Direccion = ({ direccion, }: DireccionesProps) => {
     <>
       <div className="rounded-xl bg-white w-auto">
         <div className="flex justify-end h-0">
-          <div className="my-7 mx-2 flex justify-end min-h-10">
+          <div className="my-7 mx-2 flex justify-end h-10">
 
             <DialogoMostrar ref={referenciaDialogo}>
               <FormularioDireccion afterSubmit={() => referenciaDialogo.current?.setMostrarDialogo(false)} modoActualizar direccion={direccion}/>
@@ -36,9 +36,9 @@ const Direccion = ({ direccion, }: DireccionesProps) => {
             <DialogoConfirmar ejecutarAccion={handleDelete} titulo="¿Estás seguro de eliminar la dirección?" ref={referenciaConfirmacion}>
             </DialogoConfirmar>
             
-            <BotonEditar onClick={() => referenciaDialogo.current?.setMostrarDialogo(true)}/>
+            <BotonEditar className="w-10" onClick={() => referenciaDialogo.current?.setMostrarDialogo(true)}/>
             
-            <BotonEliminar onClick={() => referenciaConfirmacion.current?.setMostrarConfirmacion(true)}/>
+            <BotonEliminar className="w-10" onClick={() => referenciaConfirmacion.current?.setMostrarConfirmacion(true)}/>
           </div>
         </div>
         

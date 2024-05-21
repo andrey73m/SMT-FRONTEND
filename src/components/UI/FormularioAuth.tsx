@@ -19,7 +19,10 @@ const FormularioAuth = ({ className, ...props }: Props) => {
   return(
     <div className="w-screen h-lvh overflow-y-auto flex items-center animate-gradient-xy bg-gradient-to-tr from-violet-900 to-cyan-800 text-white justify-center relative">
       <div className="absolute top-10 left-10 flex gap-x-2 h-6 hover:text-violet-300 cursor-pointer select-none" onClick={() => navigate(-1)}>
-        <IconoFlecha/>
+        <div className="w-6 h-full">
+
+          <IconoFlecha/>
+        </div>
         Volver
       </div>
       <form {...props} className={cn("rounded-lg bg-gradient-to-t from-violet-800 to-indigo-900 w-full max-w-xl flex flex-col items-center shadow-lg justify-normal p-5 ", className)}>

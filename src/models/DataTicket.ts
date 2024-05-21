@@ -7,10 +7,11 @@ export enum EstadosTicket{
   CERRADO = "cerrado"
 }
 
-export interface UsuarioTicket{
+export interface DataUsuario{
   nombres: string;
   apellidos: string;
   email: string;
+  nombre_usuario?: string
   idusuario: string;
 }
 
@@ -24,7 +25,7 @@ export interface DataTicket{
   estado: EstadosTicket;
   prioridad: string;
   fecha_creacion:Date;
-  usuario?: UsuarioTicket;
-  empleado?: UsuarioTicket
+  usuario?: DataUsuario;
+  empleado?: DataUsuario
 }
 

@@ -3,39 +3,40 @@ import { SpinnerPagina } from "@/components/UI";
 import DataDireccion from "@/models/DataDireccion";
 import { useQuery } from "@tanstack/react-query";
 import Direccion from "./Direccion";
-import AlternarFormulario from "@/components/layout/AlternarFormularioTicket";
-import FormularioDireccion from "@/components/formularios/direccion";
-import { VistaRol } from "@/components/wrappers";
+import { useParams } from "react-router-dom";
+import { isAxiosError } from "axios";
+import { useNavigate } from "react-router-dom";
+
+
 const Direcciones = () => {
 
+  const { idusuario } = useParams()
   const direccionesQuery = useQuery<DataDireccion[]>({
     queryKey: ["direcciones"],
-    queryFn: direccionesService.obtenerDireccion,
+    queryFn: () => direccionesService.obtenerDireccion(idusuario),
     refetchOnWindowFocus: false,
+    retry:0
   })
+  const navigate = useNavigate()
   if (direccionesQuery.isLoading) return <SpinnerPagina/>
-  
+  if (direccionesQuery.isError){
+    
+    if (isAxiosError(direccionesQuery.error)){
+      if (direccionesQuery.error.response?.status === 400) navigate("/direcciones")
+    }
+  }
   return (
-    <div className="flex justify-center py-10 px-2">
-      <div className="py-3 rounded-xl shadow-md bg-gray-200 w-full lg:w-2/4 tansition-all">
-        <VistaRol roles={["cliente"]}>
-          <h1 className="text-center mb-5 font-bold text-3xl">Configura tus direcciones</h1>
-          <div className="flex justify-center ">
-            <AlternarFormulario texto="Agrega una dirección">
-              <FormularioDireccion />
-            </AlternarFormulario>
+    
+    <>
+
+      {
+        direccionesQuery.data?.map((direccion) =>
+          <div className="p-3" key={direccion.iddireccion}>
+            <Direccion direccion={direccion} />
           </div>
-        </VistaRol>
-        <VistaRol roles={["admin"]}><h1 className="text-center mb-5 font-bold text-3xl">Direcciones de usuario</h1></VistaRol>
-        {
-          direccionesQuery.data?.map((direccion) =>
-            <div className="p-3" key={direccion.iddireccion}>
-              <Direccion direccion={direccion} />
-            </div>
-          )
-        }
-      </div>
-    </div>
+        )
+      }
+    </>
   );
     
 }

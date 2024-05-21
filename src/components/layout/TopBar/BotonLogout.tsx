@@ -40,7 +40,7 @@ const BotonLogout = () => {
       <BotonTopBar className="w-12" onClick={() => referenciaConfirmacion.current?.setMostrarConfirmacion(true)} >
       
 
-        <LogOut className="hover:text-rose-600 transition-colors" ping={ping} />
+        <LogOut className="hover:text-rose-600 transition-colors w-12" ping={ping} />
       </BotonTopBar>
     </>
   );

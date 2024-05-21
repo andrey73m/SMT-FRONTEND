@@ -71,14 +71,15 @@ export const sliceSesion = createSlice({
     builder.addCase(verificar.rejected, (state) => {
       state.cargando = false;
     })
-    builder.addCase(verificar.fulfilled, (state) => {
-      state.cargando = false;
-    })
     builder.addCase(registro.pending, (state) => {
       state.cargando = true;
     })
 
     builder.addCase(login.fulfilled, (state, action: PayloadAction<{token: string}>) => {
+      if (action.payload.token) sliceSesion.caseReducers.iniciarSesion(state, action)
+      state.cargando = false;
+    })
+    builder.addCase(verificar.fulfilled, (state, action: PayloadAction<{token: string}>) => {
       if (action.payload.token) sliceSesion.caseReducers.iniciarSesion(state, action)
       state.cargando = false;
     })

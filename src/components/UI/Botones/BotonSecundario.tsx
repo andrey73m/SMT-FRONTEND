@@ -3,9 +3,11 @@ import Boton, { BotonProps } from "./Boton";
 
 
 
-const BotonPrimario = ({ className, ...props }: BotonProps) => {
+const BotonPrimario = ({ className, negar,...props }: BotonProps) => {
   return (
-    <Boton {...props} className={cn("bg-amber-400 hover:bg-amber-300", className)} />
+    <Boton {...props} className={cn("bg-amber-400 hover:bg-amber-300",{
+      "bg-slate-200 hover:bg-slate-300 text-amber-400": negar
+    }, className)} />
   );
 }
 

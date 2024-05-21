@@ -46,5 +46,10 @@ export default {
     const res = await axios.get(`${env.BACKEND_ROOT}/auth/online`,{ headers: auth })
     return res.data;
 
+  },
+  obtenerClientes: async () => {
+    const auth = tokenService.getAuthHeader()
+    const res = await axios.get(`${env.BACKEND_ROOT}/auth/users/cliente`,{ headers: auth })
+    return res.data;
   }
 }

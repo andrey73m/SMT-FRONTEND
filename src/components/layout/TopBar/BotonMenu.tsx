@@ -16,7 +16,7 @@ const BotonMenu = () => {
 
   return (
     <BotonTopBar className="w-12" onClick={clickHandler}>
-      <IconoMenu />
+      <IconoMenu className="w-12"/>
     </BotonTopBar>
   )
 }
