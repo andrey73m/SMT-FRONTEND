@@ -10,7 +10,7 @@ const Boton = ({ children, className,...props }: BotonProps) => {
   
 
   return(
-    <button className={cn(" w-full rounded-lg  p-2 text-white", className)} {...props}>{children}</button>
+    <button className={cn(" w-full rounded-lg  p-2 text-white focus:outline-none", className)} {...props}>{children}</button>
   )
 }
 

@@ -7,12 +7,11 @@ import useSesion from "@/hooks/sesion";
 import { BotonPrimario } from "../UI/Botones";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { notificarError, notificarExito } from "@/utils";
+import { FormularioProps } from "./PropsFormulario";
 
-interface FormularioTicketProps{
-  afterSubmit?: () => void
-}
 
-const FormularioTicket = ({ afterSubmit }: FormularioTicketProps) => {
+
+const FormularioTicket = ({ afterSubmit }: FormularioProps) => {
 
   const { haySesion } = useSesion()
   const queryClient = useQueryClient();

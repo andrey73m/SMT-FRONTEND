@@ -43,7 +43,7 @@ const PaginaConversaciones = () => {
         {
 
         }
-        <div className={cn("absolute justify-center items-center w-full h-full -z-40 ")}>
+        <div className={cn("flex justify-center items-center w-full h-full -z-40 ")}>
           <div className="h-96">
 
             <LogoPrincipal fill="#eeeeee"/>
