@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import cn from "@/cn";
 import { useCargaImagen } from "@/hooks/imagenes";
 
