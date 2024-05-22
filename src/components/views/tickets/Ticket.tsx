@@ -16,9 +16,12 @@ import CuerpoTicket from "./CuerpoTicket";
 import AlternarFormularioGestionarTicket from "@/components/layout/AlternarFormularioGestion";
 import { EstadosTicket } from "@/models/DataTicket";
 import { AxiosError } from "axios";
-import { notificarError } from "@/utils";
+import { notificarError, notificarExito } from "@/utils";
 import DialogoConfirmar, { tipoReferenciaConfirmar } from "@/components/UI/DialogoConfirmar";
 import { useRef } from "react";
+import BotonNeutro from "@/components/UI/Botones/BotonNeutro";
+import FormularioCalificacion from "@/components/formularios/calificar_ticket";
+import EstrellasFeedBack from "@/components/UI/EstrellasFeedBack";
 
 interface TicketProps{
   ticket: DataTicket
@@ -64,25 +67,38 @@ const Ticket = ({ ticket, idticket }: TicketProps) => {
     onSuccess: (updated) => {
       const data = queryClient.getQueryData<DataTicket[]>(["tickets"])
       queryClient.setQueryData(["tickets"], data?.map(ticket => ticket.idticket === updated.idticket ? updated : ticket))
+      notificarExito("Ticket reabierto")
     },
     onError: () => {
       notificarError("No se pudo reabrir el ticket")
     }
   })
+  const resolveMutation = useMutation<DataTicket>({
+    mutationFn: () => ticketService.resolverTicket(ticket.idticket),
+    onSuccess: (updated) => {
+      const data = queryClient.getQueryData<DataTicket[]>(["tickets"])
+      queryClient.setQueryData(["tickets"], data?.map(ticket => ticket.idticket === updated.idticket ? updated : ticket))
+      notificarExito("Ticket resuelto")
+    },
+    onError: () => {
+      notificarError("No se pudo resolver el ticket")
+    }
+  })
+
+  const handleSolve = async () => {
+    resolveMutation.mutate()
+  }
   const handleAccept = async () => {
-    if (ticket.idticket)
-      acceptMutation.mutate()
+    acceptMutation.mutate()
   }
   const handleDiscard = async () => {
-    if (ticket.idticket)
-      discardMutation.mutate()
+    discardMutation.mutate()
   }
   const handleReopen = async () => {
-    if (ticket.idticket)
-      reopenMutation.mutate()
+    reopenMutation.mutate()
   }
   const referenciaConfirmacion = useRef<tipoReferenciaConfirmar>(null)
-
+  const refConfirmacionResolver = useRef<tipoReferenciaConfirmar>(null)
   const navigate = useNavigate()
   //TODO:OPCIONAL > USAR FRESNEL PARA MANEJO DE MEDIAQUERY
   return(
@@ -98,37 +114,72 @@ const Ticket = ({ ticket, idticket }: TicketProps) => {
           abierto &&
             <>
               {
-                ticket.estado !== EstadosTicket.CERRADO ?
+                ticket.estado !== EstadosTicket.CERRADO && ticket.estado !== EstadosTicket.RESUELTO ?
                   <>
-                    <DialogoConfirmar ejecutarAccion={handleDiscard} titulo="¿Estás seguro de descartar este ticket?" ref= {referenciaConfirmacion}/>
+                    <DialogoConfirmar ejecutarAccion={handleDiscard} titulo="¿Estás seguro de descartar este ticket?" ref= {referenciaConfirmacion} detalles="Solo un admin podrá reabrirlo"/>
+                    <DialogoConfirmar ejecutarAccion={handleSolve} titulo="¿Estás seguro de resolver el ticket ahora?" ref={refConfirmacionResolver} />
+                    
                     <VistaRol roles={["admin", "empleado"]}>
           
+                      <VistaRol roles={["admin"]} or={ticket.empleado_asignado === info.idusuario}>
+                        <div className="flex flex-col gap-y-2">
+
+                          <AlternarFormularioGestionarTicket recienAceptado={ticket.estado === EstadosTicket.ACEPTADO} ticket={ticket} />
+                          {
+                            ticket.prioridad && ticket.idtipo_servicio &&
+                          <BotonNeutro onClick={() => refConfirmacionResolver.current?.setMostrarConfirmacion(true)}>Marcar como resuelto</BotonNeutro>
+                          }
+                        </div>
+                      </VistaRol>
                       <div className="flex flex-col sm:flex-row gap-2 my-2 transition-all">
                         <>
                           {
                             !ticket.empleado_asignado &&
-                    <VistaRol roles={["empleado"]}>
-                      <div className="grow">
+                            <VistaRol roles={["empleado"]}>
+                              <div className="grow">
 
-                        <BotonPositivo onClick={handleAccept}>Aceptar</BotonPositivo>
-                      </div>
-                    </VistaRol>
+                                <BotonPositivo onClick={handleAccept}>Aceptar</BotonPositivo>
+                              </div>
+                              <div className="grow">
+
+                                
+                                <BotonNegativo negar onClick={() => referenciaConfirmacion.current?.setMostrarConfirmacion(true)}>Descartar</BotonNegativo>
+                              </div>
+                            </VistaRol>
                           }
-                          <div className="grow">
+                          {
+                            ticket.empleado_asignado &&
+                            <div className="grow flex justify-end">
 
-                            <BotonNegativo onClick={() => referenciaConfirmacion.current?.setMostrarConfirmacion(true)}>Descartar</BotonNegativo>
-                          </div>
+                              <BotonNegativo className="" simplificar onClick={() => referenciaConfirmacion.current?.setMostrarConfirmacion(true)}>Descartar</BotonNegativo>
+                            </div>
+                          }
                         </>
                       </div>
                     </VistaRol>
-                    <VistaRol roles={["admin"]} or={ticket.empleado_asignado === info.idusuario}>
-                      <AlternarFormularioGestionarTicket recienAceptado={ticket.estado === EstadosTicket.ACEPTADO} ticket={ticket} />
-                    </VistaRol>
                   </>
                   :
-                  <VistaRol roles={["admin"]}>
-                    <BotonSecundario onClick={handleReopen}>Reabrir</BotonSecundario>
-                  </VistaRol>
+                  <>
+                    <VistaRol roles={["admin"]}>
+                      <BotonSecundario onClick={handleReopen}>Reabrir</BotonSecundario>
+                    </VistaRol>
+                    {
+                      ticket.estado === EstadosTicket.RESUELTO &&
+                      <>
+                        {!ticket.calificacion ?
+                          <FormularioCalificacion ticket={ticket}/>
+                          :
+                          <>
+                            <EstrellasFeedBack cantidad={5} valor={ticket.calificacion.valor} readOnly/>
+                            {
+                              ticket.calificacion.comentario &&
+                            <p>{ticket.calificacion.comentario}</p>
+                            }
+                          </>
+                        }
+                      </>
+                    }
+                  </>
               }
             </>
         

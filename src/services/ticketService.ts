@@ -2,6 +2,7 @@ import axios from "axios";
 import { CamposGestionTicket, CamposTicket } from "@/components/formularios/validators";
 import { env } from "@/environment";
 import tokenService from "./tokenService";
+import { CamposCalificacion } from "@/components/formularios/validators/calificacion";
 
 export default{
   createTicket: async (data: CamposTicket) => {
@@ -32,6 +33,16 @@ export default{
   reabrirTicket: async (id: string) => {
     const auth = tokenService.getAuthHeader()
     const res = await axios.put(`${env.BACKEND_ROOT}/tickets/gestionar/reabrir/${id}`,{}, { headers: auth })
+    return res.data;
+  },
+  resolverTicket: async (id: string) => {
+    const auth = tokenService.getAuthHeader()
+    const res = await axios.put(`${env.BACKEND_ROOT}/tickets/gestionar/resolver/${id}`,{}, { headers: auth })
+    return res.data;
+  },
+  calificarTicket: async (data: CamposCalificacion,id: string) => {
+    const auth = tokenService.getAuthHeader()
+    const res = await axios.put(`${env.BACKEND_ROOT}/tickets/calificar/${id}`,data, { headers: auth })
     return res.data;
   },
   gestionarTicket: async (data: CamposGestionTicket,id: string) => {

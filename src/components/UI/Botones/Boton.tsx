@@ -2,6 +2,7 @@ import cn from "@/cn";
 
 export interface BotonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>{
   negar?: boolean
+  simplificar?: boolean
 }
 
 

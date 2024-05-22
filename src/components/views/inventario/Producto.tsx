@@ -101,7 +101,7 @@ const Producto = ({ idproducto }: ProductoProps) => {
                     <CampoContador  initial={1} ref={refCantidad} label="Cantidad" min={1} max={producto.disponibilidad}/>
                     {
                       productoEnCarrito &&
-                        <BotonNegativo onClick={() => referenciaConfirmacion.current?.setMostrarConfirmacion(true)} className="h-12">Eliminar del carrito</BotonNegativo>
+                        <BotonNegativo negar onClick={() => referenciaConfirmacion.current?.setMostrarConfirmacion(true)} className="h-12">Eliminar del carrito</BotonNegativo>
                     }
                   </div>
 

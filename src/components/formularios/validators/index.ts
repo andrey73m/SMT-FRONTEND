@@ -10,29 +10,18 @@ import { servicioValidator } from "./servicio";
 import { CamposServicio } from "./servicio";
 import { gestionTicketValidator } from "./gestion_ticket";
 import { CamposGestionTicket } from "./gestion_ticket";
+import { calificacionValidator } from "./calificacion";
 
-const registroResolver = zodResolver(registroValidator)
-const loginResolver = zodResolver(loginValidator)
-const direccionResolver = zodResolver(direccionValidator)
-const componenteResolver = zodResolver(componenteValidator)
-const inventarioResolver = zodResolver(inventarioValidator)
-const codigoVerificacionResolver = zodResolver(codigoVerificacionValidator)
-const ticketResolver = zodResolver(ticketValidator)
-const servicioResolver = zodResolver(servicioValidator)
-const gestionTicketResolver = zodResolver(gestionTicketValidator)
-
-
-export {
-  registroResolver,
-  loginResolver,
-  direccionResolver,
-  componenteResolver,
-  inventarioResolver,
-  codigoVerificacionResolver,
-  ticketResolver,
-  servicioResolver,
-  gestionTicketResolver
-}
+export const registroResolver = zodResolver(registroValidator)
+export const loginResolver = zodResolver(loginValidator)
+export const direccionResolver = zodResolver(direccionValidator)
+export const componenteResolver = zodResolver(componenteValidator)
+export const inventarioResolver = zodResolver(inventarioValidator)
+export const codigoVerificacionResolver = zodResolver(codigoVerificacionValidator)
+export const ticketResolver = zodResolver(ticketValidator)
+export const servicioResolver = zodResolver(servicioValidator)
+export const gestionTicketResolver = zodResolver(gestionTicketValidator)
+export const calificacionResolver = zodResolver(calificacionValidator)
 
 export type {
   CamposRegistro,

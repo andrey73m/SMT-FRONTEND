@@ -8,10 +8,11 @@ export interface tipoReferenciaConfirmar{
 }
 interface DialogoProps{
   titulo?: string
+  detalles?: string
   ejecutarAccion: ()=>void
 }
 
-const DialogoConfirmar = forwardRef<tipoReferenciaConfirmar, DialogoProps>(({ titulo, ejecutarAccion },ref) => {
+const DialogoConfirmar = forwardRef<tipoReferenciaConfirmar, DialogoProps>(({ titulo, detalles, ejecutarAccion },ref) => {
 
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false)
 
@@ -32,8 +33,11 @@ const DialogoConfirmar = forwardRef<tipoReferenciaConfirmar, DialogoProps>(({ ti
   return(
     <>
       <MyDialog open={mostrarConfirmacion} handler={handleOpen}>
-        <MyDialogHeader className="flex justify-center">{titulo}</MyDialogHeader>
-        <MyDialogBody>
+        <MyDialogHeader className="flex justify-center p-0 pt-2">
+          <h3>{titulo}</h3>
+        </MyDialogHeader>
+        <MyDialogBody className="p-1">
+          {detalles && <p className="text-slate-400 text-center text-lg mb-2">{detalles}</p>}
           <div className="flex w-full">
             <BotonPositivo onClick={handleClick} className="m-2">Confirmar</BotonPositivo>
             <BotonNegativo className="m-2" onClick={() => setMostrarConfirmacion(false)}>Descartar</BotonNegativo>

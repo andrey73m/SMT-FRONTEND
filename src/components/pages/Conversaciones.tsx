@@ -21,16 +21,16 @@ const PaginaConversaciones = () => {
   })
   
   return (
-    <div className="sm:flex min-h-0 h-[calc(100vh-3rem)] w-full">
-      <div className={cn("transicion-all sm:w-72 lg:w-96 h-full overflow-y-auto border-r-2 bg-slate-100",{
+    <div className="sm:flex min-h-0 h-[calc(100svh-3rem)] w-full">
+      <div className={cn("transicion-all sm:w-72 lg:w-96 h-full overflow-y-auto border-r-2 bg-slate-200",{
         "absolute -left-full": !abierto,
         "hidden sm:block": !!idticket
       })}>
-        <h4 className="text-2xl font-bold p-2 text-center bg-white shadow-lg z-50">Tus Chats</h4>
+        <h4 className="text-2xl font-bold p-2 text-center bg-white shadow-lg z-50 ">Tus Chats</h4>
         {
           conversaciones && conversaciones.length > 0 ?
             conversaciones.map(c =>
-              <div key={c.idconversacion} onClick={() => {navigate(`/chats/${c.idticket}`)}} className="flex w-full bg-white hover:bg-slate-200 p-6 border-b-2 z-0">
+              <div key={c.idconversacion} onClick={() => {navigate(`/chats/${c.idticket}`)}} className="flex w-full bg-slate-100 hover:bg-slate-300 p-6 border-b-2 z-0">
                 <h5 className="font-bold">{c.asunto}</h5>
               </div>)
             :
@@ -43,7 +43,7 @@ const PaginaConversaciones = () => {
         {
 
         }
-        <div className={cn("flex justify-center items-center w-full h-full -z-40 ")}>
+        <div className={cn("flex absolute justify-center items-center w-full h-full -z-40 ")}>
           <div className="h-96">
 
             <LogoPrincipal fill="#eeeeee"/>
