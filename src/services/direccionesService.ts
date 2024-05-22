@@ -14,9 +14,9 @@ export default {
     return res.data;
   },
 
-  crearDireccion: async (data: CamposDireccion) => {
+  crearDireccion: async (data: CamposDireccion, idusuario?: string) => {
     const auth = tokenService.getAuthHeader()
-    const res = await axios.post(`${env.BACKEND_ROOT}/domicilio/direcciones`, data, { headers: auth })
+    const res = await axios.post(`${env.BACKEND_ROOT}/domicilio/direcciones/administrar/${idusuario}`, data, { headers: auth })
     return res.data;
   },
   
@@ -26,40 +26,27 @@ export default {
     return res.data;
   },
 
-  actualizarDireccion: async ({ id, data } : { id:string, data:CamposDireccion }) => {
+  actualizarDireccion: async (data:CamposDireccion, idusuario?:string, iddireccion?:string) => {
     const auth = tokenService.getAuthHeader()
-    console.log(auth)
-    const res = await axios.put(`${env.BACKEND_ROOT}/domicilio/direcciones/${id}`, data , { headers: auth })
+    const res = await axios.put(`${env.BACKEND_ROOT}/domicilio/direcciones/administrar/${idusuario}/${iddireccion}`, data , { headers: auth })
     return res.data;
   },
 
-  eliminarDireccion: async (id: string) => {
+  eliminarDireccion: async (idusuario?: string, iddireccion?:string) => {
     const auth = tokenService.getAuthHeader()
-    const res = await axios.delete(`${env.BACKEND_ROOT}/domicilio/direcciones/${id}`, { headers: auth })
+    const res = await axios.delete(`${env.BACKEND_ROOT}/domicilio/direcciones/administrar/${idusuario}/${iddireccion}`, { headers: auth })
     return res.data;
   },
 
-  crearDireccionAdmin: async(data: CamposDireccion, idusuario:string) => {
-    const auth = tokenService.getAuthHeader()
-    const res = await axios.post(`${env.BACKEND_ROOT}/domicilio/direcciones/administrar/${idusuario}`, data, { headers: auth })
-    return res.data;
-  },
   hacerDireccionPredeterminada: async(idireccion:string) => {
     const auth = tokenService.getAuthHeader()
     const res = await axios.get(`${env.BACKEND_ROOT}/domicilio/direcciones/hacer-predeterminada/${idireccion}`, { headers: auth })
     return res.data;
   },
 
-
   actualizarDireccionAdmin: async (idusuario: string, iddireccion:string) => {
     const auth = tokenService.getAuthHeader()
     const res = await axios.put(`${env.BACKEND_ROOT}/domicilio/direcciones/administrar/${idusuario}/${iddireccion}`, { headers: auth })
-    return res.data;
-  },
-
-  eliminarDireccionAdmin: async (idusuario: string, iddireccion:string) => {
-    const auth = tokenService.getAuthHeader()
-    const res = await axios.delete(`${env.BACKEND_ROOT}/domicilio/direcciones/administrar/${idusuario}/${iddireccion}`, { headers: auth })
     return res.data;
   },
 

@@ -28,7 +28,6 @@ const Direcciones = () => {
   return (
     
     <>
-
       {
         direccionesQuery.data?.map((direccion) =>
           <div className="p-3" key={direccion.iddireccion}>

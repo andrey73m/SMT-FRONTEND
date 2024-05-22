@@ -3,11 +3,15 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import DataDireccion from "@/models/DataDireccion";
 import direccionesService from "@/services/direccionesService";
 import { notificarError, notificarExito } from "@/utils";
+import { useParams } from "react-router-dom";
+import { CamposDireccion } from "@/components/formularios/validators";
+
 
 export const useMutacionCrearDireccion = (callback: ()=>void) => {
+  const { idusuario } = useParams()
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn:direccionesService.crearDireccion,
+    mutationFn:(data: CamposDireccion) => direccionesService.crearDireccion(data, idusuario),
     onSuccess: (direccion: DataDireccion) => {
       notificarExito("Direccion creada");
       callback()
@@ -21,9 +25,11 @@ export const useMutacionCrearDireccion = (callback: ()=>void) => {
 }
 
 export const useMutacionActualizarDireccion = (callback: ()=>void) => {
+  const { idusuario } = useParams()
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: direccionesService.actualizarDireccion,
+    mutationFn: ({ data, iddireccion }: {data:CamposDireccion, iddireccion:string}) =>
+      direccionesService.actualizarDireccion(data,idusuario, iddireccion),
     onSuccess: (updated) => {
       notificarExito("Direccion actualizada")
       callback()
@@ -58,9 +64,10 @@ export const useMutacionActualizarPredeterminada = (callback: ()=>void) => {
 
 
 export const useMutacionEliminarDireccion = () => {
+  const { idusuario } = useParams()
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: direccionesService.eliminarDireccion,
+    mutationFn:(iddireccion:string) => direccionesService.eliminarDireccion(idusuario,iddireccion),
     onSuccess: (deleted) => {
       notificarExito("Direccion eliminada")
       queryClient.setQueryData(["direcciones"], (data: DataDireccion[]) =>

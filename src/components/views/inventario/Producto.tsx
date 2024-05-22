@@ -14,6 +14,9 @@ import { useDataProductosFiltrado, useMutacionesCarrito } from "@/hooks/carritoC
 import { Media } from "@/MediaConfig"
 import { useSesion } from "@/hooks"
 import DialogoConfirmar, { tipoReferenciaConfirmar } from "@/components/UI/DialogoConfirmar"
+import DialogoMostrar, { tipoReferencia } from "@/components/UI/DialogoMostrar"
+import { useMutacionEliminarProducto } from "@/hooks/producto"
+import FormularioInventario from "@/components/formularios/inventario"
 
 interface ProductoProps {
   idproducto: string
@@ -48,6 +51,15 @@ const Producto = ({ idproducto }: ProductoProps) => {
   }
 
   const referenciaConfirmacion = useRef<tipoReferenciaConfirmar>(null)
+
+  const referenciaDialogo = useRef<tipoReferencia>(null)
+
+  const mutacionEliminarProducto = useMutacionEliminarProducto();
+
+  const handleDeleteAdmin = async () => {
+    if (producto)
+      mutacionEliminarProducto.mutate(producto.idproducto)
+  }
 
 
   useEffect(() => {
@@ -108,9 +120,16 @@ const Producto = ({ idproducto }: ProductoProps) => {
                   <BotonPositivo onClick={clickAgregar}>Agregar al carrito</BotonPositivo>
                   <BotonSecundario>Comprar ahora</BotonSecundario>
                 </VistaRol>
+
+                <DialogoMostrar ref={referenciaDialogo}>
+                  <FormularioInventario afterSubmit={() => referenciaDialogo.current?.setMostrarDialogo(false)} modoActualizar producto={producto}/>
+                </DialogoMostrar>
+                <DialogoConfirmar ejecutarAccion={handleDeleteAdmin} titulo="¿Estás seguro de eliminar este producto?" ref={referenciaConfirmacion}>
+                </DialogoConfirmar>
                 
                 <VistaRol roles={["admin"]}>
-                  <BotonSecundario>Editar</BotonSecundario>
+                  <BotonSecundario onClick={() => referenciaDialogo.current?.setMostrarDialogo(true)}>Editar</BotonSecundario>
+                  <BotonNegativo onClick={() => referenciaConfirmacion.current?.setMostrarConfirmacion(true)}>Eliminar</BotonNegativo>
                 </VistaRol>
               </div>
             </div>

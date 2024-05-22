@@ -63,6 +63,8 @@ const App = () => {
               </Guardian>
             } >
             </Route>
+
+
             <Route path="tickets/:idticket" element={
               <Guardian>
                 <TituloPagina titulo="Detalles ticket">
@@ -73,13 +75,15 @@ const App = () => {
             </Route>
 
 
-            <Route  path="direcciones" element={
+            <Route path="direcciones" element={
               <Guardian roles={["admin", "cliente"]}>
                 <TituloPagina titulo="Direcciones">
                   <PaginaDirecciones/>
                 </TituloPagina>
               </Guardian>
             }/>
+
+
             <Route path="direcciones/:idusuario" element={
               <Guardian roles={["admin"]} alt="/direcciones">
                 <TituloPagina titulo="Direcciones usuario">
@@ -102,19 +106,31 @@ const App = () => {
                 </TituloPagina>
               } />
             </Route>
+
             
-            <Route path="crear-servicio" element={<FormularioServicio/>}/>
-            <Route path="catalogo" element={<FormularioComponente />} />
-            <Route path="quienes-somos" element={<AboutUs/>} />
-            <Route path="productos" element={<PaginaProductos/>}/>
+            <Route path="productos" element={
+              <TituloPagina titulo="Productos">
+                <PaginaProductos/>
+              </TituloPagina>
+            }>
+            </Route>
+
+            
             <Route path="productos/:idproducto" element={
               <TituloPagina titulo="Detalles: ">
                 <PaginaDetallesProducto />
               </TituloPagina>
             } />
+            
+
             <Route path="crear-producto" element={<FormularioInventario/>}/>
           </Route>
-          
+            
+          <Route path="crear-servicio" element={<FormularioServicio/>}/>
+          <Route path="catalogo" element={<FormularioComponente />} />
+          <Route path="quienes-somos" element={<AboutUs/>} />
+            
+
         </Routes>
       </Router>
       

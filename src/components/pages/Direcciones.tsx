@@ -26,7 +26,12 @@ const PaginaDirecciones = () => {
             <h1 className="text-center mb-5 font-bold text-3xl">Direcciones de usuario</h1>
             {
               idusuario ?
-                <Direcciones /> :
+                <><div className="flex justify-center ">
+                  <AlternarFormulario texto="Agrega una dirección para este usuario" Formulario={FormularioDireccion} />
+                </div>
+                <Direcciones />
+                </>
+                :
                 <ListaClientes />
             }
           </VistaRol>

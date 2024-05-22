@@ -4,9 +4,19 @@ import tokenService from "./tokenService"
 import { CamposInventario } from "../components/formularios/validators"
 
 export default {
-  crearProducto: async (data: CamposInventario) => {
+  crearProducto: async (data: CamposInventario, idcomponente?:string) => {
     const auth = tokenService.getAuthHeader()
-    const res = await axios.post(`${env.BACKEND_ROOT}/componentes/inventario/${data.idcomponente}`,data, { headers: auth })
+    const res = await axios.post(`${env.BACKEND_ROOT}/componentes/inventario/${idcomponente}`,data, { headers: auth })
+    return res.data;
+  },
+  actualizarProducto: async (data:CamposInventario, idproducto?:string) => {
+    const auth = tokenService.getAuthHeader()
+    const res = await axios.put(`${env.BACKEND_ROOT}/componentes/inventario/${idproducto}`,data, { headers: auth })
+    return res.data;
+  },
+  eliminarProducto: async (idproducto?:string) => {
+    const auth = tokenService.getAuthHeader()
+    const res = await axios.delete(`${env.BACKEND_ROOT}/componentes/inventario/${idproducto}`, { headers: auth })
     return res.data;
   },
   obtenerProductos: async () => {
