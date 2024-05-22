@@ -4,11 +4,11 @@ import ErrorFormulario from "./Error";
 import { CampoTexto } from "../UI";
 import { BotonPrimario, BotonSecundario } from "../UI/Botones";
 import { useForm } from "react-hook-form";
-import servicioService from "@/services/servicioService";
 import { FormularioProps } from "./PropsFormulario";
 import { DataServicio } from "@/models";
 import Servicio from "../views/servicios/Servicio";
 import { useState } from "react";
+import { useMutacionActualizarServicio, useMutacionAgregarServicio } from "@/hooks";
 
 interface FormularioServicioProps extends FormularioProps{
   servicio?: DataServicio
@@ -26,20 +26,26 @@ const FormularioServicio = ({ afterSubmit,modoActualizar,servicio }: FormularioS
       resolver: servicioResolver
     }
   )
-  
+  const mutacionAgregar = useMutacionAgregarServicio(() => {
+    if (afterSubmit) afterSubmit()
+  })
+  const mutacionActualizar = useMutacionActualizarServicio(() => {
+    if (afterSubmit) afterSubmit()
+  })
 
   const onSubmit = async (data: CamposServicio) => {
-    
-    console.log(data)
-    const res = await servicioService.crearServicio(data)
-    console.log(res)
-    
+    if (modoActualizar && servicio){
+      
+      return  mutacionActualizar.mutate({ idservicio: servicio.idtipo_servicio, data })
+    }
 
+    mutacionAgregar.mutate(data)
   }
 
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col items-center justify-normal p-5 gap-y-2">
+        <h1 className="pb-5 font-bold text-3xl"> {modoActualizar && servicio ? `Actualizar: ${servicio.tipo_servicio}` : "Agrega un servicio"}</h1>
         {errors.root && <ErrorFormulario>{errors.root.message}</ErrorFormulario>}
         {errors.tipo_servicio && <ErrorFormulario>{errors.tipo_servicio.message}</ErrorFormulario>}
         <CampoTexto  {...register("tipo_servicio")} placeholder="Nombre servicio"/>
@@ -49,7 +55,7 @@ const FormularioServicio = ({ afterSubmit,modoActualizar,servicio }: FormularioS
         <textarea {...register("descripcion")} placeholder="Descripción" className="grow min-h-32 p-2 w-full focus:outline-none focus:border-violet-700 border-2 rounded-lg" />
         {
           modoActualizar ?
-            <BotonSecundario negar>Actualizar servicio</BotonSecundario>
+            <BotonSecundario>Actualizar servicio</BotonSecundario>
             : <BotonPrimario >Agregar servicio</BotonPrimario>
         }
         <div className="flex gap-x-4">

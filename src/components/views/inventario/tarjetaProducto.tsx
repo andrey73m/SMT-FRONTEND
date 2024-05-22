@@ -13,10 +13,12 @@ const TarjetaProducto = ({ producto }: TarjetaProductoProps) => {
   return (
     <>
       <div className="py-5 rounded-xl shadow-md cursor-pointer hover:shadow-2xl bg-white min-w-80" onClick={() => navigate(`/productos/${producto.idproducto}`)}>
-                  
-        <div className="transition-all h-72 w-full mb-4 lg:mb-0 lg:w-80 bg-center bg-cover mx-auto"
-          style={{ backgroundImage: `url('${producto.url_imagen}')` }}/>
+        <div className=" lg:w-80 h-80 p-4 mx-auto">
 
+          <div className="transition-all mb-4 h-full w-full lg:mb-0 bg-center bg-cover mx-auto"
+            style={{ backgroundImage: `url('${producto.url_imagen}')` }}/>
+
+        </div>
         <div className="p-6 *:leading-10">
           <h3 className="font-bold text-2xl line-clamp-1">{producto.nombre}</h3>
           <p className="font-light text-2xl m-2">Unidades disponibles: {producto.disponibilidad}</p>

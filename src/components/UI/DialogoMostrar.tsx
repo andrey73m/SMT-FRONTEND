@@ -57,9 +57,9 @@ const DialogoMostrar = forwardRef<tipoReferencia, DialogoMostrarProps>(({ classN
       }, className)}>
         <MyDialogBody >
           <div className={cn("relative", bodyClassName)}>
-            <div className="flex sticky top-0 p-4 bg-white h-8 items-center  ">
+            <div className="flex sticky top-0  bg-white h-8 items-center  ">
 
-              <div className="flex justify-end w-full z-50 pr-4">
+              <div className="flex justify-end w-full z-50">
                 <IconoSimboloX  onClick={handleOpen} className="cursor-pointer hover:text-red-700 w-6" />
               </div>
             </div>

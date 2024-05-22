@@ -9,7 +9,7 @@ import Enlace from "../UI/Enlace"
 import { verificar } from "@/store/features/sesion"
 import { BotonPrimario } from "../UI/Botones"
 import { useAppDispatch, useAppSelector } from "@/store"
-import { useRedireccionParam } from "@/hooks/parametroRedireccion"
+import { useRedireccionParam } from "@/hooks"
 import { SpinnerPagina } from "../UI"
 
 const FormularioCodigoVerificacion = () => {

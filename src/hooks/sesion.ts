@@ -1,8 +1,6 @@
 import { useAppSelector } from "@/store";
 
-const useSesion = () => {
+export const useSesion = () => {
   const { haySesion, info } = useAppSelector(state => state.sesion)
   return { info, haySesion }
 }
-
-export default useSesion;

@@ -27,9 +27,10 @@ const MenuFlotante = () => {
     dispatch(cerrarMenu())
   }
   return (
-    <div onClick={handleClose} className="">
+    <div  className="">
         
       <div
+        onClick={handleClose}
         className={cn(" bg-gray-600/50 h-screen w-screen fixed top-0 right-0 backdrop-blur-sm transition-all z-50",{
           "hidden": !abierto
         })}/>
@@ -41,7 +42,7 @@ const MenuFlotante = () => {
           <LogoPrincipal />
         </div>
         
-        <div className="flex flex-col text-center">
+        <div className="flex flex-col text-center" onClick={handleClose}>
           <LinkMenu to="/" >
             Inicio
           </LinkMenu>

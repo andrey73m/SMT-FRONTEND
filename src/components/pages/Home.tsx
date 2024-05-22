@@ -24,7 +24,6 @@ const Home = () => {
         <AlternarFormulario claseMostrar="fixed pt-topbar max-h-dvh " className="transition-all z-10" texto="Agrega un nuevo servicio" Formulario={FormularioServicio} Boton={BotonPositivo} />
 
       </VistaRol>
-      
       <div className="flex h-full flex-col py-6 px-6 md:px-10 gap-y-5 -z-10">
         <Servicios />
       </div>

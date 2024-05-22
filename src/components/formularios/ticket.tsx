@@ -3,7 +3,7 @@ import CampoTexto from "../UI/CampoTexto";
 import CampoFormateado from "./CampoFormateado";
 import { CamposTicket } from "./validators";
 import ticketService from "@/services/ticketService";
-import useSesion from "@/hooks/sesion";
+import { useSesion } from "@/hooks";
 import { BotonPrimario } from "../UI/Botones";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { notificarError, notificarExito } from "@/utils";
