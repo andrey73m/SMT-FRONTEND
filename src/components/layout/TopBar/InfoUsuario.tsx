@@ -49,7 +49,10 @@ const InfoUsuario = () => {
     <div className="flex ml-2 gap-x-1" onMouseEnter={() => hoverVisible(true)} onMouseLeave={() => hoverVisible(false)}>
       <div className="flex px-2 bg-indigo-950 border-l-2 border-r-2 border-dotted border-x-indigo-300 ">
 
-        <div className="hidden md:flex flex-col text-right justify-center h-full transition-all">
+        <div className={cn("md:flex flex-col md:static text-center md:text-right justify-center h-full transition-all",{
+          "hidden": !visible,
+          "flex absolute top-full left-0 w-full p-2 bg-indigo-950": visible
+        })}>
           <p className="text-xs text-nowrap">{info.nombres} {info.apellidos}</p>
           <p className="text-indigo-300 text-xs">{info.nombreUsuario}</p>
 
@@ -64,7 +67,7 @@ const InfoUsuario = () => {
         "opacity-100": visible,
         "opacity-0 hidden": !visible
       })}>
-        <BotonTopBar >
+        <BotonTopBar className="w-12">
           <Config className="transition-all" />
         </BotonTopBar>
         <BotonLogout/>

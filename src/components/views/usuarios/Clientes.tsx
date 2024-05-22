@@ -10,11 +10,6 @@ interface UsuarioProps {
   usuario: DataUsuario
 }
 
-interface ListaClientesProps {
-  
-}
- 
-
 const Usuario = ({ usuario }:UsuarioProps) => {
   const { isOnline: clienteOnline } = useValidarOnline(usuario.idusuario)
   return (
@@ -34,9 +29,9 @@ const Usuario = ({ usuario }:UsuarioProps) => {
 }
 
 
-const ListaClientes = (props: ListaClientesProps) => {
+const ListaClientes = () => {
 
-  const { data: clientes, isLoading, isFetching, isSuccess } = useClientes()
+  const { data: clientes, isFetching, isSuccess } = useClientes()
   
   if (isFetching)return <SpinnerPagina/>
   return (

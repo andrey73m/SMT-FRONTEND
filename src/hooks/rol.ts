@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query"
 import authService from "@/services/authService"
 
 
-const useRolUsuario = () => {
+export const useRolUsuario = () => {
 
   const { data, isFetching } = useQuery({
     queryKey: ["rol-usuario"],
@@ -17,4 +17,3 @@ const useRolUsuario = () => {
   
   return { rol: data?.rol, isFetching }
 }
-export default useRolUsuario;

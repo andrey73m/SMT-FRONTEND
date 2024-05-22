@@ -1,6 +1,6 @@
 import { Bounce, toast } from "react-toastify";
 
-export const CapitalizeString = (string: string) => {
+export const CapitalizeString = (string?: string) => {
   if (!string) return;
   return string.charAt(0).toUpperCase() + string.substring(1).toLowerCase()
 }

@@ -9,11 +9,10 @@ import { useCallback, useRef } from "react";
 import DataDireccion from "@/models/DataDireccion";
 import { useMutacionCrearDireccion, useMutacionActualizarDireccion, useMutacionActualizarPredeterminada } from "@/hooks/direcciones";
 import DialogoConfirmar, { tipoReferenciaConfirmar } from "../UI/DialogoConfirmar";
+import { FormularioProps } from "./PropsFormulario";
 
-interface FormularioDireccionProps{
-  modoActualizar?: boolean;
+interface FormularioDireccionProps extends FormularioProps{
   direccion?: DataDireccion;
-  afterSubmit?: ()=>void
 }
 
 const FormularioDireccion = ({ modoActualizar, direccion, afterSubmit }: FormularioDireccionProps) => {
@@ -92,10 +91,10 @@ const FormularioDireccion = ({ modoActualizar, direccion, afterSubmit }: Formula
             {modoActualizar ?
               <BotonPositivo className="m-2">Actualizar</BotonPositivo> :
               <BotonPrimario type="submit" >Guardar dirección</BotonPrimario>}
+            {modoActualizar && <BotonSecundario type="button"  onClick={() => referenciaConfirmacion.current?.setMostrarConfirmacion(true)} >Asignar dirección como predeterminada</BotonSecundario>
+            }
           </form>
         </FormProvider>
-        {modoActualizar && <BotonSecundario  onClick={() => referenciaConfirmacion.current?.setMostrarConfirmacion(true)} className="m-2 px-4">Asignar dirección como predeterminada</BotonSecundario>
-        }
       </div>
     </>
   )

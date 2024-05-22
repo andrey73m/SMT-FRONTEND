@@ -1,3 +1,4 @@
+import { BotonPrimario } from "../UI/Botones";
 import FormularioDireccion from "../formularios/direccion";
 import AlternarFormulario from "../layout/AlternarFormulario";
 import { ImagenTitulo } from "../layout/FormatoImagenes";
@@ -18,7 +19,7 @@ const PaginaDirecciones = () => {
           <VistaRol roles={["cliente"]}>
             <h1 className="text-center mb-5 font-bold text-3xl">Configura tus direcciones</h1>
             <div className="flex justify-center ">
-              <AlternarFormulario texto="Agrega una dirección" Formulario={FormularioDireccion} />
+              <AlternarFormulario texto="Agrega una dirección" Formulario={FormularioDireccion} Boton={BotonPrimario}/>
             </div>
             <Direcciones/>
           </VistaRol>

@@ -19,11 +19,6 @@ import { useNavigate, Link } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import IconoFlecha from "@/components/icons/Flecha"
 
-const AlwaysScrollToBottom = () => {
-  const elementRef = useRef<HTMLDivElement>(null);
-  useEffect(() => elementRef.current?.scrollIntoView());
-  return <div ref={elementRef} />;
-};
 
 
 interface MensajeProps{
@@ -36,7 +31,7 @@ const Mensaje = ({ mensaje }: MensajeProps) => {
     <div className={cn("flex w-full",{
       "justify-end": itsMine
     })}>
-      <div className={cn("w-96 bg-slate-200 rounded-lg p-2",{
+      <div className={cn("w-3/5 sm:w-96 bg-slate-200 rounded-lg p-2",{
         "bg-violet-700 text-white":itsMine
       })}>
         <p>{mensaje.contenido}</p>
@@ -58,23 +53,9 @@ const PaginaConversacion = () => {
     refetchOnWindowFocus: false,
     retry: 0
   })
-  useEffect(() => {
 
-    if (isError) {
-      if (axios.isAxiosError(error)) {
-        switch (error.response?.status) {
-        case 404:
-          navigate("/chats")
-        }
-      }
-    }
-  }, [isError])
-  useEffect(() => {
-    return () => {
-      queryClient.invalidateQueries({ queryKey: ["mensajes-conversacion"] })
-    }
-  },[])
-
+  const elementRef = useRef<HTMLDivElement>(null);
+  
   const { data: mensajes, isSuccess: mensajesIsSuccess } = useQuery<DataMensajeRecibido[]>({
     queryKey: ["mensajes-conversacion"],
     queryFn: () => conversacionService.cargarMensajesConversacion(idticket),
@@ -104,6 +85,32 @@ const PaginaConversacion = () => {
     enviar()
     
   }
+
+  useEffect(() => {
+
+    if (isError) {
+      if (axios.isAxiosError(error)) {
+        switch (error.response?.status) {
+        case 404:
+          navigate("/chats")
+        }
+      }
+    }
+  }, [isError])
+  useEffect(() => {
+    elementRef.current?.scrollIntoView()
+  }, [mensajes])
+  useEffect(() => {
+    return () => {
+      queryClient.invalidateQueries({ queryKey: ["mensajes-conversacion"] })
+      
+    }
+  }, [])
+
+  useEffect(() => {
+
+  })
+  //TODO:OPCIONAL > ARREGLAR PROBLEMA DEL TECLADO DE CELULAR QUE DESPLAZA EL CHAT
   return (
     <div className="flex flex-col w-full h-full justify-around bg-white ">
       {
@@ -123,7 +130,6 @@ const PaginaConversacion = () => {
             <div className=" grow  text-white  text-center sm:text-left shadow-sm py-2 sm:pl-4">
             
               <h3 className="font-bold text-xl ">{ticket.asunto}</h3>
-
               <VistaRol roles={["empleado", "admin"]}>
                 {
                   ticket.usuario &&
@@ -134,15 +140,15 @@ const PaginaConversacion = () => {
             </div>
           </div>
           {/*CUERPO DEL CHAT*/}
-          <div className="grow overflow-y-auto w-full flex flex-col gap-y-5  p-1 px-3">
+          <div className="grow overflow-y-auto w-full flex flex-col gap-y-5 pt-3 p-1 px-3">
             <>
               {
                 mensajesIsSuccess && mensajes.map(m =>
                   <Mensaje key={m.idmensaje} mensaje={m} />
                 )
               }
-              <AlwaysScrollToBottom/>
             </>
+            <div ref={elementRef}/>
           </div>
           {/*PIE DEL CHAT*/}
           <div className="flex min-h-16 max-h-32 w-full pb-2 px-4 items-end">

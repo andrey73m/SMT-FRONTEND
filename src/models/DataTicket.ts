@@ -15,17 +15,23 @@ export interface DataUsuario{
   idusuario: string;
 }
 
+export interface DataCalificacionTicket{
+  valor: number;
+  comentario?: string
+}
+
 export interface DataTicket{
   idticket: string;
   empleado_asignado: string;
-  idtipo_servicio: number;
+  idtipo_servicio?: number;
   asunto: string;
   email?: string
   contenido: string;
   estado: EstadosTicket;
-  prioridad: string;
+  prioridad?: string;
   fecha_creacion:Date;
   usuario?: DataUsuario;
   empleado?: DataUsuario
+  calificacion: DataCalificacionTicket
 }
 

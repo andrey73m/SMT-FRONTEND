@@ -1,9 +1,10 @@
 import IconoEliminar from "@/components/icons/Eliminar";
-import BotonTabla from "./BotonTabla";
+import BotonTabla, { BotonTablaProps } from "./BotonTabla";
+import cn from "@/cn";
  
-const BotonEliminar = ({ ...props }) => {
+const BotonEliminar = ({ className,...props }: BotonTablaProps) => {
   return (
-    <BotonTabla {...props}>
+    <BotonTabla className={cn("hover:text-red-500 transition-all", className)}{...props}>
       <IconoEliminar/>
     </BotonTabla>
   );

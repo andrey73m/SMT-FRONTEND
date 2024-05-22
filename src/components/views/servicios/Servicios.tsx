@@ -1,50 +1,20 @@
-import { useQuery } from "@tanstack/react-query";
-import servicioService from "@/services/servicioService";
 import Spinner from "@/components/UI/Spinner";
-import cn from "@/cn";
-import { ImagenCircular } from "@/components/layout/FormatoImagenes";
-import { DataServicio } from "@/models";
-
-
-
-interface ServicioProps{
-  servicio: DataServicio;
-  esPar: boolean;
-}
-
-const Servicio = ({ servicio, esPar }: ServicioProps) => {
-  return (
-    <div
-      className={cn("flex flex-col lg:flex-row w-full items-center p-0 md:p-5 h-auto border-b-2 border-gray-300",{
-        "justify-start ":esPar, "lg:flex-row-reverse":!esPar
-      })}>
-      <ImagenCircular className="m-3" url_imagen={servicio.url_imagen}/>
-      <div className={cn("w-full lg:w-3/5",{
-        "text-left": esPar, "lg:text-right":!esPar
-      })}>
-        <h3 className="font-bold text-3xl mb-5">{servicio.tipo_servicio}</h3>
-        <p className="text-2xl leading-10">{servicio.descripcion}</p>
-      </div>
-    </div>
-  )
-}
+import Servicio from "./Servicio";
+import { useServicios } from "@/hooks";
 
 const Servicios = () => {
 
-  const serviciosQuery = useQuery<DataServicio[]>({
-    queryKey: ["servicios"],
-    queryFn: servicioService.obtenerServicios,
-  })
-  if (serviciosQuery.isLoading)
+  const { data,isLoading } = useServicios()
+  if (isLoading)
     return(
-      <div className="flex h-16 justify-center">
+      <div className="flex h-16 justify-center items-center">
         <Spinner className="h-full" />
       </div>
     )
   return (
     <>
       {
-        serviciosQuery.data?.map((servicio,i) => {
+        data?.map((servicio,i) => {
           const esPar = i % 2 === 0
           return <Servicio key={servicio.idtipo_servicio} esPar={esPar} servicio={servicio}/>
         })
