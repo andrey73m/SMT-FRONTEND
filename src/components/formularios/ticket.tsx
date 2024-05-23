@@ -23,8 +23,7 @@ const FormularioTicket = ({ afterSubmit }: FormularioProps) => {
   })
   const mutacionSubmit = useMutation({
     mutationFn: ticketService.createTicket,
-    onSuccess: (e) => {
-      console.log(e)
+    onSuccess: () => {
       if (haySesion)
         notificarExito("Ticket creado, pronto te atenderemos a")
       else{
@@ -43,7 +42,6 @@ const FormularioTicket = ({ afterSubmit }: FormularioProps) => {
   })
 
   const onSubmit = async (data: CamposTicket) => {
-    console.log(data)
     mutacionSubmit.mutate(data)
   }
 

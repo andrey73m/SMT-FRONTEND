@@ -7,7 +7,6 @@ export const useRolUsuario = () => {
   const { data, isFetching } = useQuery({
     queryKey: ["rol-usuario"],
     queryFn: () => {
-      console.log("buscando rol")
       return authService.getRol()
     },
     retry: 1,

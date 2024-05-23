@@ -7,7 +7,6 @@ interface TituloPaginaProps {
  
 const TituloPagina = ({ titulo, children }: TituloPaginaProps) => {
   useMemo(() => {
-    console.log("Cambiando titulo")
     document.title = titulo
   }, [titulo])
   return children;

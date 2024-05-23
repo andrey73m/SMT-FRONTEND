@@ -28,11 +28,9 @@ const FormularioLogin = () => {
   const { cargando } = useAppSelector(state => state.sesion)
   const onSubmit = async(data: CamposLogin) => {
     
-    console.log(data)
     const res = await dispatch(login(data)) as ThunkResponse
     if (res.payload.error){
       const response = res.payload.error
-      console.log("error:",res.payload.error)
       if (response){
         if (response.status === 401) return setError("root", { message: response.message });
       }

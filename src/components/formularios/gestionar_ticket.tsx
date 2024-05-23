@@ -8,7 +8,7 @@ import ticketService from "@/services/ticketService";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { DataTicket } from "@/models";
 import SelectLabel from "./SelectLabel";
-import { CapitalizeString } from "@/utils";
+import { CapitalizeString, notificarError } from "@/utils";
 
 
 interface FormularioGestionarTicketProps {
@@ -31,13 +31,12 @@ const FormularioGestionarTicket = ({ ticket, primera }: FormularioGestionarTicke
       const data = queryClient.getQueryData<DataTicket[]>(["tickets"])
       queryClient.setQueryData(["tickets"], data?.map(ticket => ticket.idticket === updated.idticket ? updated : ticket))
     },
-    onError: (e) => {
-      console.log(e)
+    onError: () => {
+      notificarError("No se pudo procesar el ticket")
     }
   })
   const onSubmit = (data: CamposGestionTicket) => {
     gestionMutation.mutate({ data, idticket: ticket.idticket })
-    console.log(data)
 
   }
   // estas funciones no deberian ir aqui pero era para probar, y tambien luego le explico lo del useCallback porque si es algo raro

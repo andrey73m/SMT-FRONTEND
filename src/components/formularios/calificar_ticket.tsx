@@ -42,7 +42,6 @@ const FormularioCalificacion = ({ ticket }: FormularioCalificacionProps) => {
   })
   const onSubmit = (data: CamposCalificacion) => {
     mutacionCalificar.mutate(data)
-    console.log(data)
   }
   return (
     <FormProvider {...metodos}>

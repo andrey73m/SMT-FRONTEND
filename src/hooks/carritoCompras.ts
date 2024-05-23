@@ -60,7 +60,6 @@ export const useDataProductosFiltrado = (idproducto: string) => {
   const [dataFiltrada, setDataFiltrada] = useState<DataProductoCarrito>();
   useEffect(() => {
     if (dataCarrito){
-      console.log("filetrando")
       return  setDataFiltrada(dataCarrito.find(p => p.idproducto === idproducto))
     }
     

@@ -65,8 +65,6 @@ const ProductosCarrito = () => {
   const dispatch = useAppDispatch()
   const { data: infoProductos, isSuccess, refetch } = useInfoProductos();
   useEffect(() => {
-    console.log("fetching")
-    console.log(infoProductos)
     refetch()
   },[abierto])
   return (

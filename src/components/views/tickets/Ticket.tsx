@@ -44,10 +44,8 @@ const Ticket = ({ ticket, idticket }: TicketProps) => {
       
     },
     onError: (error) => {
-      console.log(error)
       const e = error as AxiosError
       if (e.response?.status === 409){
-        console.log("No puedes aceptarlo")
         notificarError("Este ticket ya fue aceptado")
       }
     }
@@ -208,7 +206,7 @@ const Ticket = ({ ticket, idticket }: TicketProps) => {
                                 mostrarFormularioCalificar &&
                               <FormularioCalificacion ticket={ticket}/>
                               }
-                              <BotonSecundario simplificar onClick={() => { console.log("REFERENCIA", [referenciaSolicitud.current, referenciaConfirmacion.current].toString());referenciaSolicitud.current?.setMostrarConfirmacion(true) }}>¿No estas satisfecho con esta decisión? Haz click para reabrir tu ticket</BotonSecundario>
+                              <BotonSecundario simplificar onClick={() => referenciaSolicitud.current?.setMostrarConfirmacion(true) }>¿No estas satisfecho con esta decisión? Haz click para reabrir tu ticket</BotonSecundario>
 
                             </div>
                           </VistaRol>

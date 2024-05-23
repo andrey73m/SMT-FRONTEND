@@ -57,7 +57,6 @@ const ListaNotificaciones = () => {
   }
 
   useEffect(() => {
-    console.log("creando evento: ", abierto)
     if (abierto)
       document.addEventListener("mousedown", handleClose)
     else

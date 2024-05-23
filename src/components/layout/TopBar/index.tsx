@@ -43,7 +43,6 @@ const TopBar = () => {
       dispatch(setSignoChat(true))
     }
     const invalidarChats = () => {
-      console.log("NUEVO CHAT")
       queryClient.invalidateQueries({ queryKey: ["conversaciones"] })
     }
 

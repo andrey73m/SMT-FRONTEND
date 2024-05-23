@@ -10,7 +10,6 @@ export default {
   },
   setNotificationView: async (idnotificacion: string) => {
     const auth = tokenService.getAuthHeader()
-    console.log("headers: ", auth)
     const res = await axios.post(`${env.BACKEND_ROOT}/notificaciones/marcar-vista/${idnotificacion}`, {},{ headers: auth } )
     return res.data
   }

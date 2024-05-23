@@ -12,7 +12,6 @@ export const useNotificaciones = () => {
     queryKey: ["notificaciones"],
     queryFn: async () => {
       const notificaciones: DataNotificacion[] = await notificationService.getNotifications()
-      console.log("FETCHING AGAI!?")
       return notificaciones.map(notificacion => {
         notificacion.intervalo = timeService.convertirFechaEnIntervalo(notificacion.fecha_creacion);
         return notificacion
@@ -31,7 +30,6 @@ export const useNotificaciones = () => {
     if (!notificationQuery.isFetching){
       const pendientes = notificationQuery.data.some(notificacion => !notificacion.visto)
       dispatch(setHayPendientes(pendientes))
-      console.log("calculando pendiente")
     }
   },[notificationQuery.data])
   

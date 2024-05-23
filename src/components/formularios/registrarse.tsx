@@ -32,10 +32,7 @@ const FormularioRegistrarse = () => {
   const dispatch = useAppDispatch()
   
   const onSubmit = async(data: CamposRegistro) => {
-    console.log(data)
-
     const errores: any = (err: any) => {
-      console.log(err)
       if (err.status === 409) return setError("email", { message: err.response?.data.error })
       if (err.status === 401) return setError("root", { message: err.response?.data.error })
       setError("root", { message: "Error con el servidor" })
@@ -47,7 +44,6 @@ const FormularioRegistrarse = () => {
     if(!data.rol) {
       
       const res = await dispatch(registro(data)).catch(errores)
-      console.log(res)
       if (res.payload){
         const id = res.payload.verificationId
         return navigate(`/verificacion/${id}`)

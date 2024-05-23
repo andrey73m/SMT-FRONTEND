@@ -17,7 +17,6 @@ const Especificaciones = ({ idcomponente }: EspecificacionesProps) => {
     refetchOnWindowFocus: false
   })
   if (isFetching) return <SpinnerPagina />
-  console.log(especificaciones)
   return isSuccess && (
     
     <div className=" lg:text-xl w-full border-t-2 my-2">

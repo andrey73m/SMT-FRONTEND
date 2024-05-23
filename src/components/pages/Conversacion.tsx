@@ -76,7 +76,6 @@ const PaginaConversacion = () => {
           return mensajes.concat(mensaje)
         })
       })
-      console.log("reset contenido")
       setContenido("")
     }
   }

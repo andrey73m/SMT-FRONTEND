@@ -40,7 +40,6 @@ const DialogoMostrar = forwardRef<tipoReferencia, DialogoMostrarProps>(({ classN
   })
 
   const handleOpen = () => {
-    console.log("CLICK")
     setMostrarDialogo(!mostrarDialogo)
   };
 

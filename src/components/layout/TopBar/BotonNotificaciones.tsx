@@ -37,7 +37,6 @@ const BotonNotificaciones = () => {
       agregarNotificacion(notificacion)
     }
     socketService.on("notificacion", onNotification);
-    console.log("useeffect")
     return () => {
       socketService.off("notificacion")
     }

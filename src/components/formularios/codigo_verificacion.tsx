@@ -26,12 +26,11 @@ const FormularioCodigoVerificacion = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const onSubmit = async (data: CamposCodigoVerificacion) => {
-    console.log(idcodigo)
+
     if (!idcodigo) return;
     const res = await dispatch(verificar({ codigo: data, idcodigo })) as any
     if (res.payload.error) {
       const response = res.payload.error
-      console.log("error:", res.payload.error)
       if (response) {
         if (response.status === 401) return setError("root", { message: response.message });
       }
@@ -45,7 +44,6 @@ const FormularioCodigoVerificacion = () => {
   const reenvio = async () => {
     if (!idcodigo) return;
     const res = await authService.reenviarCodigo(idcodigo);
-    console.log(res)
   }
 
   return (

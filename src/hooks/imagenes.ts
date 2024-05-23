@@ -8,7 +8,6 @@ export const useCargaImagen = (url_imagen: string) => {
 
   useEffect(() => {
     if (url_imagen){
-      console.log("cargando imagen")
       const handleImageLoad = () => {
         setLoading(false);
       };

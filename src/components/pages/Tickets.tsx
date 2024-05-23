@@ -10,7 +10,6 @@ const PaginaTickets = () => {
   const [params] = useSearchParams()
   const { search } = useLocation()
   const { idticket } = useParams()
-  console.log("Params", params)
   return (
     <>
       <ImagenTitulo titulo="Tickets" urlImagen="https://cdn.pixabay.com/photo/2019/06/06/16/02/technology-4256272_1280.jpg"/>

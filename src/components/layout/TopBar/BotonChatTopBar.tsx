@@ -18,7 +18,6 @@ const BotonChatTopBar = () => {
   const dispatch = useAppDispatch()
   useEffect(() => {
     const isInChats = location.pathname.startsWith("/chats");
-    console.log(location.pathname,isInChats)
     if (isInChats){
 
       dispatch(setSignoChat(false))
