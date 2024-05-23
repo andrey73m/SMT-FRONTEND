@@ -13,6 +13,10 @@ export default {
     const res = await axios.get(`${env.BACKEND_ROOT}/domicilio/listamunicipios/${c_dane_departamento}`)
     return res.data;
   },
+  obtenerDepartamentoMunicipio: async (c_dane_municipio: string) => {
+    const res = await axios.get(`${env.BACKEND_ROOT}/domicilio/departamento-municipio/${c_dane_municipio}`)
+    return res.data;
+  },
 
   crearDireccion: async (data: CamposDireccion, idusuario?: string) => {
     const auth = tokenService.getAuthHeader()

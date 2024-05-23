@@ -4,6 +4,8 @@ export default interface DataDireccion{
   predeterminada: boolean,
   c_dane_departamento: string,
   c_dane_municipio: string,
+  departamento?: string,
+  municipio?:string,
   barrio: string,
   cadena_direccion: string
 }

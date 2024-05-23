@@ -7,6 +7,7 @@ import { useRef } from "react";
 import { tipoReferencia } from "@/components/UI/DialogoMostrar";
 import { useMutacionEliminarDireccion } from "@/hooks/direcciones";
 import DialogoConfirmar, { tipoReferenciaConfirmar } from "@/components/UI/DialogoConfirmar";
+import { VistaRol } from "@/components/wrappers";
 interface DireccionesProps {
   direccion: DataDireccion
 }
@@ -44,10 +45,20 @@ const Direccion = ({ direccion, }: DireccionesProps) => {
         
         <div className="p-2 *:leading-10">
           <p className=" text-2xl">{direccion.cadena_direccion}</p>
-          <p className="font-light text-xl">{direccion.barrio}</p>
+          <p className=" text-xl text-slate-500">{direccion.municipio}, {direccion.departamento}</p>
+          <p className="font-light text-lg">{direccion.barrio}</p>
           {
             direccion.predeterminada &&
-          <p className="font-light text-xl">(Es tu direccion predeterminada)</p>
+            <>
+              <VistaRol roles={["cliente"]}>
+                <p className="font-light text-xl">(Es tu direccion predeterminada)</p>
+              </VistaRol>
+
+              <VistaRol roles={["admin"]}>
+                <p className="font-light text-xl">(Predeterminada)</p>
+              </VistaRol>
+            </>
+          
           }
         </div>
       </div>

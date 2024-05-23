@@ -167,7 +167,9 @@ const Ticket = ({ ticket, idticket }: TicketProps) => {
                       ticket.estado === EstadosTicket.RESUELTO &&
                       <>
                         {!ticket.calificacion ?
-                          <FormularioCalificacion ticket={ticket}/>
+                          <VistaRol roles={["cliente"]}>
+                            <FormularioCalificacion ticket={ticket}/>
+                          </VistaRol>
                           :
                           <>
                             <EstrellasFeedBack cantidad={5} valor={ticket.calificacion.valor} readOnly/>

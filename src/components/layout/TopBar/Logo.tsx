@@ -15,8 +15,3 @@ const LogoTopBar = () => {
 }
  
 export default LogoTopBar;
-/*
-
-  ARREGLAR NOTIFICACIOENS DE NUEVAS ACCIONES
-  LINK DEL CORREO
-*/
