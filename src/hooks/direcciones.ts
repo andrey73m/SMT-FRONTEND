@@ -37,13 +37,8 @@ export const useMutacionCrearDireccion = (callback: ()=>void) => {
   const { idusuario } = useParams()
   const queryClient = useQueryClient()
   return useMutation({
-<<<<<<< HEAD
     mutationFn:(data: CamposDireccion) => direccionesService.crearDireccion(data, idusuario),
-    onSuccess: (direccion: DataDireccion) => {
-=======
-    mutationFn:direccionesService.crearDireccion,
     onSuccess: async (direccion: DataDireccion) => {
->>>>>>> f83d4077a008512b317784154bbfeedfbceed8c3
       notificarExito("Direccion creada");
       callback()
       const direccionCompleta = await CompletarDireccion(direccion);
@@ -65,7 +60,7 @@ export const useMutacionActualizarDireccion = (callback: ()=>void) => {
   return useMutation({
     mutationFn: ({ data, iddireccion }: {data:CamposDireccion, iddireccion:string}) =>
       direccionesService.actualizarDireccion(data,idusuario, iddireccion),
-    onSuccess: (updated) => {
+    onSuccess: async(updated) => {
       notificarExito("Direccion actualizada")
       callback()
       const direccionCompleta = await CompletarDireccion(updated);
