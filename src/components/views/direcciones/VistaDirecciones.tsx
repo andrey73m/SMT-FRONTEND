@@ -24,7 +24,7 @@ const Direcciones = () => {
     
     <>
       {
-        direccionesQuery.data?.sort((d1,d2) =>
+        direccionesQuery.data?.sort((d1) =>
           d1.predeterminada ? -1 : 1
         ).map((direccion) =>
           <div className="p-3" key={direccion.iddireccion}>
