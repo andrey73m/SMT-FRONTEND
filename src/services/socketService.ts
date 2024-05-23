@@ -20,8 +20,7 @@ export const socketService: Socket<ServerEvents, ClientEvents> =  io(`${env.BACK
   auth: (cb) => cb({ token: tokenService.getToken() }),
   autoConnect: false,
   reconnection: true,
-  reconnectionAttempts: 10,
-  reconnectionDelay: 5000
+  reconnectionAttempts: 10
 })
 
 socketService.on("connect", () => {

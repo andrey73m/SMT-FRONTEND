@@ -110,6 +110,7 @@ const Ticket = ({ ticket, idticket }: TicketProps) => {
   const referenciaConfirmacion = useRef<tipoReferenciaConfirmar>(null)
   const refConfirmacionResolver = useRef<tipoReferenciaConfirmar>(null)
   const referenciaSolicitud = useRef<tipoReferenciaConfirmar>(null)
+  const referenciaReabrir = useRef<tipoReferenciaConfirmar>(null)
 
   const navigate = useNavigate()
   //TODO:OPCIONAL > USAR FRESNEL PARA MANEJO DE MEDIAQUERY
@@ -117,7 +118,7 @@ const Ticket = ({ ticket, idticket }: TicketProps) => {
     <>
       <div  className={cn("bg-white flex w-full flex-col relative transition-all  overflow-y-auto", {
         "z-10 border-2 px-5 py-5": !abierto,
-        "h-full fixed left-0 top-0 pt-topbar p-3 w-full z-10": abierto
+        "h-full fixed left-0 top-0 pt-topbar p-3 w-full z-40": abierto
       })}>
         <CabeceraTicket abierto={abierto} ticket={ticket}/>
         <div className="border-b-2 border-gray-2 w-full py-2"/>
@@ -190,9 +191,13 @@ const Ticket = ({ ticket, idticket }: TicketProps) => {
                         }
                       </>
                     }
-                    <VistaRol roles={["admin"]}>
-                      <BotonSecundario onClick={handleReopen}>Reabrir</BotonSecundario>
-                    </VistaRol>
+                    {
+                      ticket.estado === EstadosTicket.CERRADO &&
+                      <VistaRol roles={["admin"]}>
+                        <DialogoConfirmar ejecutarAccion={handleReopen} titulo="¿Estás seguro de resolver el ticket ahora?" ref={referenciaReabrir} />
+                        <BotonSecundario onClick={() => referenciaReabrir.current?.setMostrarConfirmacion(true)}>Reabrir</BotonSecundario>
+                      </VistaRol>
+                    }
                     {
                       ticket.estado === EstadosTicket.RESUELTO &&
                       <>

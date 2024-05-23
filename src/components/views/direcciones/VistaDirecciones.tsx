@@ -24,13 +24,19 @@ const Direcciones = () => {
     
     <>
       {
-        direccionesQuery.data?.sort((d1) =>
-          d1.predeterminada ? -1 : 1
-        ).map((direccion) =>
-          <div className="p-3" key={direccion.iddireccion}>
-            <Direccion direccion={direccion} />
-          </div>
-        )
+        direccionesQuery.data &&
+        <>{
+          direccionesQuery.data.length > 0 ?
+            direccionesQuery.data?.sort((d1) =>
+              d1.predeterminada ? -1 : 1
+            ).map((direccion) =>
+              <div className="p-3" key={direccion.iddireccion}>
+                <Direccion direccion={direccion} />
+              </div>
+            )
+            :
+            <p className="font-bold text-center p-4 text-lg text-slate-400">Parece que no hay direcciones</p>}
+        </>
       }
     </>
   );

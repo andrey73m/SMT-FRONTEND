@@ -33,7 +33,7 @@ const DialogoConfirmar = forwardRef<tipoReferenciaConfirmar, DialogoProps>(({ ti
   return(
     <>
       <MyDialog open={mostrarConfirmacion} handler={handleOpen}>
-        <MyDialogHeader className="flex justify-center p-0 pt-2">
+        <MyDialogHeader className="flex justify-center p-0 px-3 pt-2 text-center">
           <h3>{titulo}</h3>
         </MyDialogHeader>
         <MyDialogBody className="p-1">

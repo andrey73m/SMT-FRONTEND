@@ -8,6 +8,7 @@ import { BotonPrimario } from "../UI/Botones";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { notificarError, notificarExito } from "@/utils";
 import { FormularioProps } from "./PropsFormulario";
+import { useEffect } from "react";
 
 
 
@@ -21,6 +22,11 @@ const FormularioTicket = ({ afterSubmit }: FormularioProps) => {
       contenido: ""
     }
   })
+  useEffect(() => {
+    if (haySesion){
+      metodos.unregister("email")
+    }
+  },[haySesion])
   const mutacionSubmit = useMutation({
     mutationFn: ticketService.createTicket,
     onSuccess: () => {

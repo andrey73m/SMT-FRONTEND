@@ -5,19 +5,16 @@ import IconoEnvio from "../icons/Envio";
 import { socketService } from "@/services/socketService";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import ticketService from "@/services/ticketService";
-import { SpinnerPagina } from "../UI";
-import { DataTicket } from "@/models";
 import conversacionService from "@/services/conversacionService";
 import { DataMensajeRecibido } from "@/models/Conversacion";
 import cn from "@/cn";
-import { useSesion } from "@/hooks";
+import { useQueryConversaciones, useSesion, useValidarOnline } from "@/hooks";
 import { formatearHora } from "@/utils";
-import { VistaRol } from "../wrappers";
-import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import IconoFlecha from "@/components/icons/Flecha"
+import { DataTicket } from "@/models";
+import PuntoIndicador from "../layout/PuntoIndicador";
 
 
 
@@ -47,13 +44,19 @@ const PaginaConversacion = () => {
   const { idticket } = useParams();
   const navigate = useNavigate()
   const queryClient = useQueryClient();
-  const { data: ticket, isLoading, isSuccess, isError, error } = useQuery<DataTicket>({
-    queryKey: ["ticket", "ticket-conversacion"],
-    queryFn: () => ticketService.getTicket(idticket),
-    refetchOnWindowFocus: false,
-    retry: 0
-  })
-
+  const { data:conversaciones } = useQueryConversaciones();
+  const [ticket, setTicket] = useState<DataTicket>()
+  const usuarioChat = ticket?.usuario || ticket?.empleado;
+  const { isOnline: onlineToChat } = useValidarOnline(usuarioChat?.idusuario)
+  useEffect(() => {
+    if (idticket && conversaciones){
+      
+      const found = conversaciones?.find(c => c.idticket === idticket)
+      if (!found) return navigate("/chats")
+      setTicket(found.ticket)
+    }
+  }, [idticket,conversaciones])
+  
   const elementRef = useRef<HTMLDivElement>(null);
   
   const { data: mensajes, isSuccess: mensajesIsSuccess } = useQuery<DataMensajeRecibido[]>({
@@ -86,17 +89,6 @@ const PaginaConversacion = () => {
   }
 
   useEffect(() => {
-
-    if (isError) {
-      if (axios.isAxiosError(error)) {
-        switch (error.response?.status) {
-        case 404:
-          navigate("/chats")
-        }
-      }
-    }
-  }, [isError])
-  useEffect(() => {
     elementRef.current?.scrollIntoView()
   }, [mensajes])
   useEffect(() => {
@@ -106,18 +98,16 @@ const PaginaConversacion = () => {
     }
   }, [])
 
-  useEffect(() => {
-
-  })
+  console.log(ticket)
   //TODO:OPCIONAL > ARREGLAR PROBLEMA DEL TECLADO DE CELULAR QUE DESPLAZA EL CHAT
   return (
     <div className="flex flex-col w-full h-full justify-around bg-white ">
-      {
+      {/* {
         isLoading &&
         <SpinnerPagina/>
-      }
+      } */}
       {
-        isSuccess && ticket &&
+        ticket &&
         <>
           {/*CABECERA DEL CHAT*/}
           <div className="flex items-center w-full bg-violet-700 px-2">
@@ -129,13 +119,20 @@ const PaginaConversacion = () => {
             <div className=" grow  text-white  text-center sm:text-left shadow-sm py-2 sm:pl-4">
             
               <h3 className="font-bold text-xl ">{ticket.asunto}</h3>
-              <VistaRol roles={["empleado", "admin"]}>
-                {
-                  ticket.usuario &&
-                <p className="text-violet-100">{ticket.usuario.nombres} {ticket.usuario?.apellidos}</p>
+              <p className="text-lg text-violet-400">{
+                ticket.tipo_servicio ? ticket.tipo_servicio : "El ticket no ha sido clasificado en un tipo de servicio"
+              }</p>
+              {
+                usuarioChat &&
+                <div className="flex gap-x-2 items-center">
+                  <PuntoIndicador className={cn("bg-green-300 inline sm:hidden", {
+                    "bg-gray-200": !onlineToChat
+                  })} />
+                  <p className="text-violet-100">{usuarioChat.nombres} {usuarioChat.apellidos}</p>
+
+                </div>
                 
-                }
-              </VistaRol>
+              }
             </div>
           </div>
           {/*CUERPO DEL CHAT*/}

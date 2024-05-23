@@ -4,8 +4,8 @@ export interface DataConversacion{
   idconversacion: string;
   idticket: string;
   iddependiente: string;
+  ticket: DataTicket
 }
-export interface DataConversacionTicket extends DataConversacion,DataTicket{}
 
 export interface DataMensajeEnviado{
   idticket: string

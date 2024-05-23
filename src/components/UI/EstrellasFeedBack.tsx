@@ -5,7 +5,7 @@ import cn from "@/cn";
 
 interface EstrellasFeedBackProps {
   cantidad: number;
-  valor: number;
+  valor?: number;
   readOnly?: boolean
   className?: string,
   onChange?: (valor: number) => void
@@ -38,12 +38,17 @@ const EstrellasFeedBack = ({ cantidad = 5, readOnly, className, valor, onChange 
   )
 
   return (
-    <div className="inline-block">
-      <div className={cn("flex gap-x-2 h-12 items-center", className)} onMouseLeave={resetMouseIn}>
-        {estrellas}
+    <>
+      {
+        valor !== undefined &&
+      <div className="inline-block">
+        <div className={cn("flex gap-x-2 h-12 items-center", className)} onMouseLeave={resetMouseIn}>
+          {estrellas}
+        </div>
       </div>
-    </div>
+      }
 
+    </>
   );
 }
 
