@@ -15,7 +15,7 @@ const Productos = () => {
   if (productosQuery.isLoading) return <SpinnerPagina/>
   
   return (
-    <div className="min-h-screen w-full py-6 lg:px-10 lg:grid grid-cols-3 gap-6 bg-slate-100">
+    <div className="min-h-screen w-full py-6 lg:px-10 md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 bg-slate-100">
       {
         productosQuery.data?.map((producto) =>
           <div className="p-8" key={producto.idproducto}>

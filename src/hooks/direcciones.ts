@@ -73,13 +73,13 @@ export const useMutacionActualizarDireccion = (callback: ()=>void) => {
   })
 }
 
-export const useMutacionActualizarPredeterminada = (callback: ()=>void) => {
+export const useMutacionActualizarPredeterminada = (iddireccion?: string,callback?: ()=>void) => {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: direccionesService.hacerDireccionPredeterminada,
+    mutationFn: (idusuario?: string) => direccionesService.hacerDireccionPredeterminada(iddireccion, idusuario),
     onSuccess: async (updated) => {
       notificarExito("Dirección predeterminada actualizada")
-      callback()
+      if (callback) callback()
       const direccionCompleta = await CompletarDireccion(updated);
       queryClient.setQueryData(["direcciones"], (data: DataDireccion[]) => data?.map(direccion => {
         if (direccion.iddireccion === updated.iddireccion) return direccionCompleta

@@ -42,9 +42,9 @@ export default {
     return res.data;
   },
 
-  hacerDireccionPredeterminada: async(idireccion:string) => {
+  hacerDireccionPredeterminada: async(idireccion?:string, idusuario?:string) => {
     const auth = tokenService.getAuthHeader()
-    const res = await axios.get(`${env.BACKEND_ROOT}/domicilio/direcciones/hacer-predeterminada/${idireccion}`, { headers: auth })
+    const res = await axios.get(`${env.BACKEND_ROOT}/domicilio/direcciones/administrar/hacer-predeterminada/${idusuario}/${idireccion}`, { headers: auth })
     return res.data;
   },
 

@@ -7,11 +7,13 @@ export interface BotonProps extends React.ButtonHTMLAttributes<HTMLButtonElement
 
 
 
-const Boton = ({ children, className,...props }: BotonProps) => {
+const Boton = ({ children, simplificar, className,...props }: BotonProps) => {
   
-
+  console.log("SIMPLIFICADO:",simplificar)
   return(
-    <button className={cn(" w-full rounded-lg  p-2 text-white focus:outline-none", className)} {...props}>{children}</button>
+    <button className={cn(" w-full rounded-lg  p-2 text-white focus:outline-none", className, {
+      "bg-transparent inline-block enabled:hover:underline enabled:hover:bg-transparent font-normal enabled:hover:font-bold": simplificar
+    })} {...props}>{children}</button>
   )
 }
 

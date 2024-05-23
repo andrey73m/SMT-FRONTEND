@@ -1,4 +1,3 @@
-
 import Servicios from "@/components/views/servicios/Servicios";
 import { VistaRol } from "@/components/wrappers"
 import { ImagenTitulo } from "@/components/layout/FormatoImagenes";
@@ -6,7 +5,6 @@ import AlternarFormularioSticky from "../layout/AlternarFormularioSticky";
 import FormularioTicket from "../formularios/ticket";
 import { BotonPositivo, BotonPrimario } from "../UI/Botones";
 import FormularioServicio from "../formularios/servicio";
-import AlternarFormulario from "../layout/AlternarFormulario";
 
 const Home = () => {
 
@@ -21,7 +19,7 @@ const Home = () => {
 
       </VistaRol>
       <VistaRol roles={["admin"]}>
-        <AlternarFormulario claseMostrar="fixed sm:pt-topbar max-h-dvh z-50" className="transition-all z-10" texto="Agrega un nuevo servicio" Formulario={FormularioServicio} Boton={BotonPositivo} />
+        <AlternarFormularioSticky  className="transition-all z-10" texto="Agrega un nuevo servicio" Formulario={FormularioServicio} Boton={BotonPositivo} />
 
       </VistaRol>
       <div className="flex h-full flex-col py-6 px-6 md:px-10 gap-y-5 -z-10">

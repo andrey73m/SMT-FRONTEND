@@ -36,7 +36,7 @@ const Servicio = ({ servicio, botones = true, esPar = true }: ServicioProps) => 
         "text-left": esPar, "lg:text-right": !esPar
       })}>
         <h3 className="font-bold text-3xl pb-5">{servicio.tipo_servicio}</h3>
-        <p className="text-2xl leading-10">{servicio.descripcion}</p>
+        <p className="text-2xl leading-10 break-words">{servicio.descripcion}</p>
       </div>
       <VistaRol roles={["admin"]}>
 

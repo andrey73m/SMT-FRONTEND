@@ -10,6 +10,7 @@ import ListaNotificaciones from "@/components/views/notificaciones"
 import { useMutationNotificaciones } from "@/hooks"
 import { DataNotificacion } from "@/models"
 import PuntoIndicador from "../PuntoIndicador"
+import { useQueryClient } from "@tanstack/react-query"
 
 const BotonNotificaciones = () => {
   const [vistas, setVistas] = useState(true)
@@ -22,11 +23,17 @@ const BotonNotificaciones = () => {
     dispatch(abrirNotificaciones())
     setVistas(true);
   }
+  const queryClient = useQueryClient()
   useEffect(() => {
     const onNotification = (notificacion: DataNotificacion) => {
       const state = store.getState()
       if (!state.topBar.notificacion.abierto) setVistas(false);
       notificacion.intervalo = timeService.convertirFechaEnIntervalo(notificacion.fecha_creacion)
+      
+      if (notificacion.idevento === 3 || notificacion.idevento === 4){
+
+        queryClient.invalidateQueries({ queryKey: ["tickets"] })
+      }
       agregarNotificacion(notificacion)
     }
     socketService.on("notificacion", onNotification);

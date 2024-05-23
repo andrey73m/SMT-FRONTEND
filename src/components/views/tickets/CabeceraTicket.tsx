@@ -11,6 +11,8 @@ import { useQuery } from "@tanstack/react-query";
 import conversacionService from "@/services/conversacionService";
 import { DataConversacion } from "@/models/Conversacion";
 import { useSesion } from "@/hooks";
+import EstrellasFeedBack from "@/components/UI/EstrellasFeedBack";
+import { EstadosTicket } from "@/models/DataTicket";
 interface CabeceraTicketProps {
   ticket: DataTicket;
   abierto?: boolean;
@@ -75,7 +77,12 @@ const CabeceraTicket = ({ ticket,abierto }: CabeceraTicketProps) => {
       </div>
       <div className="grow flex justify-end px-5">
         {
+          ticket.calificacion &&
+        <EstrellasFeedBack className="h-10" cantidad={5} valor={ticket.calificacion.valor} readOnly />
+        }
+        {
           (!!hayConversacion || ticket.empleado_asignado === info.idusuario) &&
+          ticket.estado !== EstadosTicket.RESUELTO && ticket.estado !== EstadosTicket.CERRADO &&
           <BotonChat idchat={ticket.idticket} className="transition-colors sticky top-0 left-0" />
         }
 

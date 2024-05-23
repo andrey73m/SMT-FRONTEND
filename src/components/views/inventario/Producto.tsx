@@ -17,7 +17,7 @@ import DialogoConfirmar, { tipoReferenciaConfirmar } from "@/components/UI/Dialo
 import DialogoMostrar, { tipoReferencia } from "@/components/UI/DialogoMostrar"
 import { useMutacionEliminarProducto } from "@/hooks/producto"
 import FormularioInventario from "@/components/formularios/inventario"
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 interface ProductoProps {
   idproducto: string
@@ -31,7 +31,6 @@ const Producto = ({ idproducto }: ProductoProps) => {
   const { data: producto, isFetching, isSuccess } = useQuery<DataProducto>({
     queryKey: ["producto"],
     queryFn: async () => {
-      console.log("BUSCANDO EL PRODUCTO")
       return inventarioService.obtenerProducto(idproducto)
     },
     retry: 0,
@@ -55,8 +54,8 @@ const Producto = ({ idproducto }: ProductoProps) => {
   const referenciaConfirmacionAdmin = useRef<tipoReferenciaConfirmar>(null)
 
   const referenciaDialogo = useRef<tipoReferencia>(null)
-
-  const mutacionEliminarProducto = useMutacionEliminarProducto();
+  const navigate = useNavigate()
+  const mutacionEliminarProducto = useMutacionEliminarProducto(() => navigate("/productos"));
 
   const handleDeleteAdmin = async () => {
     if (producto)
@@ -115,7 +114,7 @@ const Producto = ({ idproducto }: ProductoProps) => {
                     <CampoContador  initial={1} ref={refCantidad} label="Cantidad" min={1} max={producto.disponibilidad}/>
                     {
                       productoEnCarrito &&
-                        <BotonNegativo negar onClick={() => referenciaConfirmacion.current?.setMostrarConfirmacion(true)} className="h-12">Eliminar del carrito</BotonNegativo>
+                        <BotonNegativo simplificar onClick={() => referenciaConfirmacion.current?.setMostrarConfirmacion(true)} className="h-12">Eliminar del carrito</BotonNegativo>
                     }
                   </div>
 

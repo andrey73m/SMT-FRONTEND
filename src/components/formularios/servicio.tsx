@@ -63,7 +63,7 @@ const FormularioServicio = ({ afterSubmit,modoActualizar,servicio }: FormularioS
           <span className="flex gap-x-1 text-lg"><input className="border-2 accent-violet-700" type="checkbox" checked={verServicio} onChange={() => setVerServicio(!verServicio)} /> Mostrar previsualización</span>
         </div>
       </form>
-      <div className="px-4">
+      <div className="px-4 w-full">
         {verServicio &&
         <>
           <h4 className="text-xl font-bold text-center">Previsualización</h4>

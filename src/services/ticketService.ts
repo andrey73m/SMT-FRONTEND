@@ -40,6 +40,11 @@ export default{
     const res = await axios.put(`${env.BACKEND_ROOT}/tickets/gestionar/resolver/${id}`,{}, { headers: auth })
     return res.data;
   },
+  solicitarReaperturaTicket: async (id: string) => {
+    const auth = tokenService.getAuthHeader()
+    const res = await axios.put(`${env.BACKEND_ROOT}/tickets/solicitar-reapertura/${id}`,{}, { headers: auth })
+    return res.data;
+  },
   calificarTicket: async (data: CamposCalificacion,id: string) => {
     const auth = tokenService.getAuthHeader()
     const res = await axios.put(`${env.BACKEND_ROOT}/tickets/calificar/${id}`,data, { headers: auth })

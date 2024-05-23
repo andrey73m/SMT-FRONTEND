@@ -40,12 +40,11 @@ const FormularioDireccion = ({ modoActualizar, direccion, afterSubmit }: Formula
     if (afterSubmit) afterSubmit()
   })
 
-  const mutacionActualizarPredeterminada = useMutacionActualizarPredeterminada (() => {
-  })
+  const mutacionActualizarPredeterminada = useMutacionActualizarPredeterminada(direccion?.iddireccion)
 
   const handlePredeterminada = async() => {
-    if(direccion){
-      mutacionActualizarPredeterminada.mutate(direccion.iddireccion)
+    if (direccion){
+      mutacionActualizarPredeterminada.mutate(direccion.idusuario)
       if (afterSubmit) afterSubmit()
     }
   }

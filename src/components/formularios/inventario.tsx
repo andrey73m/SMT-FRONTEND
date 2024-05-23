@@ -39,8 +39,8 @@ const FormularioInventario = ({ modoActualizar, producto, afterSubmit }: Formula
     if (afterSubmit) afterSubmit() })
 
   const onSubmit = async(data: CamposInventario) => {
-    if(!modoActualizar && producto)
-      return mutacionCrearComponente.mutate({ idcomponente: producto.idcomponente, data });
+    if(!modoActualizar)
+      return mutacionCrearComponente.mutate(data);
     if(producto){
       mutacionActualizarProducto.mutate({ idproducto: producto.idproducto, data })
     }
@@ -52,9 +52,9 @@ const FormularioInventario = ({ modoActualizar, producto, afterSubmit }: Formula
     <FormProvider {...metodos}>
       
       <form onSubmit={handleSubmit(onSubmit)} className="text-black grow bg-white flex flex-col items-center justify-normal p-5">
-        <h1 className="mb-5 font-bold text-3xl">{modoActualizar ? "Edita el producto" : "Crea un nuevo prodcuto" }</h1>
+        <h1 className="mb-5 font-bold text-3xl">{modoActualizar ? "Edita el producto" : "Crea un nuevo producto" }</h1>
         {errors.idcomponente && <ErrorFormulario>{errors.idcomponente.message}</ErrorFormulario>}
-        <QuerySelect label="Componente" optionLabel="nombre" value="idcomponente" queryKey="select-componente" queryFn={query} {...register("idcomponente")}/>
+        <QuerySelect defaultValue={producto?.idcomponente} label="Componente" optionLabel="nombre" value="idcomponente" queryKey="select-componente" queryFn={query} {...register("idcomponente")}/>
         {errors.sku && <ErrorFormulario>{errors.sku.message}</ErrorFormulario>}
         <CampoTexto  {...register("sku")} placeholder="SKU"/>
         {errors.disponibilidad && <ErrorFormulario>{errors.disponibilidad.message}</ErrorFormulario>}

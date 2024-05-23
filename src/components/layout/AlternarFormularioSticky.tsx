@@ -5,7 +5,7 @@ const AlternarFormularioSticky = (props: AlternarFormularioProps) => {
 
   return (
     <AlternarFormulario
-      claseMostrar="fixed  md:sticky md:top-topbar z-50"
+      claseMostrar="fixed  md:sticky md:top-topbar h-dvh md:h-auto z-50 md:z-20"
       {...props}/>
   );
 }

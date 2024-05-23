@@ -5,11 +5,11 @@ export interface TextoClickableProps extends React.HTMLProps<HTMLParagraphElemen
 
 const TextoClickable = forwardRef<HTMLParagraphElement, TextoClickableProps>(({ className,...props }, ref) => {
   return (
-    <p
+    <span
       {...props}
       ref={ref}
       className={cn("hover:underline hover:cursor-pointer", className)}>{props.children}
-    </p>
+    </span>
   )
 })
 TextoClickable.displayName = "TextoClickable"

@@ -20,10 +20,13 @@ const Notificacion = ({ notificacion }: NotificacionProps) => {
   const { marcarNotificacion } = useMutationNotificaciones()
   const navigate = useNavigate()
   const search = useCreateRedireccionQuery()
+  
   const handleClick = () => {
     marcarNotificacion(notificacion.idnotificacion)
-    if (notificacion.idevento === 3 || notificacion.idevento === 4)
+    if (notificacion.idevento === 3 || notificacion.idevento === 4){
+      
       navigate({ pathname: `/tickets/${notificacion.idfuente}` ,search })
+    }
   }
   return (
     <span onMouseDown={handleClick}

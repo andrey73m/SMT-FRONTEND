@@ -37,7 +37,7 @@ const FormularioCalificacion = ({ ticket }: FormularioCalificacionProps) => {
       )
     },
     onError:() => {
-      notificarError("No se pudo calificar esa vaina")
+      notificarError("No se pudo calificar el ticket")
     }
   })
   const onSubmit = (data: CamposCalificacion) => {

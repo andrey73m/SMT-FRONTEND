@@ -15,7 +15,6 @@ const AlternarFormulario = ({ texto, className, claseMostrar, Formulario, Boton 
   const [mostrarFormulario, setMostrarFormulario] = useState(false)
   
   let clasesMostrar = {
-    "h-dvh md:h-auto": mostrarFormulario,
     "sticky top-topbar": !mostrarFormulario
   }
 
@@ -26,7 +25,7 @@ const AlternarFormulario = ({ texto, className, claseMostrar, Formulario, Boton 
     
     < div
       
-      className = {cn("flex  flex-col w-full top-0  transition-all bg-white", clasesMostrar, className)}>
+      className = {cn("flex  flex-col w-full top-0  transition-all bg-white", className, clasesMostrar)}>
 
       <Boton onClick={() => setMostrarFormulario(!mostrarFormulario)}
         negar={mostrarFormulario}
