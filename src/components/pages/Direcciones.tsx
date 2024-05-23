@@ -28,7 +28,7 @@ const PaginaDirecciones = () => {
             {
               idusuario ?
                 <><div className="flex justify-center ">
-                  <AlternarFormulario texto="Agrega una dirección para este usuario" Formulario={FormularioDireccion} />
+                  <AlternarFormulario texto="Agrega una dirección para este usuario" Formulario={FormularioDireccion} Boton={BotonPrimario} />
                 </div>
                 <Direcciones />
                 </>

@@ -1,7 +1,6 @@
 import FormularioLogin from "@/components/formularios/login"
 import FormularioRegistrarse from "@/components/formularios/registrarse"
 import FormularioComponente from "@/components/formularios/componente"
-import FormularioInventario from "@/components/formularios/inventario"
 import FormularioCodigoVerificacion from "@/components/formularios/codigo_verificacion"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { useEffect } from "react"
@@ -9,12 +8,10 @@ import { useAppDispatch } from "@/store"
 import { cargarSesion } from "@/store/features/sesion"
 import TopBar from "@/components/layout/TopBar"
 import { Guardian, TituloPagina } from "@/components/wrappers"
-import FormularioServicio from "@/components/formularios/servicio"
 import Home from "@/components/pages/Home"
 import { useQueryClient } from "@tanstack/react-query"
 import AboutUs from "./components/pages/informacion"
 import PaginaProductos from "./components/pages/Productos"
-
 import PaginaTickets from "./components/pages/Tickets"
 import PaginaDetallesProducto from "./components/pages/DetallesProducto"
 import PaginaDirecciones from "./components/pages/Direcciones"
@@ -121,16 +118,17 @@ const App = () => {
                 <PaginaDetallesProducto />
               </TituloPagina>
             } />
+                        
+            <Route path="quienes-somos" element={
+              <TituloPagina titulo="Nosotros">
+                <AboutUs/>
+              </TituloPagina>
+            }/>
             
-
-            <Route path="crear-producto" element={<FormularioInventario/>}/>
           </Route>
-            
-          <Route path="crear-servicio" element={<FormularioServicio/>}/>
-          <Route path="catalogo" element={<FormularioComponente />} />
-          <Route path="quienes-somos" element={<AboutUs/>} />
-            
 
+          <Route path="catalogo" element={<FormularioComponente />} />
+          
         </Routes>
       </Router>
       

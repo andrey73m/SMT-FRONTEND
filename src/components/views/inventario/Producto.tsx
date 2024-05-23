@@ -17,6 +17,7 @@ import DialogoConfirmar, { tipoReferenciaConfirmar } from "@/components/UI/Dialo
 import DialogoMostrar, { tipoReferencia } from "@/components/UI/DialogoMostrar"
 import { useMutacionEliminarProducto } from "@/hooks/producto"
 import FormularioInventario from "@/components/formularios/inventario"
+import { Link } from "react-router-dom"
 
 interface ProductoProps {
   idproducto: string
@@ -51,6 +52,7 @@ const Producto = ({ idproducto }: ProductoProps) => {
   }
 
   const referenciaConfirmacion = useRef<tipoReferenciaConfirmar>(null)
+  const referenciaConfirmacionAdmin = useRef<tipoReferenciaConfirmar>(null)
 
   const referenciaDialogo = useRef<tipoReferencia>(null)
 
@@ -124,12 +126,12 @@ const Producto = ({ idproducto }: ProductoProps) => {
                 <DialogoMostrar ref={referenciaDialogo}>
                   <FormularioInventario afterSubmit={() => referenciaDialogo.current?.setMostrarDialogo(false)} modoActualizar producto={producto}/>
                 </DialogoMostrar>
-                <DialogoConfirmar ejecutarAccion={handleDeleteAdmin} titulo="¿Estás seguro de eliminar este producto?" ref={referenciaConfirmacion}>
+                <DialogoConfirmar ejecutarAccion={handleDeleteAdmin} titulo="¿Estás seguro de eliminar este producto?" ref={referenciaConfirmacionAdmin}>
                 </DialogoConfirmar>
                 
                 <VistaRol roles={["admin"]}>
                   <BotonSecundario onClick={() => referenciaDialogo.current?.setMostrarDialogo(true)}>Editar</BotonSecundario>
-                  <BotonNegativo onClick={() => referenciaConfirmacion.current?.setMostrarConfirmacion(true)}>Eliminar</BotonNegativo>
+                  <BotonNegativo onClick={() => referenciaConfirmacionAdmin.current?.setMostrarConfirmacion(true)}>Eliminar</BotonNegativo>
                 </VistaRol>
               </div>
             </div>
