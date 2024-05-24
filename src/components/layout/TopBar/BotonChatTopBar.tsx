@@ -11,7 +11,7 @@ const BotonChatTopBar = () => {
   const navigate = useNavigate()
   const { nuevos } = useAppSelector(state => state.topBar.signoChat)
   const location = useLocation();
-  const handleAccept = () => {
+  const handleClick = () => {
     navigate("/chats")
   }
 
@@ -26,7 +26,7 @@ const BotonChatTopBar = () => {
 
   return(
     <>
-      <BotonTopBar className="w-12" onClick={handleAccept}>
+      <BotonTopBar className="w-12" onClick={handleClick}>
         <IconoChat/>
         {nuevos &&
           <PuntoIndicador className="absolute right-1 bottom-1" />

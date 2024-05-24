@@ -8,7 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { DataMensajeRecibido } from "@/models/Conversacion";
 import cn from "@/cn";
 import { useQueryMensajes, useQueryTicketConversacion, useSesion, useValidarOnline } from "@/hooks";
-import { formatearHora } from "@/utils";
+import { formatearHora, notificarError } from "@/utils";
 import {  Link } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import IconoFlecha from "@/components/icons/Flecha"
@@ -61,6 +61,7 @@ const PaginaConversacion = () => {
         switch (error.response?.status) {
         case 404:
           navigate("/chats")
+          notificarError("Esta conversacion no existe")
         }
       }
     }
