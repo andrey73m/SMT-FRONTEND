@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export enum EstadosTicket{
   NUEVO = "nuevo",
   ACEPTADO = "aceptado",
@@ -5,6 +6,12 @@ export enum EstadosTicket{
   EN_PROCESO = "en proceso",
   RESUELTO = "resuelto",
   CERRADO = "cerrado"
+}
+
+export enum PrioridadesTicket{
+  BAJA = "baja",
+  MEDIA = "media",
+  ALTA = "alta",
 }
 
 export interface DataUsuario{

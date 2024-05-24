@@ -3,18 +3,18 @@ import { useEffect, useRef, useState } from "react";
 import {  BotonPrimario } from "../UI/Botones";
 import IconoEnvio from "../icons/Envio";
 import { socketService } from "@/services/socketService";
-import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import conversacionService from "@/services/conversacionService";
+import { useNavigate, useParams } from "react-router-dom";
+
 import { DataMensajeRecibido } from "@/models/Conversacion";
 import cn from "@/cn";
-import { useQueryConversaciones, useSesion, useValidarOnline } from "@/hooks";
+import { useQueryMensajes, useQueryTicketConversacion, useSesion, useValidarOnline } from "@/hooks";
 import { formatearHora } from "@/utils";
-import { useNavigate, Link } from "react-router-dom";
+import {  Link } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import IconoFlecha from "@/components/icons/Flecha"
-import { DataTicket } from "@/models";
 import PuntoIndicador from "../layout/PuntoIndicador";
+import { isAxiosError } from "axios";
+import { SpinnerPagina } from "../UI";
 
 
 
@@ -42,31 +42,38 @@ const Mensaje = ({ mensaje }: MensajeProps) => {
 }
 const PaginaConversacion = () => {
   const { idticket } = useParams();
-  const navigate = useNavigate()
+  
   const queryClient = useQueryClient();
-  const { data:conversaciones } = useQueryConversaciones();
-  const [ticket, setTicket] = useState<DataTicket>()
+  const { data:ticket, isError, error } = useQueryTicketConversacion(idticket)
   const usuarioChat = ticket?.usuario || ticket?.empleado;
   const { isOnline: onlineToChat } = useValidarOnline(usuarioChat?.idusuario)
-  useEffect(() => {
-    if (idticket && conversaciones){
-      
-      const found = conversaciones?.find(c => c.idticket === idticket)
-      if (!found) return navigate("/chats")
-      setTicket(found.ticket)
-    }
-  }, [idticket,conversaciones])
+  const navigate = useNavigate()
   
   const elementRef = useRef<HTMLDivElement>(null);
   
-  const { data: mensajes, isSuccess: mensajesIsSuccess } = useQuery<DataMensajeRecibido[]>({
-    queryKey: ["mensajes-conversacion"],
-    queryFn: () => conversacionService.cargarMensajesConversacion(idticket),
-    refetchOnWindowFocus: true,
-    retry: 0
-  })
+  const { data: mensajes, isFetching: mensajesIsFetching, isSuccess: mensajesIsSuccess } = useQueryMensajes(idticket)
   
   const [contenido, setContenido] = useState("")
+  useEffect(() => {
+
+    if (isError) {
+      if (isAxiosError(error)) {
+        switch (error.response?.status) {
+        case 404:
+          navigate("/chats")
+        }
+      }
+    }
+  }, [isError])
+  useEffect(() => {
+    elementRef.current?.scrollIntoView()
+  }, [mensajes])
+  useEffect(() => {
+    return () => {
+      queryClient.invalidateQueries({ queryKey: ["mensajes-conversacion"] })
+
+    }
+  }, [])
   const enviar = () => {
     if (idticket && contenido.length > 0) {
       socketService.emit("chat:enviar-mensaje", {
@@ -87,16 +94,7 @@ const PaginaConversacion = () => {
     enviar()
     
   }
-
-  useEffect(() => {
-    elementRef.current?.scrollIntoView()
-  }, [mensajes])
-  useEffect(() => {
-    return () => {
-      queryClient.invalidateQueries({ queryKey: ["mensajes-conversacion"] })
-      
-    }
-  }, [])
+  
 
   console.log(ticket)
   //TODO:OPCIONAL > ARREGLAR PROBLEMA DEL TECLADO DE CELULAR QUE DESPLAZA EL CHAT
@@ -139,9 +137,11 @@ const PaginaConversacion = () => {
           <div className="grow overflow-y-auto w-full flex flex-col gap-y-5 pt-3 p-1 px-3">
             <>
               {
-                mensajesIsSuccess && mensajes.map(m =>
-                  <Mensaje key={m.idmensaje} mensaje={m} />
-                )
+                mensajesIsFetching ?
+                  <SpinnerPagina/> :
+                  mensajesIsSuccess && mensajes.map(m =>
+                    <Mensaje key={m.idmensaje} mensaje={m} />
+                  )
               }
             </>
             <div ref={elementRef}/>
@@ -154,7 +154,6 @@ const PaginaConversacion = () => {
                   if (event.key === "Enter") {
                     event.preventDefault()
                     enviar()
-                    // Perform your action here
                   }
                 }}
                 value={contenido}

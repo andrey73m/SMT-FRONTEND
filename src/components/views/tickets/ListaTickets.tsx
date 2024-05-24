@@ -4,6 +4,7 @@ import ticketService from "@/services/ticketService";
 import { useQuery } from "@tanstack/react-query";
 import Ticket from "./Ticket";
 import { Navigate } from "react-router-dom";
+import { EstadosTicket, PrioridadesTicket } from "@/models/DataTicket";
 
 
 interface ListaTicketsProps {
@@ -30,7 +31,17 @@ const ListaTickets = ({ params, idticket }: ListaTicketsProps) => {
         isSuccess &&
         tickets.length > 0 ?
 
-          tickets.map(ticket =>
+          tickets.sort((t) => {
+            if (t.estado === EstadosTicket.CERRADO) return 1
+            if (t.prioridad)
+              return t.prioridad === PrioridadesTicket.BAJA ? 1 :
+                t.prioridad === PrioridadesTicket.MEDIA ? 0 :
+                  t.prioridad === PrioridadesTicket.ALTA ?  -1 : 1
+            if (t.estado)
+              return t.estado === EstadosTicket.NUEVO ? -1 : 0
+               
+            return 1
+          }).map(ticket =>
             <Ticket
               key={ticket.idticket}
               ticket={ticket}

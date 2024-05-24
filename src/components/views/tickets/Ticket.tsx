@@ -177,8 +177,23 @@ const Ticket = ({ ticket, idticket }: TicketProps) => {
                     {
                       ticket.calificacion && ticket.calificacion.comentario &&
                       <>
-                        <span className="inline-block p-2 py-4 text-right">
-                          <TextoClickable onClick={() => setMostrarComentario(!mostrarComentario)} className="text-slate-500 underline hover:font-bold ">Ver comentario del cliente</TextoClickable>
+                        <span className="inline-block p-2 py-4 text-right text-slate-500 underline hover:font-bold">
+                          <TextoClickable onClick={() => setMostrarComentario(!mostrarComentario)}>
+                            {
+                              !mostrarComentario ?
+                                <>
+                                  <VistaRol roles={["admin","empleado"]}>
+                                    Ver comentario del cliente
+                                  </VistaRol>
+                                  <VistaRol roles={["cliente"]}>
+                                    Ver comentario
+                                  </VistaRol>
+                                </>
+                                :
+                                "Ocultar comentario"
+                            }
+                          </TextoClickable>
+                        
                         </span>
                         {
                           <section className={cn("border-b-2 my-2 border-t-2 p-4 transition-all",{

@@ -54,6 +54,9 @@ export const sliceSesion = createSlice({
       socketService.disconnect();
       return estadoInicial;
     },
+    iniciarCarga: (state) => {
+      state.cargando = true;
+    },
     detenerCarga: (state) => {
       state.cargando = false;
     }
@@ -99,7 +102,7 @@ export const sliceSesion = createSlice({
 
 })
 
-export const { iniciarSesion, cerrarSesion, detenerCarga } = sliceSesion.actions
+export const { iniciarSesion, cerrarSesion, detenerCarga,iniciarCarga } = sliceSesion.actions
 
 
 

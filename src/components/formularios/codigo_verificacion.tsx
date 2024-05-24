@@ -6,7 +6,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import authService from "@/services/authService"
 import FormularioAuth from "../UI/FormularioAuth"
 import Enlace from "../UI/Enlace"
-import { verificar } from "@/store/features/sesion"
+import { detenerCarga, iniciarCarga, verificar } from "@/store/features/sesion"
 import { BotonPrimario } from "../UI/Botones"
 import { useAppDispatch, useAppSelector } from "@/store"
 import { useRedireccionParam } from "@/hooks"
@@ -43,7 +43,9 @@ const FormularioCodigoVerificacion = () => {
 
   const reenvio = async () => {
     if (!idcodigo) return;
-    const res = await authService.reenviarCodigo(idcodigo);
+    dispatch(iniciarCarga())
+    await authService.reenviarCodigo(idcodigo);
+    dispatch(detenerCarga())
   }
 
   return (
@@ -51,7 +53,7 @@ const FormularioCodigoVerificacion = () => {
       {cargando && <SpinnerPagina />}
       {errors.root && <ErrorFormulario>{errors.root.message}</ErrorFormulario>}
       {errors.codigo && <ErrorFormulario>{errors.codigo.message}</ErrorFormulario>}
-      <CampoTexto  {...register("codigo")} placeholder="Codigo de verificacion" type="text" />
+      <CampoTexto autoFocus {...register("codigo")} placeholder="Codigo de verificacion" type="text" />
       <BotonPrimario type="submit" disabled={cargando}>Enviar codigo</BotonPrimario>
       <Enlace onClick={reenvio} disabled={true} >Reenviar codigo</Enlace>
     </FormularioAuth>

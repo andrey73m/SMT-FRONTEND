@@ -54,5 +54,10 @@ export default{
     const auth = tokenService.getAuthHeader()
     const res = await axios.put(`${env.BACKEND_ROOT}/tickets/gestionar/${id}`,data, { headers: auth })
     return res.data;
+  },
+  obtenerTicketConversacion: async (idticket?: string) => {
+    const auth = tokenService.getAuthHeader()
+    const res = await axios.get(`${env.BACKEND_ROOT}/tickets/ticket-conversacion/${idticket}`, { headers: auth })
+    return res.data;
   }
 }
