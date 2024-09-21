@@ -1,6 +1,6 @@
 export interface DataProducto{
   idproducto: string,
-  idcomponente: string,
+  idproducto: string,
   sku: string,
   disponibilidad: number,
   precio: number,
@@ -12,7 +12,7 @@ export interface DataProducto{
 }
 
 export interface DataEspecificacionesProducto{
-  idcat_espec: string
+  idespec: string
   atributo: string;
   valor: string
 }

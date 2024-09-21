@@ -1,6 +1,6 @@
 import FormularioLogin from "@/components/formularios/login"
 import FormularioRegistrarse from "@/components/formularios/registrarse"
-import FormularioComponente from "@/components/formularios/componente"
+import FormularioProducto from "@/components/formularios/producto"
 import FormularioCodigoVerificacion from "@/components/formularios/codigo_verificacion"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { useEffect } from "react"
@@ -127,7 +127,7 @@ const App = () => {
             
           </Route>
 
-          <Route path="catalogo" element={<FormularioComponente />} />
+          <Route path="catalogo" element={<FormularioProducto />} />
           
         </Routes>
       </Router>

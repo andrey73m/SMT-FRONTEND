@@ -6,13 +6,13 @@ import { CapitalizeString } from "@/utils";
 import { useQuery } from "@tanstack/react-query";
 
 interface EspecificacionesProps {
-  idcomponente: string
+  idproducto: string
 }
 
-const Especificaciones = ({ idcomponente }: EspecificacionesProps) => {
+const Especificaciones = ({ idproducto }: EspecificacionesProps) => {
   const { data: especificaciones, isFetching, isSuccess } = useQuery<DataEspecificacionesProducto[]>({
     queryKey: ["especificaciones-producto"],
-    queryFn: async () => inventarioService.obtenerEspecificacionesProducto(idcomponente),
+    queryFn: async () => inventarioService.obtenerEspecificacionesProducto(idproducto),
     retry: 0,
     refetchOnWindowFocus: false
   })
@@ -25,7 +25,7 @@ const Especificaciones = ({ idcomponente }: EspecificacionesProps) => {
           <tbody>
             {
               especificaciones.map((spec,i) =>
-                <tr key={spec.idcat_espec} className={cn({ "bg-slate-100":i % 2 === 0 })}>
+                <tr key={spec.idespec} className={cn({ "bg-slate-100":i % 2 === 0 })}>
                   <td className="p-4"><b>{CapitalizeString(spec.atributo)}</b></td>
                   <td>{spec.valor}</td>
                 </tr>

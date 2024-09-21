@@ -1,5 +1,5 @@
 import { BotonPrimario } from "../UI/Botones";
-import FormularioInventario from "../formularios/inventario";
+import FormularioInventario from "../formularios/producto";
 import AlternarFormularioSticky from "../layout/AlternarFormularioSticky";
 import { ImagenTitulo } from "../layout/FormatoImagenes";
 import Productos from "../views/inventario/vistaProductos";

@@ -4,7 +4,7 @@ import inventarioService from "@/services/inventarioService";
 import { CamposInventario } from "@/components/formularios/validators";
 import { notificarError, notificarExito } from "@/utils";
 
-export const useMutacionCrearComponente = (callback: ()=>void) => {
+export const useMutacionCrearProducto = (callback: ()=>void) => {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn:(data: CamposInventario) => inventarioService.crearProducto(data),

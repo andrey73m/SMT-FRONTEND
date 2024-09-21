@@ -1,6 +1,6 @@
 import { FormProvider, useForm } from "react-hook-form"
 import {  CampoTexto } from "../UI"
-import { inventarioResolver, CamposInventario } from "./validators";
+import { productoResolver, CamposProducto } from "./validators";
 import ErrorFormulario from "./Error"
 import { BotonPositivo, BotonPrimario } from "../UI/Botones";
 import { useCallback } from "react";
@@ -8,7 +8,7 @@ import axios from "axios";
 import QuerySelect from "./QuerySelect";
 import { env } from "../../environment";
 import { DataProducto } from "@/models/DataProducto";
-import { useMutacionActualizarProducto, useMutacionCrearComponente } from "@/hooks/producto";
+import { useMutacionActualizarProducto, useMutacionCrearProducto } from "@/hooks/producto";
 
 interface FormularioInventarioProps{
   modoActualizar?: boolean;
@@ -17,20 +17,20 @@ interface FormularioInventarioProps{
 }
 
 const FormularioInventario = ({ modoActualizar, producto, afterSubmit }: FormularioInventarioProps) => {
-  const metodos = useForm<CamposInventario>(
+  const metodos = useForm<CamposProducto>(
     {
       defaultValues: {
-        idcomponente: producto?.idcomponente,
-        sku: producto?.sku,
+        idproducto: producto?.idproducto,
+        categoria: producto?.idcategoria.toString() || "",
         disponibilidad: producto?.disponibilidad.toString() || "",
         precio: producto?.precio.toString() || "",
       },
-      resolver: inventarioResolver
+      resolver: productoResolver
     }
   )
   const { register, handleSubmit, reset ,formState: { errors } } = metodos
 
-  const mutacionCrearComponente = useMutacionCrearComponente(() => {
+  const mutacionCrearProducto = useMutacionCrearProducto(() => {
     if (afterSubmit) afterSubmit()
     reset()
   })
@@ -38,25 +38,23 @@ const FormularioInventario = ({ modoActualizar, producto, afterSubmit }: Formula
   const mutacionActualizarProducto = useMutacionActualizarProducto(() => {
     if (afterSubmit) afterSubmit() })
 
-  const onSubmit = async(data: CamposInventario) => {
+  const onSubmit = async(data: CamposProducto) => {
     if(!modoActualizar)
-      return mutacionCrearComponente.mutate(data);
+      return mutacionCrearProducto.mutate(data);
     if(producto){
       mutacionActualizarProducto.mutate({ idproducto: producto.idproducto, data })
     }
   }
 
-  const query = useCallback(async () => (await axios.get(`${env.BACKEND_ROOT}/componentes/catalogo`)).data, [])
+  const query = useCallback(async () => (await axios.get(`${env.BACKEND_ROOT}/productos/catalogo`)).data, [])
 
   return (
     <FormProvider {...metodos}>
       
       <form onSubmit={handleSubmit(onSubmit)} className="text-black grow bg-white flex flex-col items-center justify-normal p-5">
         <h1 className="mb-5 font-bold text-3xl">{modoActualizar ? "Edita el producto" : "Crea un nuevo producto" }</h1>
-        {errors.idcomponente && <ErrorFormulario>{errors.idcomponente.message}</ErrorFormulario>}
-        <QuerySelect defaultValue={producto?.idcomponente} label="Componente" optionLabel="nombre" value="idcomponente" queryKey="select-componente" queryFn={query} {...register("idcomponente")}/>
-        {errors.sku && <ErrorFormulario>{errors.sku.message}</ErrorFormulario>}
-        <CampoTexto  {...register("sku")} placeholder="SKU"/>
+        {errors.idproducto && <ErrorFormulario>{errors.idproducto.message}</ErrorFormulario>}
+        <QuerySelect defaultValue={producto?.idproducto} label="Producto" optionLabel="nombre" value="idproducto" queryKey="select-producto" queryFn={query} {...register("idproducto")}/>
         {errors.disponibilidad && <ErrorFormulario>{errors.disponibilidad.message}</ErrorFormulario>}
         <CampoTexto  {...register("disponibilidad")} placeholder="Disponibilidad"/>
         {errors.precio && <ErrorFormulario>{errors.precio.message}</ErrorFormulario>}

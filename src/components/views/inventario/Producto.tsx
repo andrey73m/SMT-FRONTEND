@@ -16,7 +16,7 @@ import { useSesion } from "@/hooks"
 import DialogoConfirmar, { tipoReferenciaConfirmar } from "@/components/UI/DialogoConfirmar"
 import DialogoMostrar, { tipoReferencia } from "@/components/UI/DialogoMostrar"
 import { useMutacionEliminarProducto } from "@/hooks/producto"
-import FormularioInventario from "@/components/formularios/inventario"
+import FormularioInventario from "@/components/formularios/producto"
 import { useNavigate } from "react-router-dom"
 
 interface ProductoProps {
@@ -82,7 +82,7 @@ const Producto = ({ idproducto }: ProductoProps) => {
           </div>
           <div className="flex  flex-col lg:flex-row items-center gap-x-4 lg:h-[30rem] border-b-2 border-gray-200 py-2 z-30">
             <Media lessThan="lg">
-              <p className="text-end text-slate-400">SKU: {producto.sku}</p>
+              <p className="text-end text-slate-400">ID: {producto.idproducto}</p>
 
             </Media>
             <div className="w-full shrink-0 p-4 md:p-10 lg:p-0 transition-all lg:w-1/2 h-full  content-center bg-white z-10">
@@ -92,7 +92,7 @@ const Producto = ({ idproducto }: ProductoProps) => {
             <div className="flex grow pr-3 py-2 flex-col-reverse lg:flex-col gap-y-2 h-[30rem] text-lg justify-between">
               <div>
                 <Media greaterThan="lg">
-                  <p className="text-end text-slate-400">SKU: {producto.sku}</p>
+                  <p className="text-end text-slate-400">ID: {producto.idproducto}</p>
 
                 </Media>
                 <p>Marca <b>{CapitalizeString(producto.marca)}</b></p>
@@ -138,7 +138,7 @@ const Producto = ({ idproducto }: ProductoProps) => {
           </div>
           <h3 className="font-bold text-3xl pt-10">Especificaciones</h3>
 
-          <Especificaciones idcomponente={producto?.idcomponente}/>
+          <Especificaciones idproducto={producto?.idproducto}/>
         </div>
       }
     </>
