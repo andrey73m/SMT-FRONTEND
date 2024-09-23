@@ -1,15 +1,15 @@
 import axios from "axios"
 import { env } from "../environment"
 import tokenService from "./tokenService"
-import { CamposInventario } from "../components/formularios/validators"
+import { CamposProducto } from "../components/formularios/validators"
 
 export default {
-  crearProducto: async (data: CamposInventario) => {
+  crearProducto: async (data: CamposProducto) => {
     const auth = tokenService.getAuthHeader()
     const res = await axios.post(`${env.BACKEND_ROOT}/productos/inventario/${data.idproducto}`,data, { headers: auth })
     return res.data;
   },
-  actualizarProducto: async (data:CamposInventario, idproducto?:string) => {
+  actualizarProducto: async (data:CamposProducto, idproducto?:string) => {
     const auth = tokenService.getAuthHeader()
     const res = await axios.put(`${env.BACKEND_ROOT}/productos/inventario/${idproducto}`,data, { headers: auth })
     return res.data;
