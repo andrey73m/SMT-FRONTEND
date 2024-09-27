@@ -27,15 +27,31 @@ const FormularioTicket = ({ afterSubmit }: FormularioProps) => {
       metodos.unregister("email")
     }
   },[haySesion])
+  const mutacionSubmitWithEmail = useMutation({
+    mutationFn: ticketService.createTicketWithEmail,
+    onSuccess: (a) => {
+      console.log(a)
+
+      notificarExito("Ticket creado, revisa tu correo para mas detalles")
+      // if (haySesion) metodos.setValue("email","")
+      if (afterSubmit) afterSubmit()
+      metodos.reset()
+      queryClient.invalidateQueries({ queryKey: ["tickets"] })
+
+    },
+    onError: (e) => {
+      const error = e as any
+      console.log("error")
+      notificarError(error.response.data.error)
+    }
+  })
   const mutacionSubmit = useMutation({
     mutationFn: ticketService.createTicket,
-    onSuccess: () => {
-      if (haySesion)
-        notificarExito("Ticket creado, pronto te atenderemos a")
-      else{
-        notificarExito("Ticket creado, revisa tu correo para mas detalles")
-        if (haySesion) metodos.setValue("email","")
-      }
+    onSuccess: (a) => {
+      console.log(a)
+  
+      notificarExito("Ticket creado, pronto te atenderemos")
+
       if (afterSubmit) afterSubmit()
       metodos.reset()
       queryClient.invalidateQueries({ queryKey:["tickets"] })
@@ -43,12 +59,17 @@ const FormularioTicket = ({ afterSubmit }: FormularioProps) => {
     },
     onError: (e) => {
       const error = e as any
+      console.log("error")
       notificarError(error.response.data.error)
     }
   })
 
   const onSubmit = async (data: CamposTicket) => {
-    mutacionSubmit.mutate(data)
+    if (haySesion){
+      mutacionSubmit.mutate(data)
+      return
+    }
+    mutacionSubmitWithEmail.mutate(data)
   }
 
   return (

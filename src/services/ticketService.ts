@@ -7,6 +7,11 @@ import { CamposCalificacion } from "@/components/formularios/validators/califica
 export default{
   createTicket: async (data: CamposTicket) => {
     const auth = tokenService.getAuthHeader()
+    const res = await axios.post(`${env.BACKEND_ROOT}/tickets`, data, { headers: auth })
+    return res.data;
+  },
+  createTicketWithEmail: async (data: CamposTicket) => {
+    const auth = tokenService.getAuthHeader()
     const res = await axios.post(`${env.BACKEND_ROOT}/tickets/email`, data, { headers: auth })
     return res.data;
   },
