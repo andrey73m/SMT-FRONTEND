@@ -81,7 +81,7 @@ const App = () => {
             }/>
 
 
-            <Route path="direcciones/:idusuario" element={
+            <Route path="direcciones" element={
               <Guardian roles={["admin"]} alt="/direcciones">
                 <TituloPagina titulo="Direcciones usuario">
                   <PaginaDirecciones />
