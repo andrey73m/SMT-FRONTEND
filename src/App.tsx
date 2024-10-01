@@ -2,7 +2,7 @@ import FormularioLogin from "@/components/formularios/login"
 import FormularioRegistrarse from "@/components/formularios/registrarse"
 import FormularioProducto from "@/components/formularios/producto"
 import FormularioCodigoVerificacion from "@/components/formularios/codigo_verificacion"
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { Routes, Route, useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import { useAppDispatch } from "@/store"
 import { cargarSesion } from "@/store/features/sesion"
@@ -17,121 +17,130 @@ import PaginaDetallesProducto from "./components/pages/DetallesProducto"
 import PaginaDirecciones from "./components/pages/Direcciones"
 import PaginaConversacion from "./components/pages/Conversacion"
 import PaginaConversaciones from "./components/pages/Conversaciones"
+
+import { App as CapacitorApp } from "@capacitor/app"
+
 const App = () => {
   const dispatch = useAppDispatch()
   const queryClient = useQueryClient()
+  const navigate = useNavigate()
   useEffect(() => {
     dispatch(cargarSesion())
     queryClient.refetchQueries({ queryKey: ["rol-usuario"] })
+
+    CapacitorApp.addListener("backButton", (e) => {
+      if (e.canGoBack) return navigate(-1)
+      
+      CapacitorApp.exitApp()
+    })
+
+    return () => {
+      CapacitorApp.removeAllListeners()
+    }
   },[])
   return (
     <>
-      
-      <Router>
-        
-        <Routes>
-          <Route path="/registro" element={
-            <TituloPagina titulo="Registro">
-              <FormularioRegistrarse />
+      <Routes>
+        <Route path="/registro" element={
+          <TituloPagina titulo="Registro">
+            <FormularioRegistrarse />
+          </TituloPagina>
+        }/>
+        <Route path="/login" element={
+          <TituloPagina titulo="Inicio de sesión">
+            <FormularioLogin/>
+          </TituloPagina>
+        }/>
+        <Route path="verificacion/:idcodigo" element={
+          <TituloPagina titulo="Código de verificación">
+            <FormularioCodigoVerificacion/>
+          </TituloPagina>
+        }/>
+        <Route path="/" element={<TopBar/>}>
+          <Route path="/" element={
+            <TituloPagina titulo="Página Inicio">
+              <Home/>
             </TituloPagina>
           }/>
-          <Route path="/login" element={
-            <TituloPagina titulo="Inicio de sesión">
-              <FormularioLogin/>
-            </TituloPagina>
-          }/>
-          <Route path="verificacion/:idcodigo" element={
-            <TituloPagina titulo="Código de verificación">
-              <FormularioCodigoVerificacion/>
-            </TituloPagina>
-          }/>
-          <Route path="/" element={<TopBar/>}>
-            <Route path="/" element={
-              <TituloPagina titulo="Página Inicio">
-                <Home/>
+
+          <Route path="tickets" element={
+            <Guardian>
+              <TituloPagina titulo="Tickets">
+                <PaginaTickets />
               </TituloPagina>
-            }/>
-
-            <Route path="tickets" element={
-              <Guardian>
-                <TituloPagina titulo="Tickets">
-                  <PaginaTickets />
-                </TituloPagina>
-              </Guardian>
-            } >
-            </Route>
-
-
-            <Route path="tickets/:idticket" element={
-              <Guardian>
-                <TituloPagina titulo="Detalles ticket">
-                  <PaginaTickets key="1" />
-                </TituloPagina>
-              </Guardian>
-            }>
-            </Route>
-
-
-            <Route path="direcciones" element={
-              <Guardian roles={["admin", "cliente"]}>
-                <TituloPagina titulo="Direcciones">
-                  <PaginaDirecciones/>
-                </TituloPagina>
-              </Guardian>
-            }/>
-
-
-            <Route path="direcciones" element={
-              <Guardian roles={["admin"]} alt="/direcciones">
-                <TituloPagina titulo="Direcciones usuario">
-                  <PaginaDirecciones />
-                </TituloPagina>
-              </Guardian>
-            } />
-            
-
-            <Route path="chats" element={
-              <Guardian>
-                <TituloPagina titulo="Conversaciones">
-                  <PaginaConversaciones/>
-                </TituloPagina>
-              </Guardian>
-            }>
-              <Route path=":idticket" element={
-                <TituloPagina titulo="Conversacion: ">
-                  <PaginaConversacion />
-                </TituloPagina>
-              } />
-            </Route>
-
-            
-            <Route path="productos" element={
-              <TituloPagina titulo="Productos">
-                <PaginaProductos/>
-              </TituloPagina>
-            }>
-            </Route>
-
-            
-            <Route path="productos/:idproducto" element={
-              <TituloPagina titulo="Detalles: ">
-                <PaginaDetallesProducto />
-              </TituloPagina>
-            } />
-                        
-            <Route path="quienes-somos" element={
-              <TituloPagina titulo="Nosotros">
-                <AboutUs/>
-              </TituloPagina>
-            }/>
-            
+            </Guardian>
+          } >
           </Route>
 
-          <Route path="catalogo" element={<FormularioProducto />} />
+
+          <Route path="tickets/:idticket" element={
+            <Guardian>
+              <TituloPagina titulo="Detalles ticket">
+                <PaginaTickets key="1" />
+              </TituloPagina>
+            </Guardian>
+          }>
+          </Route>
+
+
+          <Route path="direcciones" element={
+            <Guardian roles={["admin", "cliente"]}>
+              <TituloPagina titulo="Direcciones">
+                <PaginaDirecciones/>
+              </TituloPagina>
+            </Guardian>
+          }/>
+
+
+          <Route path="direcciones" element={
+            <Guardian roles={["admin"]} alt="/direcciones">
+              <TituloPagina titulo="Direcciones usuario">
+                <PaginaDirecciones />
+              </TituloPagina>
+            </Guardian>
+          } />
+            
+
+          <Route path="chats" element={
+            <Guardian>
+              <TituloPagina titulo="Conversaciones">
+                <PaginaConversaciones/>
+              </TituloPagina>
+            </Guardian>
+          }>
+            <Route path=":idticket" element={
+              <TituloPagina titulo="Conversacion: ">
+                <PaginaConversacion />
+              </TituloPagina>
+            } />
+          </Route>
+
+            
+          <Route path="productos" element={
+            <TituloPagina titulo="Productos">
+              <PaginaProductos/>
+            </TituloPagina>
+          }>
+          </Route>
+
+            
+          <Route path="productos/:idproducto" element={
+            <TituloPagina titulo="Detalles: ">
+              <PaginaDetallesProducto />
+            </TituloPagina>
+          } />
+                        
+          <Route path="quienes-somos" element={
+            <TituloPagina titulo="Nosotros">
+              <AboutUs/>
+            </TituloPagina>
+          }/>
+            
+        </Route>
+
+        <Route path="catalogo" element={<FormularioProducto />} />
           
-        </Routes>
-      </Router>
-      
+      </Routes>
     </>
   )
 }
