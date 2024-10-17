@@ -12,6 +12,8 @@ const PaginaProductos = () => {
       <VistaRol roles={["admin"]}>
         <AlternarFormularioSticky className="transition-all z-10" texto="Agrega un nuevo producto" Formulario={FormularioInventario} Boton={BotonPrimario}/>
       </VistaRol>
+      
+
       <Productos />
       
     </>

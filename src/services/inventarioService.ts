@@ -2,6 +2,8 @@ import axios from "axios"
 import { env } from "../environment"
 import tokenService from "./tokenService"
 import { CamposProducto } from "../components/formularios/validators"
+import { PaginationOptions, PaginationResponse } from "@/models/Paginacion"
+import { DataProducto, TProductoOrdering } from "@/models/DataProducto"
 
 export default {
   crearProducto: async (data: CamposProducto) => {
@@ -19,8 +21,13 @@ export default {
     const res = await axios.delete(`${env.BACKEND_ROOT}/productos/inventario/${idproducto}`, { headers: auth })
     return res.data;
   },
-  obtenerProductos: async () => {
-    const res = await axios.get(`${env.BACKEND_ROOT}/productos/inventario`)
+  obtenerProductos: async (nextParam: PaginationOptions<TProductoOrdering>): Promise<PaginationResponse<DataProducto>> => {
+
+    const res = await axios.get(`${env.BACKEND_ROOT}/productos/inventario`, {
+      headers: {
+        pagination: JSON.stringify(nextParam)
+      }
+    })
     return res.data;
   },
   obtenerProducto: async (idproducto: string) => {
