@@ -16,7 +16,7 @@ const Productos = () => {
     <div className="flex flex-row">
       <div className="w-80 flex-col border-r-2 border-gray-200 lg:block hidden">
 
-        <SeleccionOrden defaultSelected="precio" noSelectionText="Fecha" changeSort={changeSort} options={productoOrdering} />
+        <SeleccionOrden noSelectionText="Lanzamiento" changeSort={changeSort} options={productoOrdering} />
       </div>
       <div className="w-full">
         <VistaPaginada queryPaginacion={productosQuery}
