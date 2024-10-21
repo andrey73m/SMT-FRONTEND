@@ -9,6 +9,10 @@ export interface DataProducto{
   url_imagen: string
 }
 
+export interface DataProductoCompra extends DataProducto{
+  cantidad: number
+}
+
 export interface DataEspecificacionesProducto{
   idespec: string
   atributo: string;

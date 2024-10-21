@@ -17,6 +17,8 @@ import PaginaDetallesProducto from "./components/pages/DetallesProducto"
 import PaginaDirecciones from "./components/pages/Direcciones"
 import PaginaConversacion from "./components/pages/Conversacion"
 import PaginaConversaciones from "./components/pages/Conversaciones"
+import PaginaCompraProductos from "./components/pages/CompraProductos"
+
 
 import { App as CapacitorApp } from "@capacitor/app"
 
@@ -129,6 +131,15 @@ const App = () => {
               <PaginaDetallesProducto />
             </TituloPagina>
           } />
+
+          <Route path="carrito/comprando/:idproducto?" element={
+            <Guardian>
+              <TituloPagina titulo="Orden">
+                <PaginaCompraProductos/>
+              </TituloPagina>
+            </Guardian>
+          }
+          />
                         
           <Route path="quienes-somos" element={
             <TituloPagina titulo="Nosotros">
