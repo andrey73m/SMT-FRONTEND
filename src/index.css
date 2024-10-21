@@ -63,6 +63,17 @@
     color: white
   }
 
+  .scroll-secundario::-webkit-scrollbar-thumb {
+    --tw-bg-opacity: 1;
+    background: gray;
+    border-radius: 100vh;
+  }
+
+  .scroll-secundario::-webkit-scrollbar {
+    width: 7px;
+    height: 5px;
+    background-color: transparent;
+  }
     
 
 
