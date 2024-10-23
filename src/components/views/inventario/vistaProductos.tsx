@@ -5,6 +5,7 @@ import TarjetaProducto from "./tarjetaProducto";
 import VistaPaginada from "@/components/wrappers/VistaPaginada";
 import useQueryPaginacion from "@/hooks/paginacion";
 import { DataProducto, productoOrdering, TProductoOrdering } from "@/models/DataProducto";
+import IconoFlechaScroll from "@/components/icons/FlechasScroll";
 
 
 
@@ -18,10 +19,13 @@ const Productos = () => {
 
         <SeleccionOrden noSelectionText="Lanzamiento" changeSort={changeSort} options={productoOrdering} />
       </div>
-      <div className="w-full">
+      <div className="w-full bg-slate-100">
         <VistaPaginada queryPaginacion={productosQuery}
-          containerClassName="min-h-screen w-full py-6 lg:px-10 grid md:grid-cols-2 xl:grid-cols-3 gap-6 bg-slate-100 justify-items-center"
-
+          containerClassName="w-full py-6 lg:px-10 grid md:grid-cols-2 xl:grid-cols-3 gap-6 justify-items-center"
+          endContainerClassName="flex flex-col items-center"
+          scrollButtonClassName="cursor-pointer rounded-full fixed bottom-2 right-2 bg-purple-700 hover:bg-purple-600 p-2 text-white"
+          scrollButtonIcon={<IconoFlechaScroll className="w-7 h-7" />}
+          endMessage={<p className="text-sm text-gray-400">Parece que no hay mas datos</p>}
           ListElement={(p) =>
 
             // <div className="p-8" >
