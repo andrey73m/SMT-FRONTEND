@@ -7,7 +7,8 @@ import { CapitalizeString } from "@/utils";
 
 interface BaseSeleccionOrdenProps<T extends readonly string[]> {
   changeSort: ChangeSortFunc<T>
-  options: T
+  // eslint-disable-next-line no-unused-vars
+  options: {[key in T[number]]: string}
 }
 
 interface NoDefaultProps<T extends readonly string[]> extends BaseSeleccionOrdenProps<T>{
@@ -44,10 +45,9 @@ const OpcionSeleccion = ({ nombre, selected, ...props }:OpcionSeleccionProps) =>
 
 const SeleccionOrden = <T extends readonly string[],>({ changeSort, defaultSelected, options, noSelectionText }: SeleccionOrdenProps<T>) => {
   const [direction, setDirection] = useState<TDirectionOrdering>(-1)
-  const defaultSelectedIndex = defaultSelected ? options.indexOf(defaultSelected) : -1
   
   const [selected, setSelected] = useState(
-    defaultSelectedIndex !== -1 ? defaultSelectedIndex : undefined
+    defaultSelected || undefined
   )
 
   useEffect(() => {
@@ -57,7 +57,7 @@ const SeleccionOrden = <T extends readonly string[],>({ changeSort, defaultSelec
     else if (selected !== undefined){
       changeSort({
         orderby: [{
-          name: options[selected],
+          name: selected,
           direction
         }]
       })}
@@ -92,9 +92,9 @@ const SeleccionOrden = <T extends readonly string[],>({ changeSort, defaultSelec
           <OpcionSeleccion onClick={() => {setSelected(undefined)}} nombre={noSelectionText} selected={selected === undefined} />
         }
         {
-          options.map((o, i) => {
-            const isSelected = i === selected
-            return <OpcionSeleccion onClick={() => setSelected(i)} key={i} nombre={o} selected={isSelected}/>
+          Object.entries<string>(options).map(([k, v]) => {
+            const isSelected = k === selected
+            return <OpcionSeleccion onClick={() => setSelected(k)} key={k} nombre={v} selected={isSelected}/>
           })
         }
       </div>

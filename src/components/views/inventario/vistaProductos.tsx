@@ -4,7 +4,7 @@ import TarjetaProducto from "./tarjetaProducto";
 
 import VistaPaginada from "@/components/wrappers/VistaPaginada";
 import useQueryPaginacion from "@/hooks/paginacion";
-import { DataProducto, productoOrdering, TProductoOrdering } from "@/models/DataProducto";
+import { DataProducto, TProductoOrdering } from "@/models/DataProducto";
 import IconoFlechaScroll from "@/components/icons/FlechasScroll";
 
 
@@ -17,7 +17,11 @@ const Productos = () => {
     <div className="flex flex-row">
       <div className="w-80 flex-col border-r-2 border-gray-200 lg:block hidden">
 
-        <SeleccionOrden noSelectionText="Lanzamiento" changeSort={changeSort} options={productoOrdering} />
+        <SeleccionOrden noSelectionText="Lanzamiento" changeSort={changeSort} options={{
+          precio_final: "precio",
+          descuento: "descuento",
+          disponibilidad: "disponibilidad"
+        }}  />
       </div>
       <div className="w-full bg-slate-100">
         <VistaPaginada queryPaginacion={productosQuery}

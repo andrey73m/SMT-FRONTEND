@@ -4,12 +4,14 @@ export interface DataProducto{
   marca: string,
   idcategoria: number,
   precio: number,
+  precio_final: number,
+  descuento?: number,
   nombre: string,
   descripcion: string,
   url_imagen: string
 }
 
-export const productoOrdering = ["precio", "disponibilidad"] as const;
+export const productoOrdering = ["precio_final", "disponibilidad", "descuento"] as const;
 export type TProductoOrdering = typeof productoOrdering;
 
 export interface DataEspecificacionesProducto{
