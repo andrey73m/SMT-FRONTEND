@@ -5,8 +5,12 @@ import { isAxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import { useQueryDirecciones } from "@/hooks";
 
+interface DireccionesProps {
+  modoCompra?: boolean
+  afterSelect: () => void
+}
 
-const Direcciones = () => {
+const Direcciones = ({ modoCompra, afterSelect }: DireccionesProps) => {
 
   const { idusuario } = useParams()
   const direccionesQuery = useQueryDirecciones(idusuario)
@@ -31,7 +35,7 @@ const Direcciones = () => {
               d1.predeterminada ? -1 : 1
             ).map((direccion) =>
               <div className="p-3" key={direccion.iddireccion}>
-                <Direccion direccion={direccion} />
+                <Direccion direccion={direccion} modoCompra={modoCompra} afterSelect={afterSelect}/>
               </div>
             )
             :

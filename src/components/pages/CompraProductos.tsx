@@ -58,7 +58,7 @@ const PaginaCompraProducto = () => {
   return (
     <div className="h-full w-full px-4">
       {
-        <Compra productos={arrayProductos} total={sumaProductos} isFetching = {idproducto && cantidad ? isFetching : isFetchingCarrito}/>
+        <Compra productos={arrayProductos} precio_total={sumaProductos} isFetching = {idproducto && cantidad ? isFetching : isFetchingCarrito}/>
 
       }
     </div>
