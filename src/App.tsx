@@ -19,8 +19,8 @@ import PaginaConversacion from "./components/pages/Conversacion"
 import PaginaConversaciones from "./components/pages/Conversaciones"
 import PaginaCompraProductos from "./components/pages/CompraProductos"
 
-
 import { App as CapacitorApp } from "@capacitor/app"
+import PaginaMisCompras from "./components/pages/MisCompras"
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -136,6 +136,14 @@ const App = () => {
             <Guardian>
               <TituloPagina titulo="Orden">
                 <PaginaCompraProductos/>
+              </TituloPagina>
+            </Guardian>
+          }
+          />
+          <Route path="mis_compras" element={
+            <Guardian>
+              <TituloPagina titulo="Mis compras">
+                <PaginaMisCompras/>
               </TituloPagina>
             </Guardian>
           }
