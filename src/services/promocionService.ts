@@ -22,8 +22,11 @@ export default {
       Authorization: token,
       pagination: JSON.stringify(nextParam)
     } })
-
-    console.log("RES", res.data)
+    return res.data;
+  },
+  obtenerCupones: async () => {
+    const token = tokenService.getToken()
+    const res = await axios.get(`${env.BACKEND_ROOT}/productos/cupones`, { headers: { Authorization: token } })
     return res.data;
   },
 }

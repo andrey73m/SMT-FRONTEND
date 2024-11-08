@@ -104,7 +104,7 @@ const App = () => {
           } />
           <Route path="promociones">
             <Route path="ofertas" element={
-              <Guardian roles={["admin"]} alt="/direcciones">
+              <Guardian roles={["admin"]} alt="/promociones/ofertas">
                 <TituloPagina titulo="Nueva oferta">
                   <PaginaOfertas />
                 </TituloPagina>
@@ -150,7 +150,7 @@ const App = () => {
           }
           />
           <Route path="mis_compras" element={
-            <Guardian>
+            <Guardian roles={["cliente"]} alt="/mis_compras">
               <TituloPagina titulo="Mis compras">
                 <PaginaMisCompras/>
               </TituloPagina>

@@ -31,6 +31,9 @@ export type TOfertaOrdering = typeof ofertaOrdering
 interface DefaultDataCupon extends DataPromocion {
   idcupon: string
   duracion: number
+  usado: boolean
+  fecha_expiracion: string
+  expirado: boolean
   min_compras: number
   min_gastado: number
 }

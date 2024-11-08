@@ -53,7 +53,7 @@ const PaginaCompraProducto = () => {
       arrayProductos.push({ ...producto, cantidad: Number(cantidad) })
   }
 
-  const sumaProductos = arrayProductos.reduce((acumulador, productoActual) => acumulador + productoActual.precio * productoActual.cantidad, 0 )
+  const sumaProductos = arrayProductos.reduce((acumulador, productoActual) => acumulador + productoActual.precio_final * productoActual.cantidad, 0 )
 
   return (
     <div className="h-full w-full px-4">

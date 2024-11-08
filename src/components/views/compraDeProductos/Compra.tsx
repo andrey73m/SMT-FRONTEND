@@ -3,13 +3,16 @@ import BotonPrimario from "@/components/UI/Botones/BotonPrimario";
 import { useEffect, useRef, useState } from "react";
 import {  DataProductoCompra } from "@/models/DataProducto";
 import { formatoPrecio, notificarError, notificarExito } from "@/utils";
-import { useQueryDirecciones, useRedireccionParam } from "@/hooks";
+import { useQueryCupones, useQueryDirecciones } from "@/hooks";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import DialogoDirecciones from "@/components/pages/DialogoDirecciones";
 import DialogoMostrar, { tipoReferencia } from "@/components/UI/DialogoMostrar";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, UseQueryResult } from "@tanstack/react-query";
 import tiendaService from "@/services/tiendaService";
 import FormularioDireccion from "@/components/formularios/direccion";
+import DialogoCupones from "@/components/pages/DialogoCupones";
+import Cupon from "../promociones/cupon";
+import { DataCupon } from "@/models/DataPromociones";
 
 interface ResumenCompraProps{
   productos: DataProductoCompra[]
@@ -22,12 +25,16 @@ interface CompraProps extends ResumenCompraProps{
   isFetching?: boolean
 }
 
+interface ConfiguracionesCompraProps {
+  cuponesQuery: UseQueryResult<DataCupon[], Error>
+}
+
 const ResumenCompra = ({ productos, precio_total, cantidad, descuento }: ResumenCompraProps) => {
   
   const precio_final =
     !descuento !== !cantidad ?
       descuento ?
-        precio_total * (1 - descuento) :
+        Math.round(precio_total * (1 - (descuento / 100))) :
         cantidad ?
           precio_total - cantidad
           : precio_total
@@ -45,9 +52,9 @@ const ResumenCompra = ({ productos, precio_total, cantidad, descuento }: Resumen
 
             <div className=" flex flex-col py-2 items-end grow">
 
-              <span>1 x {formatoPrecio.format(producto.precio)}</span>
+              <span>1 x {formatoPrecio.format(producto.precio_final)}</span>
               <div className="p-1 w-full border-b-2 border-gray-300" ></div>
-              <span>{producto.cantidad} x {formatoPrecio.format(producto.precio * producto.cantidad)}</span>
+              <span>{producto.cantidad} x {formatoPrecio.format(producto.precio_final * producto.cantidad)}</span>
             </div>
 
         
@@ -68,7 +75,7 @@ const ResumenCompra = ({ productos, precio_total, cantidad, descuento }: Resumen
       {!!descuento !== !!cantidad && <div className="flex justify-between text-purple-500">
         <span>Desc.</span>
         {descuento &&
-          <span>-{descuento * 100}%</span>}
+          <span>-{descuento}%</span>}
         {cantidad &&
           <span>{formatoPrecio.format(cantidad)}</span>}
       </div>}
@@ -83,15 +90,20 @@ const ResumenCompra = ({ productos, precio_total, cantidad, descuento }: Resumen
 }
 
 
-const ConfiguracionesOrden =  () => {
+const ConfiguracionesOrden =  ({ cuponesQuery }: ConfiguracionesCompraProps) => {
   const { idusuario } = useParams()
-  const { data: direcciones } = useQueryDirecciones(idusuario);
+  const { data: direcciones, isSuccess: successDirecciones } = useQueryDirecciones(idusuario);
+  const { data: cupones, isSuccess: successCupones } = cuponesQuery;
   const [fechaEntrega, setFechaEntrega] = useState("Mañana");
-  const referenciaDialogo = useRef<tipoReferencia>(null)
+  const refDialogoDirecciones = useRef<tipoReferencia>(null)
+  const refDialogoCupones = useRef<tipoReferencia>(null)
 
   const [searchParams, setSearchParams] = useSearchParams();
   const iddireccion = searchParams.get("iddireccion");
+  const idcupon = searchParams.get("idcupon");
   const direccionSeleccionada = direcciones?.find(direccion => direccion.iddireccion === iddireccion);
+  const cuponSeleccionado = cupones?.find(cupon => cupon.idcupon === idcupon);
+
 
 
   useEffect(
@@ -102,7 +114,7 @@ const ConfiguracionesOrden =  () => {
 
   const configurarComoPredeterminada = () => {
     if(iddireccion) return
-    if (!direcciones?.length) referenciaDialogo.current?.setMostrarDialogo(true)
+    if (!direcciones?.length && successDirecciones) refDialogoDirecciones.current?.setMostrarDialogo(true)
     const direccionPredeterminada = direcciones?.find(direccion => direccion.predeterminada);
     if(direccionPredeterminada){
       searchParams.set("iddireccion", direccionPredeterminada.iddireccion)
@@ -117,21 +129,27 @@ const ConfiguracionesOrden =  () => {
 
   return (
     <>
-      <DialogoMostrar ref={referenciaDialogo}>
+      <DialogoMostrar ref={refDialogoDirecciones}>
         {
-          !direcciones?.length ?
+          !direcciones?.length && successDirecciones ?
             <>
               <div className="w-full flex flex-col items-center justify-normal  font-bold text-3xl">
                 Parece que aún no has agregado un domicilio
               </div>
               <FormularioDireccion  afterSubmit={() => {
-                referenciaDialogo.current?.setMostrarDialogo(false)
+                refDialogoDirecciones.current?.setMostrarDialogo(false)
               }} />
             </>
             :
-            <DialogoDirecciones afterSelect={() => referenciaDialogo.current?.setMostrarDialogo(false)}/>
+            <DialogoDirecciones afterSelect={() => refDialogoDirecciones.current?.setMostrarDialogo(false)}/>
         }
       </DialogoMostrar>
+      {
+        !!cupones?.length && successCupones &&
+        <DialogoMostrar ref={refDialogoCupones}>
+          <DialogoCupones afterSelect={() => refDialogoCupones.current?.setMostrarDialogo(false)} />
+        </DialogoMostrar>
+      }
     
       <h2 className="text-2xl font-semibold mb-4">Elige la forma de entrega</h2>
       <div className="space-y-6">
@@ -155,7 +173,7 @@ const ConfiguracionesOrden =  () => {
         {iddireccion && (
           <div className="ml-6 mb-4">
             <p className="text-gray-600">{direccionSeleccionada ? direccionSeleccionada.cadena_direccion : "No hay una dirección seleccionada"}</p>
-            <TextoClickable onClick={() => referenciaDialogo.current?.setMostrarDialogo(true)}
+            <TextoClickable onClick={() => refDialogoDirecciones.current?.setMostrarDialogo(true)}
               className="text-purple-500 text-sm mt-1" >Editar o elegir otro domicilio</TextoClickable>
           </div>
         )}
@@ -182,6 +200,22 @@ const ConfiguracionesOrden =  () => {
           <span className="text-green-600">Gratis</span>
         </div>
       </div>
+      {
+        !!cupones?.length &&
+        <>
+          <div className="p-5 h-auto border-b-2 border-gray-300" ></div>
+          <h2 className="text-2xl font-semibold mb-4">Elige un cupon</h2>
+          {
+            cuponSeleccionado ?
+              <Cupon cupon={cuponSeleccionado}/>
+              :
+              <p className="text-gray-600">No ha seleccionado un cupón</p>
+          }
+          <TextoClickable onClick={() => refDialogoCupones.current?.setMostrarDialogo(true)}
+            className="text-purple-500 text-sm mt-1" >Seleccionar cupon</TextoClickable>
+        </>
+      }
+      
 
       <div className="p-5 h-auto border-b-2 border-gray-300" ></div>
       
@@ -216,12 +250,14 @@ const Compra = ({ productos, precio_total: total, isFetching }: CompraProps) => 
   const [searchParams] = useSearchParams();
   const iddireccion = searchParams.get("iddireccion") || undefined;
   const idcupon = searchParams.get("idcupon") || undefined;
-  const redireccion = useRedireccionParam("/mis_compras")
+  const queryCupones = useQueryCupones();
+  const { data: cupones } = queryCupones
+  const cuponSeleccionado = cupones?.find(cupon => cupon.idcupon === idcupon);
   const navigate = useNavigate();
   const generarOrdenMut = useMutation({
     mutationFn: tiendaService.generarOrdenCompra,
     onSuccess: () => {
-      navigate(redireccion as any)
+      navigate("/mis_compras")
       notificarExito("Compra realizada, disfruta tu pedido ;)")
     },
     onError: () => {
@@ -236,10 +272,10 @@ const Compra = ({ productos, precio_total: total, isFetching }: CompraProps) => 
       <div>
         <div className="bg-white shadow-md rounded-lg p-6 w-full lg:max-w-4xl flex flex-col lg:flex-row">
           <div className="flex flex-col flex-grow pr-6 lg:w-3/5">
-            <ConfiguracionesOrden/>
+            <ConfiguracionesOrden cuponesQuery={queryCupones}/>
           </div>
           <div className="bg-gray-50 rounded-lg mt-2 lg:w-2/5">
-            {isFetching ? <SpinnerPagina/> : <ResumenCompra productos={productos} precio_total={total} descuento={0.15} cantidad={undefined}/>}
+            {isFetching ? <SpinnerPagina/> : <ResumenCompra productos={productos} precio_total={total} descuento={cuponSeleccionado?.porcentaje} cantidad={cuponSeleccionado?.cantidad}/>}
           </div>
           
         </div>

@@ -18,6 +18,8 @@ import DialogoMostrar, { tipoReferencia } from "@/components/UI/DialogoMostrar"
 import { useMutacionEliminarProducto } from "@/hooks/producto"
 import FormularioInventario from "@/components/formularios/producto"
 import { useNavigate } from "react-router-dom"
+import cn from "@/cn";
+
 
 interface ProductoProps {
   idproducto: string
@@ -102,7 +104,16 @@ const Producto = ({ idproducto }: ProductoProps) => {
                 </Media>
                 <p>Marca <b>{CapitalizeString(producto.marca)}</b></p>
                 <h2 className="font-bold text-2xl">{producto.nombre}</h2>
-                <p className="text-3xl">{formatoPrecio.format(producto.precio)}</p>
+                <span className={cn("m-1 text-xl",{
+                  "font-bold text-3xl": !producto.descuento,
+                  "font-light line-through": producto.descuento
+                })}>{formatoPrecio.format(producto.precio)}</span>
+                {!!producto.descuento &&
+                <span className={("m-1 text-xl text-purple-600")}>-{producto.descuento}% Desc.</span>
+                }
+                {!!producto.descuento && producto.precio_final &&
+                <p className="text-3xl m-1 font-bold">{formatoPrecio.format(producto.precio_final)}</p>
+                }
                 <p className="text-xl text-gray-600">Quedan: {producto.disponibilidad} {productoEnCarrito && `(${productoEnCarrito.cantidad} en el carrito)`}</p>
                 <p className="text-xl text-gray-400 line-clamp-3 py-1">{producto.descripcion}</p>
               </div>

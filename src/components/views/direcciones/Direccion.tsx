@@ -3,13 +3,13 @@ import BotonEliminar from "@/components/layout/general/BotonEliminar";
 import DataDireccion from "@/models/DataDireccion";
 import FormularioDireccion from "@/components/formularios/direccion";
 import DialogoMostrar from "@/components/UI/DialogoMostrar";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { tipoReferencia } from "@/components/UI/DialogoMostrar";
-import { useMutacionEliminarDireccion, useQueryDirecciones } from "@/hooks/direcciones";
+import { useMutacionEliminarDireccion } from "@/hooks/direcciones";
 import DialogoConfirmar, { tipoReferenciaConfirmar } from "@/components/UI/DialogoConfirmar";
 import { VistaRol } from "@/components/wrappers";
 import BotonSeleccionar from "@/components/layout/general/BotonSeleccionar";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 interface DireccionProps {
   direccion: DataDireccion
   modoCompra?: boolean

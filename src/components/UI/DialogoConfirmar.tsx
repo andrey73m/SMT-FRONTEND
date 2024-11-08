@@ -36,7 +36,7 @@ const DialogoConfirmar = forwardRef<tipoReferenciaConfirmar, DialogoProps>(({ ti
         <MyDialogHeader className="flex justify-center p-0 px-3 pt-2 text-center">
           <h3>{titulo}</h3>
         </MyDialogHeader>
-        <MyDialogBody className="p-1">
+        <MyDialogBody className="p-1 py-2">
           {detalles && <p className="text-slate-400 text-center text-lg mb-2">{detalles}</p>}
           <div className="flex w-full">
             <BotonPositivo onClick={handleClick} className="m-2">Confirmar</BotonPositivo>

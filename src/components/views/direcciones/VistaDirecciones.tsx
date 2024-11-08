@@ -19,7 +19,6 @@ const Direcciones = ({ modoCompra, afterSelect }: DireccionesProps) => {
   const navigate = useNavigate()
   if (direccionesQuery.isLoading) return <SpinnerPagina/>
   if (direccionesQuery.isError){
-
     if (isAxiosError(direccionesQuery.error)){
       if (direccionesQuery.error.response?.status === 400) navigate("/direcciones")
     }
