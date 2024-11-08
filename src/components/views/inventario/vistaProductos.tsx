@@ -6,13 +6,14 @@ import VistaPaginada from "@/components/wrappers/VistaPaginada";
 import useQueryPaginacion from "@/hooks/paginacion";
 import { DataProducto, TProductoOrdering } from "@/models/DataProducto";
 import IconoFlechaScroll from "@/components/icons/FlechasScroll";
+import { useNavigate } from "react-router-dom";
 
 
 
 const Productos = () => {
   const { queryPaginacion: productosQuery, changeSort } = useQueryPaginacion<DataProducto, TProductoOrdering>("productos", inventarioService.obtenerProductos)
   // if (productosQuery.isLoading) return <SpinnerPagina/>
-  
+  const navigate = useNavigate()
   return (
     <div className="flex flex-row">
       <div className="w-80 flex-col border-r-2 border-gray-200 lg:block hidden">
@@ -33,8 +34,9 @@ const Productos = () => {
           ListElement={(p) =>
 
             // <div className="p-8" >
-            <TarjetaProducto producto={p} key={p.idproducto} />
-            // </div>
+            <div onClick={() => navigate(`/productos/${p.idproducto}`)} key={p.idproducto}>
+              <TarjetaProducto className="cursor-pointer hover:shadow-2xl" producto={p}  />
+            </div>
           }
         />
       </div>

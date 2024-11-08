@@ -1,18 +1,18 @@
 import cn from "@/cn";
 import { DataProducto } from "@/models/DataProducto";
 import { formatoPrecio } from "@/utils";
-import { useNavigate } from "react-router-dom";
 
 interface TarjetaProductoProps {
-  producto: DataProducto
+  producto: DataProducto,
+  className?: string
 }
  
-const TarjetaProducto = ({ producto }: TarjetaProductoProps) => {
+const TarjetaProducto = ({ producto, className }: TarjetaProductoProps) => {
 
-  const navigate = useNavigate()
+  
   return (
     <>
-      <div className="py-5 border-2 border-gray-200 rounded-xl shadow-md cursor-pointer hover:shadow-2xl bg-white min-w-64 max-w-96" onClick={() => navigate(`/productos/${producto.idproducto}`)}>
+      <div className={cn("py-5 border-2 border-gray-200 rounded-xl shadow-md bg-white min-w-64 max-w-96", className)}>
         <div className=" lg:w-72 h-72 p-4 mx-auto">
 
           <div className="transition-all mb-4 h-full w-full lg:mb-0 bg-center bg-cover mx-auto"
@@ -27,7 +27,7 @@ const TarjetaProducto = ({ producto }: TarjetaProductoProps) => {
             "font-light line-through": producto.descuento
           })}>{formatoPrecio.format(producto.precio)}</span>
           {!!producto.descuento &&
-          <span className={("m-1 text-xl text-purple-600")}>-{Math.round(producto.descuento * 100)}% Desc.</span>
+          <span className={("m-1 text-xl text-purple-600")}>-{producto.descuento}% Desc.</span>
           }
           {!!producto.descuento && producto.precio_final &&
             <p className="text-3xl m-1 font-bold">{formatoPrecio.format(producto.precio_final)}</p>
