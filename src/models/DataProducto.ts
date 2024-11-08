@@ -11,11 +11,16 @@ export interface DataProducto{
   url_imagen: string
 }
 
-export const productoOrdering = ["precio_final", "disponibilidad", "descuento"] as const;
+const productoOrdering = ["precio_final", "disponibilidad", "descuento"] as const;
 export type TProductoOrdering = typeof productoOrdering;
 
 export interface DataEspecificacionesProducto{
   idespec: string
   atributo: string;
   valor: string
+}
+
+export interface DataCategoria{
+  idcategoria: number
+  denominacion: number
 }

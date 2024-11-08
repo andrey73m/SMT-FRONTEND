@@ -38,4 +38,12 @@ export default {
     const res = await axios.get(`${env.BACKEND_ROOT}/productos/especificaciones-producto/${idproducto}`)
     return res.data;
   },
+  obtenerCategorias: async () => {
+    const res = await axios.get(`${env.BACKEND_ROOT}/productos/categorias`)
+    return res.data;
+  },
+  obtenerCategoria: async (idcategoria: number) => {
+    const res = await axios.get(`${env.BACKEND_ROOT}/productos/categorias/${idcategoria}`)
+    return res.data;
+  },
 }
