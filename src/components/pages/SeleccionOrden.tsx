@@ -1,9 +1,8 @@
 import { ChangeSortFunc, TDirectionOrdering } from "@/models/Paginacion";
 import IconoFlechaOrden from "../icons/FlechaOrden";
 import { useEffect, useState } from "react";
-import cn from "@/cn";
-import IconoChulo from "../icons/Chulo";
 import { CapitalizeString } from "@/utils";
+import OpcionSeleccion from "./OpcionSeleccion";
 
 interface BaseSeleccionOrdenProps<T extends readonly string[]> {
   changeSort: ChangeSortFunc<T>
@@ -23,25 +22,6 @@ interface WithDefaultProps<T extends readonly string[]> extends BaseSeleccionOrd
 
 type SeleccionOrdenProps<T extends readonly string[]> = NoDefaultProps<T> | WithDefaultProps<T>
 
-interface OpcionSeleccionProps extends React.HTMLAttributes<HTMLSpanElement> {
-  nombre: string
-  selected: boolean
-}
-
-const OpcionSeleccion = ({ nombre, selected, ...props }:OpcionSeleccionProps) => {
-  return(
-    <span {...props} className={cn("flex items-center gap-1 px-4 py-1 rounded-full border-2 transition-all cursor-default",{
-      "bg-gray-300   border-gray-600 text-gray-600 hover:text-gray-200 hover:border-gray-700 hover:bg-gray-400 cursor-pointer": !selected,
-      "bg-teal-100 border-teal-400 text-teal-600": selected
-    })}>
-      {
-        selected &&
-        <IconoChulo className="w-4 h-4"/>
-      }
-      {CapitalizeString(nombre)}
-    </span>
-  )
-}
 
 const SeleccionOrden = <T extends readonly string[],>({ changeSort, defaultSelected, options, noSelectionText }: SeleccionOrdenProps<T>) => {
   const [direction, setDirection] = useState<TDirectionOrdering>(-1)

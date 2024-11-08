@@ -17,6 +17,7 @@ import PaginaDetallesProducto from "./components/pages/DetallesProducto"
 import PaginaDirecciones from "./components/pages/Direcciones"
 import PaginaConversacion from "./components/pages/Conversacion"
 import PaginaConversaciones from "./components/pages/Conversaciones"
+import PaginaOfertas from "./components/pages/GestionarOfertas"
 
 import { App as CapacitorApp } from "@capacitor/app"
 
@@ -99,7 +100,15 @@ const App = () => {
               </TituloPagina>
             </Guardian>
           } />
-            
+          <Route path="promociones">
+            <Route path="ofertas" element={
+              <Guardian roles={["admin"]} alt="/direcciones">
+                <TituloPagina titulo="Nueva oferta">
+                  <PaginaOfertas />
+                </TituloPagina>
+              </Guardian>
+            } />
+          </Route>
 
           <Route path="chats" element={
             <Guardian>

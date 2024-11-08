@@ -54,7 +54,12 @@ const MenuFlotante = () => {
           </VistaRol>
           <VistaRol roles={["admin"]}>
             <LinkMenu to="/registro" >
-              Registrar
+              Registrar usuarios
+            </LinkMenu>
+          </VistaRol>
+          <VistaRol roles={["admin"]}>
+            <LinkMenu to="/promociones/ofertas" >
+              Gestionar ofertas
             </LinkMenu>
           </VistaRol>
           <LinkMenu to="productos">

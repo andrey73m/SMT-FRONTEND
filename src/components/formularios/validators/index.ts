@@ -10,6 +10,7 @@ import { CamposServicio } from "./servicio";
 import { gestionTicketValidator } from "./gestion_ticket";
 import { CamposGestionTicket } from "./gestion_ticket";
 import { calificacionValidator } from "./calificacion";
+import { cuponValidator, ofertaValidator, CamposOferta, CamposCupon } from "./promocion";
 
 export const registroResolver = zodResolver(registroValidator)
 export const loginResolver = zodResolver(loginValidator)
@@ -20,6 +21,8 @@ export const ticketResolver = zodResolver(ticketValidator)
 export const servicioResolver = zodResolver(servicioValidator)
 export const gestionTicketResolver = zodResolver(gestionTicketValidator)
 export const calificacionResolver = zodResolver(calificacionValidator)
+export const ofertaResolver = zodResolver(ofertaValidator)
+export const cuponResolver = zodResolver(cuponValidator)
 
 export type {
   CamposRegistro,
@@ -29,5 +32,7 @@ export type {
   CamposCodigoVerificacion,
   CamposTicket,
   CamposServicio,
-  CamposGestionTicket
+  CamposGestionTicket,
+  CamposOferta,
+  CamposCupon
 }
