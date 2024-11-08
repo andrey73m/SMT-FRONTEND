@@ -11,8 +11,7 @@ interface VistaPaginadaProps<TData>{
   // eslint-disable-next-line no-unused-vars
   ListElement: (data: TData) => ReactNode
   endMessage?: ReactNode
-  scrollButtonIcon: ReactNode
-
+  scrollButtonIcon?: ReactNode
 }
 
 
@@ -73,9 +72,9 @@ const VistaPaginada = <TData,>({
       <div ref={scrollRef}></div>
       <div className={containerClassName}>
         {flatData?.map(e => ListElement(e))}
-        {canScrollToTop && <span onClick={scrollToTop} className={scrollButtonClassName}>{scrollButtonIcon}</span>}
+        {canScrollToTop && scrollButtonIcon && <span onClick={scrollToTop} className={scrollButtonClassName}>{scrollButtonIcon}</span>}
       </div>
-      {(isLoading || isFetchingNextPage) && <SpinnerPagina />}
+      {(isLoading || isFetchingNextPage) && <SpinnerPagina/>}
       {!isError && hasNextPage && <div ref = {fetchRef}></div>}
       {isError && !isFetchingNextPage &&
         <div className={endContainerClassName}>
