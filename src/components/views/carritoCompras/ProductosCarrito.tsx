@@ -5,15 +5,17 @@ import { useAppDispatch } from "@/store";
 import { setCarritoCompras } from "@/store/features/TopBar";
 import { formatoPrecio } from "@/utils";
 import { MouseEventHandler, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import IconoSimboloX from "@/components/icons/SimboloX";
 import DialogoConfirmar, { tipoReferenciaConfirmar } from "@/components/UI/DialogoConfirmar";
+import { BotonPrimario } from "@/components/UI/Botones";
 
 interface InfoProductosCarritoProps{
   producto: DataProducto
 }
-
  
+
+
 const InfoProductosCarrito = ({ producto }: InfoProductosCarritoProps) => {
   const productoEnCarrito = useDataProductosFiltrado(producto.idproducto)
   const navigate = useNavigate()
@@ -56,7 +58,6 @@ const InfoProductosCarrito = ({ producto }: InfoProductosCarritoProps) => {
       
 
     </div>
-
   )
 }
 
@@ -67,6 +68,8 @@ const ProductosCarrito = () => {
   useEffect(() => {
     refetch()
   },[abierto])
+
+  const botonDeshabilitado = !infoProductos?.length
   return (
     <>
       <div
@@ -75,16 +78,18 @@ const ProductosCarrito = () => {
           "hidden": !abierto
         })} />
 
-      <div className={cn("bg-white overflow-y-auto min-h-screen w-72 sm:w-96 fixed top-0  transition-all duration-100 z-50", {
+      <div className={cn("bg-white flex flex-col top-0 h-full w-72 sm:w-96 fixed transition-all duration-100 z-50", {
         "right-0": abierto,
         "-right-96": !abierto
       })}>
+
+
         <div className="mb-2 p-2 bg-slate-100">
 
           <h3 className="text-2xl font-bold text-center ">Tu carrito</h3>
         </div>
 
-        <div className="flex flex-col text-center">
+        <div className="grow flex flex-col text-center overflow-y-auto scroll-secundario">
 
           {
             isSuccess &&
@@ -93,6 +98,11 @@ const ProductosCarrito = () => {
           )
           }
 
+        </div>
+        <div className="bg-white p-3">
+          <Link to={botonDeshabilitado ? "" : "/carrito/comprando"}>
+            <BotonPrimario disabled={botonDeshabilitado} className="w-full rounded-lg">Ir al carrito</BotonPrimario>
+          </Link>
         </div>
       </div>
     </>

@@ -74,7 +74,7 @@ const FormularioDireccion = ({ modoActualizar, direccion, afterSubmit }: Formula
       <div className="flex justify-center flex-col">
         <FormProvider {...metodos} >
           <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col items-center justify-normal p-5 ">
-            <h1 className="mb-5 font-bold text-3xl"> {modoActualizar ? "Actualizar dirección" : "Crea una nueva dirección" }</h1>
+            <h1 className="mb-5 font-bold text-3xl"> {modoActualizar ? "Actualizar un domicilio" : "Agregar un domicilio" }</h1>
             {errors.c_dane_departamento && <ErrorFormulario>{errors.c_dane_departamento.message}</ErrorFormulario>}
             <QuerySelect label="Departamento" optionLabel="departamento" value="c_digo_dane_del_departamento" defaultValue={direccion?.c_dane_departamento} queryKey="select-departamentos" queryFn={direccionesService.obtenerDepartamentos} {...register("c_dane_departamento")}/>
             {errors.c_dane_municipio && <ErrorFormulario>{errors.c_dane_municipio.message}</ErrorFormulario>}

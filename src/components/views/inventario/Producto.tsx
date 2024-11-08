@@ -45,6 +45,11 @@ const Producto = ({ idproducto }: ProductoProps) => {
       mutacionAgregarACarrito.mutate({ idproducto, cantidad })
   }
 
+  const clickCompra = () => {
+    const cantidad = Number(refCantidad.current?.value)
+    return navigate(`/carrito/comprando?idproducto=${idproducto}&cantidad=${cantidad}`)
+  }
+
   const handleDelete = () => {
     if(producto)
       mutacionQuitar.mutate(producto.idproducto)
@@ -119,7 +124,7 @@ const Producto = ({ idproducto }: ProductoProps) => {
                   </div>
 
                   <BotonPositivo onClick={clickAgregar}>Agregar al carrito</BotonPositivo>
-                  <BotonSecundario>Comprar ahora</BotonSecundario>
+                  <BotonSecundario onClick={clickCompra}>Comprar ahora</BotonSecundario>
                 </VistaRol>
 
                 <DialogoMostrar ref={referenciaDialogo}>

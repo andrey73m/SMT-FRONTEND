@@ -14,6 +14,10 @@ export interface DataProducto{
 const productoOrdering = ["precio_final", "disponibilidad", "descuento"] as const;
 export type TProductoOrdering = typeof productoOrdering;
 
+export interface DataProductoCompra extends DataProducto{
+  cantidad: number
+}
+
 export interface DataEspecificacionesProducto{
   idespec: string
   atributo: string;
