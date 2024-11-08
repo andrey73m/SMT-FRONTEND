@@ -1,6 +1,4 @@
 import { DataCupon } from "@/models/DataPromociones";
-import { useRef } from "react";
-import { tipoReferenciaConfirmar } from "@/components/UI/DialogoConfirmar";
 import BotonSeleccionar from "@/components/layout/general/BotonSeleccionar";
 import { useSearchParams } from "react-router-dom";
 import { formatoPrecio } from "@/utils";
@@ -23,8 +21,6 @@ const Cupon = ({ cupon, modoCompra, afterSelect }: CuponProps) => {
     if (afterSelect)
       afterSelect()
   }
-
-  const referenciaConfirmacion = useRef<tipoReferenciaConfirmar>(null)
 
   return (
     <>

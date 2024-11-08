@@ -7,7 +7,7 @@ import { useQueryDirecciones } from "@/hooks";
 
 interface DireccionesProps {
   modoCompra?: boolean
-  afterSelect: () => void
+  afterSelect?: () => void
 }
 
 const Direcciones = ({ modoCompra, afterSelect }: DireccionesProps) => {

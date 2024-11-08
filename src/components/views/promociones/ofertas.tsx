@@ -7,7 +7,7 @@ import useQueryPaginacion from "@/hooks/paginacion";
 import { DataOferta } from "@/models/DataPromociones";
 import promocionService from "@/services/promocionService";
 import timeService from "@/services/timeService";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 interface TarjetaOfertaProps extends React.HTMLAttributes<HTMLDivElement> {
   oferta: DataOferta

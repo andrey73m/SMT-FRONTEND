@@ -8,7 +8,7 @@ import cn from "@/cn";
 import { ControllerRenderProps, RefCallBack } from "react-hook-form";
 import { forwardRef } from "react";
  
-const SelectorProducto = forwardRef<RefCallBack, ControllerRenderProps>(({ value, onChange, onBlur }, ref) => {
+const SelectorProducto = forwardRef<RefCallBack, ControllerRenderProps>(({ value, onChange, onBlur }) => {
 
   const { queryPaginacion: productosQuery } = useQueryPaginacion<DataProducto, TProductoOrdering>("productos", inventarioService.obtenerProductos)
 
