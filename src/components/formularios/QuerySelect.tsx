@@ -4,15 +4,17 @@ import { useQuery } from "@tanstack/react-query"
 import Spinner from "../UI/Spinner";
 import { SelectLabelProps } from "./SelectLabel";
 import { useFormContext } from "react-hook-form";
+import ErrorFormulario from "./Error";
 
 interface Props extends SelectLabelProps{
   queryKey: string
   queryFn: () => Promise<any> | never[]
   optionLabel: string;
   value: string;
+  showError?: boolean
 }
 
-const QuerySelect = forwardRef<HTMLSelectElement, Props>(({ queryFn, queryKey, ...props }: Props, ref) => {
+const QuerySelect = forwardRef<HTMLSelectElement, Props>(({ queryFn, queryKey, showError, ...props }: Props, ref) => {
   const { setValue } = useFormContext()
   const query = useQuery({
     queryKey: [queryKey],
@@ -30,7 +32,7 @@ const QuerySelect = forwardRef<HTMLSelectElement, Props>(({ queryFn, queryKey, .
   //TODO:IMPORTANTE > MEJORAR EL ESTILO DE LOS LABELS DE ESTE COMPONENTE
   return (
     <>
-      {query.isError && <p>Problema conectando con el servidor</p>}
+      {query.isError && showError && <ErrorFormulario>Problema conectando con el servidor</ErrorFormulario>}
       <>
         
         <div className="flex w-full items-end justify-center">
