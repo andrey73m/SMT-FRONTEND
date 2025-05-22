@@ -31,24 +31,48 @@ const ListaTickets = ({ params, idticket }: ListaTicketsProps) => {
         isSuccess &&
         tickets.length > 0 ?
 
-          tickets.sort((t) => {
-            if (t.estado === EstadosTicket.CERRADO) return 1
-            if (t.prioridad)
-              return t.prioridad === PrioridadesTicket.BAJA ? 1 :
-                t.prioridad === PrioridadesTicket.MEDIA ? 0 :
-                  t.prioridad === PrioridadesTicket.ALTA ?  -1 : 1
-            if (t.estado)
-              return t.estado === EstadosTicket.NUEVO ? -1 : 0
+        // tickets.sort((t) => {
+        //   if (t.estado === EstadosTicket.CERRADO) return 1
+        //   if (t.prioridad)
+        //     return t.prioridad === PrioridadesTicket.BAJA ? 1 :
+        //       t.prioridad === PrioridadesTicket.MEDIA ? 0 :
+        //         t.prioridad === PrioridadesTicket.ALTA ?  -1 : 1
+        //   if (t.estado)
+        //     return t.estado === EstadosTicket.NUEVO ? -1 : 0
                
-            return 1
-          }).map(ticket =>
-            <Ticket
-              key={ticket.idticket}
-              ticket={ticket}
-              idticket={idticket}
-            />
+          //   return 1
+          // })
+          tickets.sort((a, b) => {
+            // 1) Cerrados al final
+            if (a.estado === EstadosTicket.CERRADO && b.estado !== EstadosTicket.CERRADO) return 1;
+            if (b.estado === EstadosTicket.CERRADO && a.estado !== EstadosTicket.CERRADO) return -1;
 
-          )
+            // 2) Nuevos justo antes de cerrados
+            if (a.estado === EstadosTicket.NUEVO && b.estado !== EstadosTicket.NUEVO) return 1;
+            if (b.estado === EstadosTicket.NUEVO && a.estado !== EstadosTicket.NUEVO) return -1;
+
+            // 3) De los que quedan, los que tienen prioridad antes que los que no
+            const mapPrio: any = {
+              [PrioridadesTicket.ALTA]: 1,
+              [PrioridadesTicket.MEDIA]: 2,
+              [PrioridadesTicket.BAJA]: 3
+            };
+            // Si no tiene prioridad, le damos un valor alto (4) para que quede después
+            const aPrio = a.prioridad && mapPrio[a.prioridad] ? mapPrio[a.prioridad] : 4;
+            const bPrio = b.prioridad && mapPrio[b.prioridad] ? mapPrio[b.prioridad] : 4;
+            if (aPrio !== bPrio) return aPrio - bPrio;
+
+            // 4) Empate: mantiene orden estable
+            return 0;
+          })
+            .map(ticket =>
+              <Ticket
+                key={ticket.idticket}
+                ticket={ticket}
+                idticket={idticket}
+              />
+
+            )
           : <>
             {
             

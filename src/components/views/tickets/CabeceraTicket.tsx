@@ -52,7 +52,7 @@ const CabeceraTicket = ({ ticket,abierto }: CabeceraTicketProps) => {
             <h2 className=" font-bold text-3xl">{ticket.asunto}</h2>
           
             <p className="text-lg text-slate-400">{
-              ticket.tipo_servicio ? ticket.tipo_servicio : "El ticket no ha sido clasificado en un tipo de servicio"
+              ticket.tipo_servicio ? <><b>Tipo de servicio:</b> {ticket.tipo_servicio}</> : "El ticket no ha sido clasificado en un tipo de servicio"
             }</p>
             <div className="font-bold text-gray-500 inline">
               <VistaRol roles={["admin", "empleado"]}>
