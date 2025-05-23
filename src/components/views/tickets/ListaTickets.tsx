@@ -44,11 +44,11 @@ const ListaTickets = ({ params, idticket }: ListaTicketsProps) => {
           // })
           tickets.sort((a, b) => {
             // 1) Cerrados al final
-            if (a.estado === EstadosTicket.CERRADO && b.estado !== EstadosTicket.CERRADO) return 1;
+            if (a.estado === EstadosTicket.CERRADO && b.estado !== EstadosTicket.CERRADO) return 0;
             if (b.estado === EstadosTicket.CERRADO && a.estado !== EstadosTicket.CERRADO) return -1;
 
             // 2) Nuevos justo antes de cerrados
-            if (a.estado === EstadosTicket.NUEVO && b.estado !== EstadosTicket.NUEVO) return 1;
+            if (a.estado === EstadosTicket.NUEVO && b.estado !== EstadosTicket.NUEVO) return 0;
             if (b.estado === EstadosTicket.NUEVO && a.estado !== EstadosTicket.NUEVO) return -1;
 
             // 3) De los que quedan, los que tienen prioridad antes que los que no
