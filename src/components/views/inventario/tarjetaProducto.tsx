@@ -21,7 +21,9 @@ const TarjetaProducto = ({ producto, className }: TarjetaProductoProps) => {
         </div>
         <div className="p-6 *:leading-10">
           <h3 className="font-bold text-xl line-clamp-1">{producto.nombre}</h3>
-          <p className="font-light text-xl m-1">Unidades disponibles: {producto.disponibilidad}</p>
+          <p className={cn("text-2xl m-1 ", {
+            "text-teal-400": producto.disponibilidad > 0
+          })}>Unidades disponibles: {producto.disponibilidad}</p>
           <span className={cn("m-1 text-xl",{
             "font-bold text-3xl": !producto.descuento,
             "font-light line-through": producto.descuento

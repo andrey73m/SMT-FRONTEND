@@ -3,7 +3,7 @@ import { DataProducto } from "@/models/DataProducto"
 import { useQuery } from "@tanstack/react-query"
 import { SpinnerPagina } from "@/components/UI"
 import Especificaciones from "./Especificaciones"
-import { CapitalizeString, formatoPrecio } from "@/utils"
+import { formatoPrecio } from "@/utils"
 import BotonAterior from "@/components/layout/BotonAnterior"
 import { BotonNegativo, BotonPositivo, BotonSecundario } from "@/components/UI/Botones"
 import { VistaRol } from "@/components/wrappers"
@@ -17,7 +17,7 @@ import DialogoConfirmar, { tipoReferenciaConfirmar } from "@/components/UI/Dialo
 import DialogoMostrar, { tipoReferencia } from "@/components/UI/DialogoMostrar"
 import { useMutacionEliminarProducto } from "@/hooks/producto"
 import FormularioInventario from "@/components/formularios/producto"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import cn from "@/cn";
 
 
@@ -96,32 +96,40 @@ const Producto = ({ idproducto }: ProductoProps) => {
               <img className=" object-contain max-h-full w-full rounded-md" src={producto.url_imagen} alt="" />
             </div>
             <div className="border-r-2 border-gray-200 h-full"/>
-            <div className="flex grow pr-3 py-2 flex-col-reverse lg:flex-col gap-y-2 h-[30rem] text-lg justify-between">
+            <div className="flex grow pr-3 py-2 flex-col-reverse lg:flex-col gap-y-4 h-[30rem] text-lg justify-between">
               <div>
                 <Media greaterThan="lg">
                   <p className="text-end text-slate-400">ID: {producto.idproducto}</p>
 
                 </Media>
-                <p>Marca <b>{CapitalizeString(producto.marca)}</b></p>
-                <h2 className="font-bold text-2xl">{producto.nombre}</h2>
-                <span className={cn("m-1 text-xl",{
-                  "font-bold text-3xl": !producto.descuento,
-                  "font-light line-through": producto.descuento
-                })}>{formatoPrecio.format(producto.precio)}</span>
-                {!!producto.descuento &&
-                <span className={("m-1 text-xl text-purple-600")}>-{producto.descuento}% Desc.</span>
-                }
-                {!!producto.descuento && producto.precio_final &&
-                <p className="text-3xl m-1 font-bold">{formatoPrecio.format(producto.precio_final)}</p>
-                }
-                <p className="text-xl text-gray-600">Quedan: {producto.disponibilidad} {productoEnCarrito && `(${productoEnCarrito.cantidad} en el carrito)`}</p>
-                <p className="text-xl text-gray-400 line-clamp-3 py-1">{producto.descripcion}</p>
+                 {/* <p>Marca <b className="text-black">{CapitalizeString(producto.marca)}</b></p> */}
+                <h2 className="font-bold text-1xl line-clamp-2 mt-4">{producto.nombre}</h2>
+                <div className="flex items-end">
+                  <div>
+
+                    <span className={cn("m-1 text-xl",{
+                      "font-bold text-2xl": !producto.descuento,
+                      "font-light line-through": producto.descuento
+                    })}>{formatoPrecio.format(producto.precio)}</span>
+                    {!!producto.descuento &&
+                      <span className={("m-1 text-xl text-purple-600")}>-{producto.descuento}% Desc.</span>
+                    }
+                    {!!producto.descuento && producto.precio_final &&
+                      <p className="text-2xl m-1 font-bold">{formatoPrecio.format(producto.precio_final)}</p>
+                    }
+                  </div>
+                  <p className="font-light">+ {formatoPrecio.format(producto.precio_final * .19)} IVA (19%)</p>
+                </div>
+                <p className={cn("text-xl m-1 ", {
+                  "text-teal-400": producto.disponibilidad > 0
+                })}>Unidades disponibles: {producto.disponibilidad} {productoEnCarrito && `(${productoEnCarrito.cantidad} en tu carrito)`}</p>
+                <p className="text-lg text-gray-400 line-clamp-3 py-1">{producto.descripcion}</p>
               </div>
               {
                 !haySesion &&
-                  <div className="grow flex justify-center items-center text-center align-baseline">
+                  <Link to="/login" className="grow flex justify-center items-center text-center align-baseline cursor-pointer hover:underline hover:text-teal-700 text-teal-500">
                     <p>Inicia de sesión para comprar</p>
-                  </div>
+                  </Link>
               }
               <div className="text-xl font-bold flex flex-col gap-y-2">
                 <VistaRol roles={["cliente"]}>
