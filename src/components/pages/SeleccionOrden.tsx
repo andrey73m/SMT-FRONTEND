@@ -58,11 +58,11 @@ const SeleccionOrden = <T extends readonly string[],>({ changeSort, defaultSelec
               ))
           }</p>
           {selected !== undefined && <p className="text-gray-400 text-bold text-sm">({
-            direction !== -1 ? "Mayor a menor" : "Menor a mayor"
+            direction !== 1 ? "Mayor a menor" : "Menor a mayor"
           })</p>}
         </div>
         <span onClick={() => setDirection(direction === 1 ? -1 : 1)} className="cursor-pointer hover:bg-gray-200 rounded-full p-1">
-          {selected !== undefined && <IconoFlechaOrden  className="w-5 h-5" arriba={direction === 1} />}
+          {selected !== undefined && <IconoFlechaOrden  className="w-5 h-5" arriba={direction === -1} />}
         </span>
       </div>
       
