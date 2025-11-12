@@ -79,11 +79,14 @@ const ResumenCompra = ({ productos, precio_total, cantidad, descuento }: Resumen
         {cantidad &&
           <span>{formatoPrecio.format(cantidad)}</span>}
       </div>}
-      
+       <div className="flex justify-between text-purple-600 font-semibold">
+        <span>IVA</span>
+        <span>{formatoPrecio.format(precio_final * .19)}</span>
+      </div>
       <div className="p-1 h-auto border-b-2 border-gray-300" ></div>
       <div className="flex justify-between font-semibold">
         <span>Pagas</span>
-        <span>{formatoPrecio.format(precio_final)}</span>
+        <span>{formatoPrecio.format(precio_final * 1.19)}</span>
       </div>
     </>
   )
