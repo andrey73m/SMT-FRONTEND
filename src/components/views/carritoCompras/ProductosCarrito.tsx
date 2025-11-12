@@ -101,7 +101,7 @@ const ProductosCarrito = () => {
         </div>
         <div className="bg-white p-3">
           <Link to={botonDeshabilitado ? "" : "/carrito/comprando"}>
-            <BotonPrimario disabled={botonDeshabilitado} className="w-full rounded-lg">Ir al carrito</BotonPrimario>
+            <BotonPrimario disabled={botonDeshabilitado} className="w-full rounded-lg">Comprar carrito</BotonPrimario>
           </Link>
         </div>
       </div>
