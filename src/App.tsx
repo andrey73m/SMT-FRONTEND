@@ -22,6 +22,7 @@ import PaginaCompraProductos from "./components/pages/CompraProductos"
 
 import { App as CapacitorApp } from "@capacitor/app"
 import PaginaMisCompras from "./components/pages/MisCompras"
+import PaginaRAEE from "./components/pages/Recicla"
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -99,6 +100,13 @@ const App = () => {
             <Guardian roles={["admin"]} alt="/direcciones">
               <TituloPagina titulo="Direcciones usuario">
                 <PaginaDirecciones />
+              </TituloPagina>
+            </Guardian>
+          } />
+          <Route path="recicla-con-nosotros" element={
+            <Guardian roles={["cliente"]} alt="/recicla-con-nosotros">
+              <TituloPagina titulo="Support Max TI - Sostenible">
+                <PaginaRAEE />
               </TituloPagina>
             </Guardian>
           } />
