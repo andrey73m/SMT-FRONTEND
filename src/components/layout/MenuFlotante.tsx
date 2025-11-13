@@ -10,8 +10,8 @@ import { VistaRol } from "../wrappers";
 const LinkMenu = ({ to,children }:NavLinkProps) => {
   return (
     <NavLink className={({ isActive }) => {
-      return cn("text-2xs w-full  text-white text-xl hover:bg-indigo-400 cursor-pointer p-2",{
-        "bg-white text-indito-800 hover:bg-indigo-100": isActive
+      return cn("text-left text-2xs w-full  text-white text-xl hover:bg-indigo-400 cursor-pointer p-2 pl-7",{
+        "bg-white text-indigo-800 hover:bg-indigo-100": isActive
       })
     }} to={to} >
       {children}
@@ -75,6 +75,11 @@ const MenuFlotante = () => {
           <VistaRol roles={["cliente","admin"]}>
             <LinkMenu to="direcciones">
             Direcciones
+            </LinkMenu>
+          </VistaRol>
+          <VistaRol roles={["cliente","admin"]}>
+            <LinkMenu to="recicla-con-nosotros">
+            Recicla con Nosotros ♻️ <span className="px-2 bg-indigo-200 text-indigo-800 rounded-full">Nuevo</span>
             </LinkMenu>
           </VistaRol>
 
