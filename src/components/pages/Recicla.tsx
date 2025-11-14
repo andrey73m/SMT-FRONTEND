@@ -4,6 +4,7 @@ import AlternarFormularioSticky from "../layout/AlternarFormularioSticky";
 import { ImagenTitulo } from "../layout/FormatoImagenes";
 import { BotonPositivo } from "../UI/Botones";
 import ListaRAEE from "../views/ambiental/ListaRAEE";
+import DialogoInfoRAEE from "../views/ambiental/DialogoInfo";
 
 const PaginaRAEE = () => {
   const {data} = useQueryRegistrosRAEE()
@@ -15,7 +16,7 @@ const PaginaRAEE = () => {
       <section className="flex flex-col items-center my-2 text-2xl border-t-2 py-4 border-b-2">
 
       <p className="">¡Forma parte!, ya se han registrado <span className="font-bold bg-green-500 px-3 py-1  rounded-full text-white">{cantidad}</span> dipositivos</p>
-      <BotonPositivo className=" underline rounded-none mt-4" simplificar={true}  negar={true}>¿Por qué participar?</BotonPositivo>
+      <DialogoInfoRAEE/>
       </section>
       <ListaRAEE/>
     </>
