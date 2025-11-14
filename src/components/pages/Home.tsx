@@ -5,13 +5,12 @@ import AlternarFormularioSticky from "../layout/AlternarFormularioSticky";
 import FormularioTicket from "../formularios/ticket";
 import { BotonPositivo, BotonPrimario } from "../UI/Botones";
 import FormularioServicio from "../formularios/servicio";
+import TopMessageCarousel from "../layout/top-message";
 
 const Home = () => {
-
   return (
     <>
-      <div
-        className="text-center bg-black text-white p-4 text-2xl">Tu servicio técnico de confianza 24/7</div>
+      <TopMessageCarousel/>
       <ImagenTitulo urlImagen="https://th.bing.com/th/id/R.de8ec55fbc33031f48e013014052a5ea?rik=jlC%2butp28KZnlw&pid=ImgRaw&r=0" titulo="Nuestros servicios"/>
       {/*TODO TARJETAS DE INFORMACION GENERICA COMO LAS CARACTERISTICAS DEL SERVICIO*/}
       <VistaRol roles={["cliente"]} permitirSinAutenticar>
