@@ -22,7 +22,6 @@ import DataDireccion from "@/models/DataDireccion";
 
 
 const FormularioRAEE = ({ afterSubmit }: FormularioProps) => {
-
   const { info: {idusuario} } = useSesion()
   const [searchParams, setSearchParams] = useSearchParams();
   const { data: direcciones, isSuccess: successDirecciones } = useQueryDirecciones(idusuario);
@@ -32,7 +31,6 @@ const FormularioRAEE = ({ afterSubmit }: FormularioProps) => {
     defaultValues: {
       tipo_dispositivo: "Otros",
       estado_equipo: "",
-      peso_aproximado: 1,
       tipo_disposicion: "",
       punto_entrega: "Punto principal (Unilago)",
       direccion: undefined,

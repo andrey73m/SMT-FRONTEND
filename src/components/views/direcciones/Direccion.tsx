@@ -13,15 +13,14 @@ import { useSearchParams } from "react-router-dom";
 interface DireccionProps {
   direccion: DataDireccion
   modoCompra?: boolean
+  modoVer?: boolean
   afterSelect?: () => void
 }
 
-const Direccion = ({ direccion, modoCompra, afterSelect }: DireccionProps) => {
+const Direccion = ({ direccion, modoCompra, modoVer, afterSelect }: DireccionProps) => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const iddireccion = searchParams.get("iddireccion");
-  console.log(Object.fromEntries(searchParams.entries()))
-  
   
   const handleCheck = async () => {
     searchParams.set("iddireccion", direccion.iddireccion)
@@ -46,7 +45,7 @@ const Direccion = ({ direccion, modoCompra, afterSelect }: DireccionProps) => {
     <>
       <div className="rounded-xl bg-white w-auto">
         <div className="flex justify-end h-0">
-          <div className="my-7 mx-2 flex justify-end h-10">
+          {!modoVer && <div className="my-7 mx-2 flex justify-end h-10">
 
             {modoCompra ? <BotonSeleccionar onClick={handleCheck} seleccionado={iddireccion === direccion.iddireccion}/> :
               <>
@@ -61,7 +60,7 @@ const Direccion = ({ direccion, modoCompra, afterSelect }: DireccionProps) => {
             
                 <BotonEliminar className="w-10" onClick={() => referenciaConfirmacion.current?.setMostrarConfirmacion(true)}/>
               </>}
-          </div>
+          </div>}
         </div>
         
         <div className="p-2 *:leading-10">
