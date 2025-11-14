@@ -8,13 +8,16 @@ import RAEEService from "@/services/RAEEService";
 import { CamposRAEE } from "./validators/raee";
 import CampoContador from "../UI/CampoContador";
 import DialogoDirecciones from "../pages/DialogoDirecciones";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import DialogoMostrar, { tipoReferencia } from "../UI/DialogoMostrar";
 import FormularioDireccion from "./direccion";
 import { useSearchParams } from "react-router-dom";
 import { notificarExito } from "@/utils";
 import { raeeResolver } from "./validators";
 import ErrorFormulario from "./Error";
+import DialogoPoliticaAmbiental from "../views/ambiental/politica-ambiental";
+import Direccion from "../views/direcciones/Direccion";
+import DataDireccion from "@/models/DataDireccion";
 
 
 
@@ -24,6 +27,7 @@ const FormularioRAEE = ({ afterSubmit }: FormularioProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { data: direcciones, isSuccess: successDirecciones } = useQueryDirecciones(idusuario);
   const refDialogoDirecciones = useRef<tipoReferencia>(null)
+  const [direccion, setDireccion] = useState<DataDireccion | null>(null);
   const metodos = useForm<CamposRAEE>({
     defaultValues: {
       tipo_dispositivo: "Otros",
@@ -40,13 +44,14 @@ const FormularioRAEE = ({ afterSubmit }: FormularioProps) => {
   useEffect(()=>{
     if (metodos.getValues("punto_entrega") != "Recolección a domicilio"){
       setSearchParams({})
+      setDireccion(null)
     }
   }, [metodos.watch("punto_entrega")])
   useEffect(()=>{
     if (searchParams.has("iddireccion")){
-      console.log(`Direccion: ${searchParams.get("iddireccion")}`)
       const iddireccion = searchParams.get("iddireccion") || ""
       metodos.setValue("direccion", iddireccion)
+      setDireccion(direcciones?.find(d => d.iddireccion === iddireccion) || null)
     }
   }, [searchParams])
   const onSubmit = async (data: CamposRAEE) => {
@@ -57,6 +62,7 @@ const FormularioRAEE = ({ afterSubmit }: FormularioProps) => {
     metodos.reset()
   }
   const { formState: { errors } } = metodos;
+  
   return (
     <>
     <DialogoMostrar ref={refDialogoDirecciones}>
@@ -85,7 +91,7 @@ const FormularioRAEE = ({ afterSubmit }: FormularioProps) => {
           <h1 className="mb-5 font-bold text-3xl">
             Programa la disposición de tus residuos eléctricos o electrónicos
           </h1>
-
+          <DialogoPoliticaAmbiental/>
           {/* Tipo de dispositivo */}
           {errors.tipo_dispositivo && (
             <ErrorFormulario>{errors.tipo_dispositivo.message}</ErrorFormulario>
@@ -154,10 +160,16 @@ const FormularioRAEE = ({ afterSubmit }: FormularioProps) => {
 
           {/* Dirección (solo si aplica) */}
           {metodos.getValues().punto_entrega == "Recolección a domicilio" && (
-            <div className="py-4">
+            <div className="py-4 w-full">
               {errors.direccion && (
                 <ErrorFormulario>{errors.direccion.message}</ErrorFormulario>
               )}
+              
+              {direccion && 
+              <div>
+                <Direccion direccion={direccion} modoCompra={true}/>
+              </div>
+              }
               <BotonPrimario
                 negar={true}
                 type="button"
@@ -165,7 +177,7 @@ const FormularioRAEE = ({ afterSubmit }: FormularioProps) => {
                   refDialogoDirecciones.current?.setMostrarDialogo(true)
                 }
               >
-                Seleccionar dirección
+                {direccion? "Seleccionar otra dirección" : "Seleccionar dirección"}
               </BotonPrimario>
             </div>
           )}
